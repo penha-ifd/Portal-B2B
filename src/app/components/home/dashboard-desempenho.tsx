@@ -674,25 +674,8 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </ResponsiveContainer>
         </div>
 
-        {/* Card — Avaliações */}
-        {isCardLocked("avaliacoes") ? (
-          <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
-              {d.origem.avaliacoes}
-            </span>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                Nota média no salão
-              </span>
-            </div>
-            <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "80%" }} />
-            <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "55%" }} />
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Restaurantes com nota visível recebem 34% mais reservas</span>
-            <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
-              Ativar Avaliações
-            </button>
-          </div>
-        ) : (
+        {/* Card — Avaliações (só se desbloqueado) */}
+        {!isCardLocked("avaliacoes") && (
           <div onClick={() => handleCardClick("avaliacoes")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "avaliacoes" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
               {d.origem.avaliacoes}
@@ -714,25 +697,8 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </div>
         )}
 
-        {/* Card — Reservas */}
-        {isCardLocked("reservas") ? (
-          <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
-              {d.origem.reservas}
-            </span>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                Taxa de no-show
-              </span>
-            </div>
-            <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "35%" }} />
-            <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "60%" }} />
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ativar identifica 40% mais clientes no CRM</span>
-            <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
-              Ativar Reservas
-            </button>
-          </div>
-        ) : (
+        {/* Card — Reservas (só se desbloqueado) */}
+        {!isCardLocked("reservas") && (
           <div onClick={() => handleCardClick("reservas")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "reservas" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
               {d.origem.reservas}
@@ -754,25 +720,8 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </div>
         )}
 
-        {/* Card — Pagamento */}
-        {isCardLocked("pagamento") ? (
-          <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
-              {d.origem.pagamento}
-            </span>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                Faturamento real
-              </span>
-            </div>
-            <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "70%" }} />
-            <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "45%" }} />
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Check-in automático sem depender do garçom</span>
-            <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
-              Ativar Pagamento
-            </button>
-          </div>
-        ) : (
+        {/* Card — Pagamento (só se desbloqueado) */}
+        {!isCardLocked("pagamento") && (
           <div onClick={() => handleCardClick("pagamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "pagamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
               {d.origem.pagamento}
@@ -794,6 +743,45 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </div>
         )}
       </div>}
+
+      {/* Seção separada — módulos bloqueados */}
+      {(isCardLocked("avaliacoes") || isCardLocked("reservas") || isCardLocked("pagamento")) && (
+        <div style={{ marginTop: "var(--spacing-16)" }}>
+          <h2 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: "0 0 var(--spacing-12) 0" }}>Desbloqueie mais</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: "var(--spacing-16)" }}>
+            {isCardLocked("avaliacoes") && (
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.avaliacoes}</span>
+                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Nota média no salão</span>
+                <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "80%" }} />
+                <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "55%" }} />
+                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Restaurantes com nota visível recebem 34% mais reservas</span>
+                <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>Ativar Avaliações</button>
+              </div>
+            )}
+            {isCardLocked("reservas") && (
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.reservas}</span>
+                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Taxa de no-show</span>
+                <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "35%" }} />
+                <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "60%" }} />
+                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ativar identifica 40% mais clientes no CRM</span>
+                <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>Ativar Reservas</button>
+              </div>
+            )}
+            {isCardLocked("pagamento") && (
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.pagamento}</span>
+                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Faturamento real</span>
+                <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "70%" }} />
+                <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "45%" }} />
+                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Check-in automático sem depender do garçom</span>
+                <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>Ativar Pagamento</button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--spacing-16)", marginTop: "var(--spacing-16)" }}>
         <div onClick={() => handleCardClick("funil")} style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: selectedCard === "funil" ? "1.5px solid var(--marca)" : "1px solid var(--borda)", padding: "var(--spacing-16)", cursor: "pointer" }}>
