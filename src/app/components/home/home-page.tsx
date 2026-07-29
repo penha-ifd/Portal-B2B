@@ -57,6 +57,7 @@ function buildCard(text: string): GeneratedCard {
 }
 
 const PLANO_INFO: Record<string, { text: string }> = {
+  novo:      { text: 'Novo · nenhum módulo contratado' },
   base:      { text: 'Plano Base · nenhum módulo ativo' },
   essencial: { text: 'Plano Essencial · Cardápio, Reservas, PDV' },
   avancado:  { text: 'Plano Avançado · todos os módulos' },
@@ -67,7 +68,7 @@ export function HomePage() {
   const navigate = useNavigate();
   const [generatedCards, setGeneratedCards] = useState<GeneratedCard[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const isBase = planoAtivo === 'base';
+  const isBase = planoAtivo === 'base' || planoAtivo === 'novo';
 
   function handleSubmit(text: string) {
     setGeneratedCards((prev) => [buildCard(text), ...prev]);

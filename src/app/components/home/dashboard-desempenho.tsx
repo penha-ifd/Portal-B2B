@@ -143,7 +143,7 @@ function formatarFaixaFaturamento(confirmados: number, ticket: number): string {
 }
 
 import { useState, useEffect, useRef } from "react";
-import { usePlano, useModoNovo } from "../../state/plano-context";
+import { usePlano } from "../../state/plano-context";
 
 const MOSTRAR_JA_FEITO = true;
 
@@ -152,6 +152,7 @@ interface Props {
 }
 
 const PLANO_MODULOS: Record<string, string[]> = {
+  novo: [],
   base: ["delivery", "cupons"],
   essencial: ["delivery", "cupons", "reservas"],
   avancado: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
@@ -173,8 +174,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
   const [composerTranscribing, setComposerTranscribing] = useState(false);
   const [composerTimer, setComposerTimer] = useState(0);
   const [composerResponse, setComposerResponse] = useState<string | null>(null);
-  const modoNovo = useModoNovo();
-  const d = modoNovo ? mockDashboardVazio : mockDashboard;
+  const d = mockDashboard;
 
   const cardLabels: Record<string, string> = {
     faturamento: "Retorno do investimento",
