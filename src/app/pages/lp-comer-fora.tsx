@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router';
+
 export function LpComerFora() {
+  const navigate = useNavigate();
   return (
     <div style={{ maxWidth: 1314, margin: '0 auto', width: '100%' }}>
       {/* Hero */}
@@ -24,7 +27,7 @@ export function LpComerFora() {
           }}>
             Crie promoções pra atrair clientes sem perder o controle da operação com o Comer Fora
           </p>
-          <button type="button" style={{
+          <button type="button" onClick={() => navigate('/modulos')} style={{
             width: 257, padding: '14px 24px', border: 'none', borderRadius: 'var(--radius-pill)',
             backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer',
             fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)',
@@ -226,7 +229,7 @@ export function LpComerFora() {
             ))}
           </div>
         </div>
-        <button type="button" style={{ padding: '14px 32px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', flexShrink: 0 }}>
+        <button type="button" onClick={() => navigate('/modulos')} style={{ padding: '14px 32px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', flexShrink: 0 }}>
           Ativar Comer Fora
         </button>
       </section>
