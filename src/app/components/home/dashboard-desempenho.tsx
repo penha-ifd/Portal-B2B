@@ -536,11 +536,11 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         {/* Card 1 — Retorno do investimento (2 colunas, primeiro bloco) */}
         <div className="col-span-2 md:col-span-2" onClick={() => handleCardClick("faturamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "faturamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.faturamento}</span>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Retorno do investimento</span>
             <button type="button" aria-label="Mais informações" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, position: "relative" }} onMouseEnter={() => setTooltipAberto("faturamento")} onMouseLeave={() => setTooltipAberto(null)} onFocus={() => setTooltipAberto("faturamento")} onBlur={() => setTooltipAberto(null)}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-desabilitado)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              {tooltipAberto === "faturamento" && <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 10, pointerEvents: "none" }}>Cashback efetivamente pago contra vendas dos clientes que usaram. Os dois valores são medidos, não estimados.</div>}
+              {tooltipAberto === "faturamento" && <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 9999, pointerEvents: "none" }}>Cashback efetivamente pago contra vendas dos clientes que usaram. Os dois valores são medidos, não estimados.</div>}
             </button>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-16)", marginTop: "var(--spacing-4)" }}>
@@ -621,14 +621,14 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.checkins}
           </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
               Check-ins confirmados
             </span>
             <button type="button" aria-label="Mais informações" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, position: "relative" }} onMouseEnter={() => setTooltipAberto("checkins")} onMouseLeave={() => setTooltipAberto(null)} onFocus={() => setTooltipAberto("checkins")} onBlur={() => setTooltipAberto(null)}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-desabilitado)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               {tooltipAberto === "checkins" && (
-                <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 10, pointerEvents: "none" }}>
+                <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 9999, pointerEvents: "none" }}>
                   Check-ins registrados no app e confirmados no salão. Os {d.checkins.registrados - d.checkins.confirmados} restantes aguardam conferência.
                 </div>
               )}
@@ -650,14 +650,14 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.ticketMedio}
           </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
               Ticket médio
             </span>
             <button type="button" aria-label="Mais informações" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, position: "relative" }} onMouseEnter={() => setTooltipAberto("ticket")} onMouseLeave={() => setTooltipAberto(null)} onFocus={() => setTooltipAberto("ticket")} onBlur={() => setTooltipAberto(null)}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-desabilitado)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               {tooltipAberto === "ticket" && (
-                <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 10, pointerEvents: "none" }}>
+                <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 9999, pointerEvents: "none" }}>
                   Valor informado por você no cadastro do salão, comparado ao gasto médio dos demais clientes.
                 </div>
               )}
@@ -679,14 +679,14 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.voltaramSemCupom}
           </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
               Voltaram sem cupom
             </span>
             <button type="button" aria-label="Mais informações" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, position: "relative" }} onMouseEnter={() => setTooltipAberto("voltaram")} onMouseLeave={() => setTooltipAberto(null)} onFocus={() => setTooltipAberto("voltaram")} onBlur={() => setTooltipAberto(null)}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-desabilitado)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               {tooltipAberto === "voltaram" && (
-                <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 10, pointerEvents: "none" }}>
+                <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 9999, pointerEvents: "none" }}>
                   Clientes que vieram pela primeira vez com cupom e retornaram depois sem usar desconto.
                 </div>
               )}
