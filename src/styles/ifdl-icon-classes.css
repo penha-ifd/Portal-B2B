@@ -1,0 +1,52 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Icon class mapping — ifdl-icon-* → Pomodoro codepoints
+   Maps the ifdl-icon-* class names used in the project to the
+   corresponding Pomodoro icon font codepoints.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Base icon styles */
+.ifdl-icon-line,
+.ifdl-icon-filled {
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ifdl-icon-line {
+  font-family: 'pomodoro-icon-line' !important;
+}
+
+.ifdl-icon-filled {
+  font-family: 'pomodoro-icon-filled' !important;
+}
+
+/* Icon name → codepoint mappings */
+.ifdl-icon-home::before { content: "\E830"; }
+.ifdl-icon-chart::before { content: "\E962"; }
+.ifdl-icon-calendar::before { content: "\E80D"; }
+.ifdl-icon-sync::before { content: "\E905"; }
+.ifdl-icon-store::before { content: "\E862"; }
+.ifdl-icon-credit-card::before { content: "\E947"; }
+.ifdl-icon-delivery::before { content: "\E81C"; }
+.ifdl-icon-2-people::before { content: "\E801"; }
+.ifdl-icon-profile-1::before { content: "\E84B"; }
+.ifdl-icon-configuration::before { content: "\E817"; }
+.ifdl-icon-profile::before { content: "\E84B"; }
+.ifdl-icon-menu::before { content: "\E842"; }
+.ifdl-icon-search::before { content: "\E856"; }
+.ifdl-icon-help::before { content: "\E82D"; }
+.ifdl-icon-chevron-down::before { content: "\E88F"; }
+.ifdl-icon-chevron-right::before { content: "\E891"; }
+.ifdl-icon-check::before { content: "\E813"; }
+.ifdl-icon-checkmark::before { content: "\E813"; }
+.ifdl-icon-add::before { content: "\E86F"; }
+.ifdl-icon-arrow-up::before { content: "\E8DE"; }
+.ifdl-icon-exclamation::before { content: "\E832"; }
+.ifdl-icon-microphone::before { content: "\E843"; }
+.ifdl-icon-more-vertical::before { content: "\E845"; }
+.ifdl-icon-pin::before { content: "\E97E"; }
+.ifdl-icon-promotion::before { content: "\E84D"; }
