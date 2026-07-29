@@ -230,6 +230,46 @@ export function LpComerFora() {
           Ativar Comer Fora
         </button>
       </section>
+
+      {/* FAQ */}
+      <section style={{ padding: '64px 48px', display: 'flex', gap: 'var(--spacing-40)' }}>
+        <div style={{ flex: '0 0 320px', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>FAQ</span>
+          <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0 }}>Perguntas frequentes</h2>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 0, lineHeight: 1.5 }}>
+            Tudo o que você precisa saber para começar a usar o Comer Fora no seu restaurante.
+          </p>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 'auto 0 0' }}>
+            Verifique os <span style={{ color: 'var(--marca)', cursor: 'pointer' }}>termos e condições</span> do Comer Fora
+          </p>
+        </div>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
+          {[
+            'Como o iFood traz clientes pro meu salão?',
+            'Preciso investir em promoções para aparecer na vitrine?',
+            'Como funciona o Comer Fora na prática?',
+            'Preciso pagar para ter acesso aos dados dos clientes?',
+            'Preciso ter alguma integração de pagamento específica?',
+            'Quais tipos de promoções posso oferecer aos clientes?',
+            'Posso pausar ou desativar o Comer Fora quando quiser?',
+          ].map((q) => (
+            <div key={q} style={{ height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--borda)', padding: '0 var(--spacing-8)' }}>
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>{q}</span>
+              <i className="ifdl-icon-line ifdl-icon-chevron-down" style={{ fontSize: 20, color: 'var(--text-primario)', flexShrink: 0 }} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Rodapé */}
+      <footer style={{ padding: '24px 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--borda)' }}>
+        <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-desabilitado)' }}>
+          © 2026 iFood. Todos os direitos reservados.
+        </span>
+        <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--marca)' }}>
+          iFood
+        </span>
+      </footer>
     </div>
   );
 }
