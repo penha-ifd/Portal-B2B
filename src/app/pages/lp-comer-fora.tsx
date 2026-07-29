@@ -116,6 +116,57 @@ export function LpComerFora() {
           <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', color: 'var(--text-desabilitado)' }}>Device mockup</span>
         </div>
       </section>
+
+      {/* CRM e módulos habilitadores */}
+      <section style={{ padding: '64px 48px' }}>
+        <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', display: 'block', marginBottom: 'var(--spacing-8)' }}>Seus clientes</span>
+        <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: '0 0 var(--spacing-24)' }}>Saiba quem entra no seu salão, não só quantos</h2>
+
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 'var(--spacing-8)' }}>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-desabilitado)' }}>Dados de demonstração</span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--spacing-16)', marginBottom: 'var(--spacing-24)' }}>
+          {[
+            { nome: 'Novato', count: 194, causa: 'Primeira visita nos últimos 90 dias' },
+            { nome: 'Fiel', count: 412, causa: '4 ou mais visitas, ativo no último mês' },
+            { nome: 'VIP', count: 88, causa: 'Ticket médio acima de R$ 150' },
+            { nome: 'Em risco', count: 604, causa: 'Frequência caindo há 3 meses' },
+            { nome: 'Perdido', count: 331, causa: 'Sem visita há mais de 90 dias' },
+          ].map((seg) => (
+            <div key={seg.nome} style={{ backgroundColor: 'var(--bg-secundario)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>{seg.nome}</span>
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>{seg.count}</span>
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>{seg.causa}</span>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: '0 0 var(--spacing-24)' }}>
+          Ative qualquer módulo e o CRM liga junto.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--spacing-12)' }}>
+          {[
+            { nome: 'Cardápio', destrava: 'Cruzamento delivery × salão' },
+            { nome: 'Avaliações', destrava: 'Nota do salão no painel' },
+            { nome: 'Reservas', destrava: 'Identificação por reserva' },
+            { nome: 'PDV', destrava: 'Ticket médio e faturamento' },
+            { nome: 'Pagamento na mesa', destrava: 'Identificação sem check-in' },
+            { nome: 'Agregador', destrava: 'Pedidos de todos os canais' },
+            { nome: 'Fidelidade', destrava: 'Taxa de retorno por cliente' },
+          ].map((mod) => (
+            <div key={mod.nome} style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+              <i className="ifdl-icon-line ifdl-icon-store" style={{ fontSize: 20, color: 'var(--text-primario)' }} />
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>{mod.nome}</span>
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>{mod.destrava}</span>
+              <button type="button" style={{ alignSelf: 'flex-start', marginTop: 'auto', border: '1px solid var(--borda)', borderRadius: 'var(--radius-pill)', padding: '4px 12px', background: 'none', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>
+                Ativar
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
