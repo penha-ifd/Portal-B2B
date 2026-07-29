@@ -5,9 +5,9 @@ import heroIlustracao from '../../assets/hero-ilustracao.png';
 export function LpComerFora() {
   const navigate = useNavigate();
   return (
-    <div style={{ maxWidth: 1314, margin: '0 auto', width: '100%' }}>
+    <div style={{ maxWidth: 1180, margin: '0 auto', width: '100%' }}>
       {/* Banner */}
-      <section style={{ backgroundColor: 'var(--marca)', borderRadius: 'var(--radius-12)', padding: 48, display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', minHeight: 476, margin: 'var(--spacing-24)' }}>
+      <section style={{ backgroundColor: 'var(--marca)', borderRadius: 'var(--radius-12)', padding: 48, display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', minHeight: 476, marginTop: 'var(--spacing-24)', marginBottom: 'var(--spacing-24)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 48, maxWidth: 352, position: 'relative', zIndex: 1 }}>
           <img src={logoComerFora} alt="Comer Fora" style={{ width: 127, height: 24, objectFit: 'contain' }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
