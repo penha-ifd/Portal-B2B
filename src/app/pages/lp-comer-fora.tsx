@@ -20,7 +20,7 @@ export function LpComerFora() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
             <button type="button" onClick={() => navigate('/modulos')} style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-8)', padding: '14px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: '#ffffff', color: 'var(--text-primario)', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', alignSelf: 'flex-start' }}>
-              Começar sem custo
+              Ativar Comer Fora
               <i className="ifdl-icon-line ifdl-icon-chevron-right" style={{ fontSize: 16 }} />
             </button>
             <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '0 var(--spacing-8)' }}>
