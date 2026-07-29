@@ -145,6 +145,7 @@ function formatarFaixaFaturamento(confirmados: number, ticket: number): string {
 
 import { useState, useEffect, useRef } from "react";
 import { usePlano } from "../../state/plano-context";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const MOSTRAR_JA_FEITO = true;
 
@@ -712,6 +713,20 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>
             {d.acao.voltaramSemCupom}
           </button>
+        </div>
+
+        {/* Card — Gráfico de linha temporal */}
+        <div className="col-span-2" style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
+          <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginBottom: "var(--spacing-12)" }}>Check-ins confirmados — últimas 8 semanas</span>
+          <ResponsiveContainer width="100%" height={160}>
+            <LineChart data={[{sem:"Sem 1",valor:180},{sem:"Sem 2",valor:195},{sem:"Sem 3",valor:210},{sem:"Sem 4",valor:198},{sem:"Sem 5",valor:240},{sem:"Sem 6",valor:255},{sem:"Sem 7",valor:268},{sem:"Sem 8",valor:285}]} margin={{top:8,right:8,bottom:0,left:-16}}>
+              <XAxis dataKey="sem" tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
+              <YAxis tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{fontFamily:"var(--font-inter)",fontSize:12,borderRadius:8,border:"1px solid var(--borda)"}} />
+              <Line type="monotone" dataKey="valor" stroke="#EB0033" strokeWidth={2} dot={{r:3,fill:"#EB0033"}} activeDot={{r:5}} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
 
         {/* Card — Avaliações */}
