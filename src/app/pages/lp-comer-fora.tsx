@@ -63,18 +63,6 @@ export function LpComerFora() {
         </div>
       </section>
 
-      {/* Vídeo */}
-      <section style={{ padding: '0 48px 64px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-24)' }}>
-          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', display: 'block', marginBottom: 'var(--spacing-8)' }}>Em menos de 1 minuto</span>
-          <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0 }}>Veja o Comer Fora em ação</h2>
-        </div>
-        <div style={{ width: '100%', maxWidth: 1250, height: 400, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-          <div style={{ width: 64, height: 64, borderRadius: '50%', backgroundColor: 'var(--invertido)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#ffffff"/></svg>
-          </div>
-        </div>
-      </section>
 
       {/* Vantagens */}
       <section style={{ padding: '64px 48px', display: 'flex', gap: 'var(--spacing-40)', alignItems: 'center' }}>
