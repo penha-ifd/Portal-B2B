@@ -465,6 +465,9 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             )}
           </button>
         </div>
+        <span style={{ fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)", marginTop: "var(--spacing-4)", paddingLeft: "var(--spacing-16)" }}>
+          IA do Comer Fora — analisa seus dados, sugere ações e executa campanhas
+        </span>
       </div>
       </div>
 
