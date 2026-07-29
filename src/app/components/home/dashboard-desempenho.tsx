@@ -413,6 +413,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           )}
           <input
             type="text"
+            aria-label="Pergunte à IA sobre seus dados ou peça uma ação"
             value={composerValue}
             onChange={(e) => setComposerValue(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") handleComposerSubmit(); }}
