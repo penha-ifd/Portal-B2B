@@ -10,7 +10,8 @@ import { ClientesPage } from "./pages/clientes";
 import { ModulosPage } from "./pages/modulos";
 import { PromocoesPage } from "./pages/promocoes";
 import { ConciliacaoPage } from "./pages/conciliacao";
-import { JornadaPage } from "./pages/jornada";
+import { PdvPage } from "./pages/pdv";
+import { PerfilPage } from "./pages/perfil";
 import { Navigate } from "react-router";
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
               <Route index element={<HomePage />} />
               <Route
                 path="jornada"
-                element={<JornadaPage />}
+                element={<Navigate to="/perfil" replace />}
               />
               <Route
                 path="reservas"
@@ -44,9 +45,7 @@ export default function App() {
               />
               <Route
                 path="pdv"
-                element={
-                  <PlaceholderPage title="PDV" icon="store" />
-                }
+                element={<PdvPage />}
               />
               <Route
                 path="pagamento-mesa"
@@ -94,12 +93,7 @@ export default function App() {
               />
               <Route
                 path="perfil"
-                element={
-                  <PlaceholderPage
-                    title="Perfil"
-                    icon="profile"
-                  />
-                }
+                element={<PerfilPage />}
               />
             </Route>
           </Routes>
