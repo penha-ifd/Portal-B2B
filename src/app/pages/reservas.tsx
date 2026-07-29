@@ -1,35 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { usePlano } from '../state/plano-context';
-
-// ── tipos de card gerado ────────────────────────────────────────────────────
-
-interface GenCard {
-  id: string;
-  kind: 'answer' | 'action';
-  question: string;
-  body: string;
-  confirmed?: boolean;
-  confirmedLabel?: string;
-}
-
-let counter = 0;
-const ACTION_RE = /^(abrir|bloquear|criar|cancelar|alterar)\b/i;
-
-function buildCard(text: string): GenCard {
-  const q = text.toLowerCase();
-  const id = String(counter++);
-  if (ACTION_RE.test(text.trim())) {
-    if (q.includes('bloquear')) {
-      return { id, kind: 'action', question: text, body: 'Bloquear mesa 12 hoje a partir das 19h até o fechamento.', confirmedLabel: 'Feito · mesa 12 bloqueada hoje' };
-    }
-    return { id, kind: 'action', question: text, body: 'Abrir 2 mesas adicionais às 21h de hoje.', confirmedLabel: 'Feito · 2 mesas abertas às 21h' };
-  }
-  if (q.includes('no-show') || q.includes('no show')) {
-    return { id, kind: 'answer', question: text, body: '3 no-shows registrados esta semana: terça (1), quinta (1) e sexta (1). Taxa de 8%, dentro da média do mês.' };
-  }
-  return { id, kind: 'answer', question: text, body: 'Analisando os dados de reservas do período.' };
-}
 
 // ── dados da tabela ─────────────────────────────────────────────────────────
 
@@ -46,7 +16,7 @@ const RESERVAS = [
 
 const STATUS_STYLE: Record<string, { color: string; bg: string }> = {
   'Confirmada': { color: 'var(--sucesso)',        bg: 'rgba(31,173,104,0.10)' },
-  'Aguardando': { color: 'var(--atencao)',        bg: 'rgba(255,195,71,0.15)' },
+  'Aguardando': { color: 'var(--text-secundario)', bg: 'var(--bg-secundario)' },
   'No-show':    { color: 'var(--text-secundario)', bg: 'var(--bg-secundario)' },
 };
 
@@ -74,93 +44,7 @@ const headCell: React.CSSProperties = {
   textAlign: 'left' as const,
 };
 
-// ── composer local ──────────────────────────────────────────────────────────
 
-const CHIPS = [
-  'Bloquear mesa 12 hoje',
-  'Quantos no-shows esta semana',
-  'Abrir mais duas mesas às 21h',
-];
-
-function ReservasComposer({ onSubmit }: { onSubmit: (t: string) => void }) {
-  const [value, setValue] = useState('');
-
-  function submit() {
-    const t = value.trim();
-    if (!t) return;
-    onSubmit(t);
-    setValue('');
-  }
-
-  return (
-    <div style={{ marginBottom: 'var(--spacing-24)' }}>
-      <div className="flex items-center" style={{ height: 56, backgroundColor: 'var(--bg-primario)', border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', paddingLeft: 'var(--spacing-16)', paddingRight: 'var(--spacing-16)', gap: 'var(--spacing-8)' }}>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && submit()}
-          placeholder="Peça algo sobre suas reservas"
-          style={{ flex: 1, ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-primario)', background: 'none', border: 'none', outline: 'none' }}
-        />
-        <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: 'var(--text-secundario)' }} />
-        <button type="button" onClick={submit} className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', border: 'none', cursor: 'pointer' }}>
-          <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: '#ffffff' }} />
-        </button>
-      </div>
-      <div className="flex flex-wrap gap-2" style={{ marginTop: 'var(--spacing-12)' }}>
-        {CHIPS.map((chip) => (
-          <button key={chip} type="button" onClick={() => { onSubmit(chip); setValue(''); }}
-            style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-pill)', padding: '6px 12px', ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-secundario)', backgroundColor: 'transparent', cursor: 'pointer' }}>
-            {chip}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── cards gerados ───────────────────────────────────────────────────────────
-
-function GenCards({ cards, onConfirm, onRemove }: { cards: GenCard[]; onConfirm: (id: string) => void; onRemove: (id: string) => void }) {
-  if (!cards.length) return null;
-  const bodyTxt: React.CSSProperties = { ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', lineHeight: 1.5, margin: 0 };
-  const labelSm: React.CSSProperties = { ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' };
-  const base: React.CSSProperties = { backgroundColor: 'var(--bg-primario)', border: '1px solid var(--marca)', borderRadius: 'var(--radius-12)' };
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)', marginBottom: 'var(--spacing-24)' }}>
-      {cards.map((card) => {
-        if (card.kind === 'action' && card.confirmed) {
-          return (
-            <div key={card.id} style={{ ...base, display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)', height: 40, padding: '0 var(--spacing-16)' }}>
-              <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 16, color: 'var(--sucesso)' }} />
-              <span style={{ ...bodyTxt, lineHeight: 1 }}>{card.confirmedLabel}</span>
-            </div>
-          );
-        }
-        if (card.kind === 'action') {
-          return (
-            <div key={card.id} style={{ ...base, padding: 'var(--spacing-16)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-              <span style={labelSm}>Confirmar ação</span>
-              <p style={bodyTxt}>{card.body}</p>
-              <div className="flex items-center gap-2" style={{ marginTop: 'var(--spacing-4)' }}>
-                <button type="button" onClick={() => onConfirm(card.id)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'var(--invertido)', color: '#ffffff', border: 'none', borderRadius: 'var(--radius-pill)', padding: '8px 16px', cursor: 'pointer' }}>Confirmar</button>
-                <button type="button" onClick={() => onRemove(card.id)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], background: 'none', border: 'none', color: 'var(--text-secundario)', cursor: 'pointer', padding: '8px 4px' }}>Cancelar</button>
-              </div>
-            </div>
-          );
-        }
-        return (
-          <div key={card.id} style={{ ...base, padding: 'var(--spacing-16)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-            <span style={{ ...labelSm, color: 'var(--marca)' }}>Gerado agora · «{card.question}»</span>
-            <p style={bodyTxt}>{card.body}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 // ── página ──────────────────────────────────────────────────────────────────
 
@@ -173,25 +57,14 @@ const PLANO_INFO: Record<string, string> = {
 export function ReservasPage() {
   const { planoAtivo } = usePlano();
   const navigate = useNavigate();
-  const [cards, setCards] = useState<GenCard[]>([]);
   const isBase = planoAtivo === 'base';
-
-  function handleSubmit(text: string) {
-    setCards((prev) => [buildCard(text), ...prev]);
-  }
-  function handleConfirm(id: string) {
-    setCards((prev) => prev.map((c) => c.id === id ? { ...c, confirmed: true } : c));
-  }
-  function handleRemove(id: string) {
-    setCards((prev) => prev.filter((c) => c.id !== id));
-  }
 
   return (
     <div className="relative">
       {/* Sub-header */}
       <div
         className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: isBase ? 'var(--atencao)' : '#ffffff' }}
+        style={{ backgroundColor: '#ffffff' }}
       >
         <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
           <i className="ifdl-icon-filled ifdl-icon-calendar text-white" style={{ fontSize: '12px' }} />
@@ -209,8 +82,59 @@ export function ReservasPage() {
 
       {/* Conteúdo */}
       <div className="flex flex-col p-6" style={{ gap: 'var(--spacing-24)' }}>
-        <ReservasComposer onSubmit={handleSubmit} />
-        <GenCards cards={cards} onConfirm={handleConfirm} onRemove={handleRemove} />
+
+        {/* Calendário de ocupação semanal */}
+        <div style={{ backgroundColor: 'var(--bg-secundario)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--spacing-12)' }}>
+            <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>Ocupação da semana</span>
+            <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>12 mesas disponíveis por turno</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 8 }}>
+            {[
+              { dia: 'Seg', data: '28', alm: 4, jan: 7 },
+              { dia: 'Ter', data: '29', alm: 3, jan: 8 },
+              { dia: 'Qua', data: '30', alm: 5, jan: 6 },
+              { dia: 'Qui', data: '31', alm: 6, jan: 9 },
+              { dia: 'Sex', data: '01', alm: 8, jan: 12 },
+              { dia: 'Sáb', data: '02', alm: 10, jan: 12 },
+              { dia: 'Dom', data: '03', alm: 9, jan: 5 },
+            ].map((d) => {
+              const getColor = (n: number) => n >= 10 ? 'var(--marca)' : n >= 7 ? 'var(--text-secundario)' : 'var(--sucesso)';
+              const getLabel = (n: number) => n >= 10 ? 'Lotado' : n >= 7 ? 'Alta' : 'Normal';
+              return (
+                <div key={d.dia} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '8px 0', borderRadius: 'var(--radius-8)', backgroundColor: 'var(--bg-primario)' }}>
+                  <span style={{ ...fontBase, fontSize: '11px', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>{d.dia}</span>
+                  <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>{d.data}</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center', marginTop: 4 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: getColor(d.alm) }} />
+                      <span style={{ ...fontBase, fontSize: '10px', color: 'var(--text-secundario)' }}>Alm</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: getColor(d.jan) }} />
+                      <span style={{ ...fontBase, fontSize: '10px', color: 'var(--text-secundario)' }}>Jan</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ display: 'flex', gap: 'var(--spacing-16)', marginTop: 'var(--spacing-12)', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--sucesso)' }} />
+              <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Normal</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--text-secundario)' }} />
+              <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Alta</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--marca)' }} />
+              <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Lotado</span>
+            </div>
+            <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)', marginLeft: 'auto' }}>Quarta almoço com baixa ocupação — bom momento para campanha</span>
+          </div>
+        </div>
 
         {/* Tabela */}
         <div style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', overflow: 'hidden' }}>

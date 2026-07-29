@@ -1,26 +1,39 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useSyncExternalStore } from 'react';
 
-export type PlanoAtivo = 'base' | 'essencial' | 'avancado';
+export type PlanoAtivo = 'novo' | 'base' | 'essencial' | 'avancado';
+
+// Global state for modoNovo — works around React Router context boundary
+let _modoNovo = false;
+const listeners = new Set<() => void>();
+
+export function getModoNovo() { return _modoNovo; }
+export function setModoNovoGlobal(v: boolean) {
+  _modoNovo = v;
+  listeners.forEach((fn) => fn());
+}
+export function subscribeModoNovo(fn: () => void) {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
+
+export function useModoNovo() {
+  return useSyncExternalStore(subscribeModoNovo, getModoNovo);
+}
 
 interface PlanoContextValue {
   planoAtivo: PlanoAtivo;
   setPlanoAtivo: (p: PlanoAtivo) => void;
-  usarVazio: boolean;
-  setUsarVazio: (v: boolean) => void;
 }
 
 const PlanoContext = createContext<PlanoContextValue>({
   planoAtivo: 'essencial',
   setPlanoAtivo: () => {},
-  usarVazio: false,
-  setUsarVazio: () => {},
 });
 
 export function PlanoProvider({ children }: { children: React.ReactNode }) {
   const [planoAtivo, setPlanoAtivo] = useState<PlanoAtivo>('essencial');
-  const [usarVazio, setUsarVazio] = useState(false);
   return (
-    <PlanoContext.Provider value={{ planoAtivo, setPlanoAtivo, usarVazio, setUsarVazio }}>
+    <PlanoContext.Provider value={{ planoAtivo, setPlanoAtivo }}>
       {children}
     </PlanoContext.Provider>
   );

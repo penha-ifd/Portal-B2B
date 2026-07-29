@@ -50,7 +50,7 @@ const LINHAS_INIT: Linha[] = [
     candidato: 'Mesa 7 · 21h05 → 22h50 · R$ 412',
     candidatoExtra: 'Outro candidato: mesa 3 · 21h11 · R$ 388',
     probabilidade: '64% provável',
-    probColor: 'var(--atencao)',
+    probColor: 'var(--text-secundario)',
     btnPrimario: 'Foi ele',
     btnPrimarioStyle: 'filled',
     btnSecundario: 'Não veio',
@@ -124,7 +124,7 @@ export function ConciliacaoPage() {
       {/* Sub-header */}
       <div
         className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: isBase ? 'var(--atencao)' : '#ffffff' }}
+        style={{ backgroundColor: '#ffffff' }}
       >
         <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
           <i className="ifdl-icon-filled ifdl-icon-sync text-white" style={{ fontSize: '12px' }} />
@@ -158,27 +158,6 @@ export function ConciliacaoPage() {
           </span>
         </div>
 
-        {/* Composer */}
-        <div style={{ marginBottom: 'var(--spacing-24)' }}>
-          <div className="flex items-center" style={{ height: 56, backgroundColor: 'var(--bg-primario)', border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', paddingLeft: 'var(--spacing-16)', paddingRight: 'var(--spacing-16)', gap: 'var(--spacing-8)' }}>
-            <input
-              type="text"
-              placeholder="Peça algo sobre a conciliação"
-              style={{ flex: 1, ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-primario)', background: 'none', border: 'none', outline: 'none' }}
-            />
-            <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: 'var(--text-secundario)' }} />
-            <button type="button" className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', border: 'none', cursor: 'pointer' }}>
-              <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: '#ffffff' }} />
-            </button>
-          </div>
-          <div className="flex flex-wrap gap-2" style={{ marginTop: 'var(--spacing-12)' }}>
-            {['Resolver os pendentes', 'Por que 27 não confirmaram'].map((chip) => (
-              <button key={chip} type="button" style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-pill)', padding: '6px 12px', ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-secundario)', backgroundColor: 'transparent', cursor: 'pointer' }}>
-                {chip}
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* 1. Cabeçalho */}
         <div className="flex items-center justify-between">

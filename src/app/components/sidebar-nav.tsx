@@ -140,19 +140,25 @@ function GroupLabel({ label, collapsed }: { label: string; collapsed: boolean })
 export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   const { planoAtivo } = usePlano();
 
+  const isBase = planoAtivo === 'base';
   const isEssencialOrAvancado = planoAtivo === 'essencial' || planoAtivo === 'avancado';
   const isAvancado = planoAtivo === 'avancado';
 
   const alwaysActive: NavItem[] = [
     { to: '/', label: 'Início', icon: 'home', end: true },
-    { to: '/jornada', label: 'Sua jornada', icon: 'chart' },
   ];
 
-  const reservasPdv: NavItem[] = [
+  const baseModulos: NavItem[] = [
+    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
+    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
+  ];
+
+  const essencialModulos: NavItem[] = [
+    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
     { to: '/pdv', label: 'PDV', icon: 'store' },
     { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
-    ...(isEssencialOrAvancado ? [{ to: '/conciliacao', label: 'Conciliação', icon: 'sync' }] : []),
+    { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
   ];
 
   const clientes: NavItem[] = [
@@ -166,13 +172,17 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   ];
 
   const activeItems: NavItem[] = [
-    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
-    ...(isEssencialOrAvancado ? reservasPdv : []),
+    ...(isAvancado ? essencialModulos : isEssencialOrAvancado ? essencialModulos : isBase ? baseModulos : []),
     ...(isAvancado ? pagamentoAgregador : []),
   ];
 
   const lockedItems: NavItem[] = [
-    ...(!isEssencialOrAvancado ? reservasPdv : []),
+    ...(isBase ? [
+      { to: '/reservas', label: 'Reservas', icon: 'calendar' },
+      { to: '/pdv', label: 'PDV', icon: 'store' },
+      { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
+    ] : []),
+    ...(!isBase && !isEssencialOrAvancado ? essencialModulos : []),
     ...(!isAvancado ? pagamentoAgregador : []),
   ];
 
@@ -189,19 +199,30 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
         ))}
 
         {/* Grupo 2 — Seu salão */}
-        <GroupLabel label="Seu salão" collapsed={collapsed} />
-        {activeItems.map((item) => (
-          <ActiveItem key={item.to} item={item} collapsed={collapsed} />
-        ))}
+        {activeItems.length > 0 && (
+          <>
+            <GroupLabel label="Seu salão" collapsed={collapsed} />
+            {activeItems.map((item) => (
+              <ActiveItem key={item.to} item={item} collapsed={collapsed} />
+            ))}
+          </>
+        )}
 
-        {/* Grupo 3 — Seus clientes */}
-        <GroupLabel label="Seus clientes" collapsed={collapsed} />
-        {clientes.map((item) => (
-          <ActiveItem key={item.to} item={item} collapsed={collapsed} />
-        ))}
+        {/* Grupo 3 — Seus clientes (qualquer módulo contratado) */}
+        {(isBase || isEssencialOrAvancado) && (
+          <>
+            <GroupLabel label="Seus clientes" collapsed={collapsed} />
+            {clientes.map((item) => (
+              <ActiveItem key={item.to} item={item} collapsed={collapsed} />
+            ))}
+          </>
+        )}
 
         {/* Grupo 4 — Disponíveis */}
         <GroupLabel label="Disponíveis" collapsed={collapsed} />
+        {!isBase && !isEssencialOrAvancado && clientes.map((item) => (
+          <LockedItem key={item.to} item={item} collapsed={collapsed} />
+        ))}
         {lockedItems.map((item) => (
           <LockedItem key={item.to} item={item} collapsed={collapsed} />
         ))}
