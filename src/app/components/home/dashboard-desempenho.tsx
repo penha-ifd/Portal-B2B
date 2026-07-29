@@ -469,6 +469,19 @@ export function DashboardDesempenho({ onSubmit }: Props) {
 
       {planoAtivo !== "novo" && (<>
 
+      {/* Onboarding contextual — plano Base */}
+      {planoAtivo === "base" && (
+        <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Bem-vindo ao plano Base</span>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.6 }}>
+            Com este plano você acompanha quantos clientes seus cupons trazem ao salão, vê o alcance na vitrine do iFood e compara com restaurantes da sua região. Ative um módulo (Reservas ou PDV) para desbloquear o CRM e a inteligência.
+          </span>
+          <div style={{ display: "flex", gap: "var(--spacing-8)" }}>
+            <span onClick={() => navigate("/modulos")} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", cursor: "pointer" }}>Ver planos e módulos</span>
+          </div>
+        </div>
+      )}
+
       {mostrarAlerta && (
         <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
           <div style={{ flex: 1, minWidth: 0 }}>
