@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { usePlano } from '../state/plano-context';
 
@@ -58,6 +59,13 @@ export function ReservasPage() {
   const { planoAtivo } = usePlano();
   const navigate = useNavigate();
   const isBase = planoAtivo === 'base';
+  const [sortCol, setSortCol] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+
+  const toggleSort = (col: string) => {
+    if (sortCol === col) { setSortDir(sortDir === 'asc' ? 'desc' : 'asc'); }
+    else { setSortCol(col); setSortDir('asc'); }
+  };
 
   return (
     <div className="relative">
@@ -142,7 +150,15 @@ export function ReservasPage() {
             <thead>
               <tr style={{ borderBottom: '1px solid var(--borda)' }}>
                 {['Hora', 'Nome', 'Pessoas', 'Mesa', 'Status'].map((h) => (
-                  <th key={h} style={headCell}>{h}</th>
+                  <th key={h} style={{ ...headCell, cursor: 'pointer', userSelect: 'none' }} onClick={() => toggleSort(h)}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      {h}
+                      <span style={{ display: 'inline-flex', flexDirection: 'column', lineHeight: 0 }}>
+                        <span style={{ fontSize: 10, color: sortCol === h && sortDir === 'asc' ? 'var(--text-primario)' : 'var(--text-desabilitado)' }}>&#9650;</span>
+                        <span style={{ fontSize: 10, color: sortCol === h && sortDir === 'desc' ? 'var(--text-primario)' : 'var(--text-desabilitado)', marginTop: -2 }}>&#9660;</span>
+                      </span>
+                    </span>
+                  </th>
                 ))}
               </tr>
             </thead>

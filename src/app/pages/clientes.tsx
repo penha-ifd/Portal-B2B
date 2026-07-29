@@ -65,8 +65,15 @@ export function ClientesPage() {
   const [perfilFilter, setPerfilFilter] = useState<string | null>(null);
   const [origemFilter, setOrigemFilter] = useState<string | null>(null);
   const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const [sortCol, setSortCol] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const { planoAtivo } = usePlano();
   const isBase = planoAtivo === "base";
+
+  const toggleSort = (col: string) => {
+    if (sortCol === col) { setSortDir(sortDir === "asc" ? "desc" : "asc"); }
+    else { setSortCol(col); setSortDir("asc"); }
+  };
 
   const clientesFiltrados = CLIENTES.filter((c) => {
     if (perfilFilter && c.perfil !== perfilFilter) return false;
@@ -170,7 +177,13 @@ export function ClientesPage() {
             <div className="overflow-x-auto">
               <div className="flex items-center justify-between border-b border-[#DCDCDC] py-2 min-w-[900px]">
                 {["Nome", "Telefone", "Status", "Perfil", "Origem", "Total de visitas", "Primeira visita", "Última visita"].map((h) => (
-                  <span key={h} className="flex-1 min-w-0 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)" }}>{h}</span>
+                  <span key={h} className="flex-1 min-w-0 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }} onClick={() => toggleSort(h)}>
+                    {h}
+                    <span style={{ display: "inline-flex", flexDirection: "column", lineHeight: 0 }}>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "asc" ? "var(--text-primario)" : "var(--text-desabilitado)" }}>&#9650;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "desc" ? "var(--text-primario)" : "var(--text-desabilitado)", marginTop: -2 }}>&#9660;</span>
+                    </span>
+                  </span>
                 ))}
               </div>
               {clientesFiltrados.map((c, i) => (

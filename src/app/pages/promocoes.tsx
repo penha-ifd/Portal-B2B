@@ -44,6 +44,13 @@ export function PromocoesPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
   const [tab, setTab] = useState<"ativas" | "desempenho">("ativas");
+  const [sortCol, setSortCol] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const toggleSort = (col: string) => {
+    if (sortCol === col) { setSortDir(sortDir === "asc" ? "desc" : "asc"); }
+    else { setSortCol(col); setSortDir("asc"); }
+  };
 
   function handleCriarPromocao() { setDrawerOpen(true); }
   function handleDrawerClose() {
@@ -119,13 +126,19 @@ export function PromocoesPage() {
             <div className="overflow-x-auto">
               <div className="flex items-center justify-between border-b border-[#DCDCDC] pb-2 min-w-[1000px]">
                 {["Nome", "Status", "Público-alvo", "Acesso", "Objetivo", "Subsídio", "Data início", "Data fim", "QRCode"].map((h) => (
-                  <span key={h} className="flex-1 text-[12px] font-bold text-[#3E3E3E] leading-4 min-w-0" style={{ fontFamily: "var(--font-inter)" }}>{h}</span>
+                  <span key={h} className="flex-1 text-[12px] font-bold text-[#3E3E3E] leading-4 min-w-0" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }} onClick={() => toggleSort(h)}>
+                    {h}
+                    <span style={{ display: "inline-flex", flexDirection: "column", lineHeight: 0 }}>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "asc" ? "var(--text-primario)" : "var(--text-desabilitado)" }}>&#9650;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "desc" ? "var(--text-primario)" : "var(--text-desabilitado)", marginTop: -2 }}>&#9660;</span>
+                    </span>
+                  </span>
                 ))}
               </div>
               {CAMPANHAS.map((c, i) => (
-                <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-6">
-                  <div className="flex-1 flex items-center gap-2 min-w-0"><div className="size-6 rounded-lg bg-[#F2F2F2] flex items-center justify-center shrink-0"><svg className="w-4 h-4 text-[#717171]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg></div><span className="text-[16px] text-[#717171] whitespace-nowrap" style={{ fontFamily: "var(--font-inter)" }}>{c.nome}</span></div>
-                  <div className="flex-1 min-w-0"><span className="inline-flex items-center gap-1.5 paragraph-p3-12-medium rounded-full px-2.5 py-0.5" style={{ backgroundColor: STATUS_STYLE[c.status].bg, color: STATUS_STYLE[c.status].color }}><span className="size-1.5 rounded-full shrink-0" style={{ backgroundColor: STATUS_STYLE[c.status].dot }} />{c.status}</span></div>
+                <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-3">
+                  <div className="flex-1 flex items-center gap-2 min-w-0 overflow-hidden"><div className="size-6 rounded-lg bg-[#F2F2F2] flex items-center justify-center shrink-0"><svg className="w-4 h-4 text-[#717171]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg></div><span className="text-[16px] text-[#717171] truncate" style={{ fontFamily: "var(--font-inter)" }}>{c.nome}</span></div>
+                  <div className="flex-1 min-w-0 flex items-center"><span className="inline-flex items-center gap-1.5 paragraph-p3-12-medium rounded-full px-2.5 py-0.5" style={{ backgroundColor: STATUS_STYLE[c.status].bg, color: STATUS_STYLE[c.status].color }}><span className="size-1.5 rounded-full shrink-0" style={{ backgroundColor: STATUS_STYLE[c.status].dot }} />{c.status}</span></div>
                   <span className="flex-1 paragraph-p2-14-regular text-[#717171] min-w-0">{c.publicoAlvo}</span>
                   <span className="flex-1 paragraph-p2-14-regular text-[#717171] min-w-0">{c.acesso}</span>
                   <span className="flex-1 paragraph-p2-14-regular text-[#717171] min-w-0">{c.objetivo}</span>
