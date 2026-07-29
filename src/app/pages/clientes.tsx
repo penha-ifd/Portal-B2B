@@ -189,7 +189,9 @@ export function ClientesPage() {
                   <span className="flex-1 min-w-0">
                     <span className={`inline-block paragraph-p3-12-medium rounded-full px-2.5 py-0.5 ${c.status === "Ativo" ? "text-[#1FAD68] bg-[rgba(31,173,104,0.10)]" : "text-[#A3A3A3] bg-[#F5F5F5]"}`}>{c.status}</span>
                   </span>
-                  <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.perfil}</span>
+                  <span className="flex-1 min-w-0">
+                    <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", ...({"VIP":{backgroundColor:"rgba(235,0,51,0.08)",color:"var(--marca)"},"Fiel":{backgroundColor:"rgba(31,173,104,0.10)",color:"#1FAD68"},"Em risco":{backgroundColor:"rgba(255,152,0,0.10)",color:"#F57C00"},"Perdido":{backgroundColor:"#F5F5F5",color:"#A3A3A3"},"Novato":{backgroundColor:"rgba(33,150,243,0.10)",color:"#1E88E5"}}[c.perfil] || {backgroundColor:"#F5F5F5",color:"#666666"}) }}>{c.perfil}</span>
+                  </span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.origem}</span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.visitas}</span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.primeiraVisita}</span>
