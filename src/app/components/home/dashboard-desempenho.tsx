@@ -512,19 +512,6 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         </div>
       )}
 
-      {/* Card — Sua jornada (progresso) */}
-      <div onClick={() => navigate("/jornada")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--spacing-16)" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-4)" }}>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Sua jornada</span>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Ativação › Identificação › <strong style={{ color: "var(--marca)", fontWeight: "var(--font-weight-medium)" }}>CRM</strong> › Inteligência › Resultado</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", flexShrink: 0 }}>
-          <div style={{ width: 80, height: 6, borderRadius: 3, backgroundColor: "var(--bg-terciario)", overflow: "hidden" }}>
-            <div style={{ width: "60%", height: "100%", borderRadius: 3, backgroundColor: "var(--marca)" }} />
-          </div>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>3 de 5</span>
-        </div>
-      </div>
 
       {temDados && <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)" }}>
         {/* Grupo — Performance */}
