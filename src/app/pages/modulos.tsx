@@ -60,65 +60,48 @@ const PLANOS: {
 const MODULOS: {
   nome: string;
   descricao: string;
-  ativo: (p: PlanoAtivo) => boolean;
+  incluso: (p: PlanoAtivo) => boolean;
+  escolhaEssencial?: boolean;
 }[] = [
   {
     nome: 'Cardápio digital',
     descricao: 'Importa o cardápio que você já tem no delivery do iFood, em um clique. Destrava o cruzamento entre o que seus clientes pedem no delivery e o que você oferece no salão.',
-    ativo: (p) => p === 'essencial' || p === 'avancado',
+    incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Reservas',
     descricao: 'Recebe reservas do app do iFood e organiza a ocupação do salão. Destrava a aba Reservas e a identificação de clientes.',
-    ativo: (p) => p === 'essencial' || p === 'avancado',
+    incluso: (p) => p === 'essencial' || p === 'avancado',
+    escolhaEssencial: true,
   },
   {
     nome: 'PDV',
     descricao: 'Integra o ponto de venda ao painel e enriquece os dados de faturamento e ticket médio em tempo real.',
-    ativo: (p) => p === 'essencial' || p === 'avancado',
+    incluso: (p) => p === 'essencial' || p === 'avancado',
+    escolhaEssencial: true,
   },
   {
     nome: 'Pagamento na mesa',
     descricao: 'Permite que o cliente feche a conta pelo app. Destrava a identificação pelo pagamento e aumenta a recorrência.',
-    ativo: (p) => p === 'avancado',
+    incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Agregador de pedidos',
     descricao: 'Centraliza pedidos de diferentes canais em um único painel, reduzindo erros e tempo de operação.',
-    ativo: (p) => p === 'avancado',
+    incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Avaliações',
     descricao: 'Reúne as avaliações do Google e do iFood num lugar só e avisa quando alguma precisa de resposta. Destrava a nota do salão no painel e o fluxo de cortesia para avaliação negativa.',
-    ativo: (p) => p === 'avancado',
+    incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Fidelidade',
     descricao: 'Cria programas de fidelidade com selos e recompensas para clientes recorrentes. Destrava a taxa de retorno e o ticket médio por cliente fidelizado.',
-    ativo: (p) => p === 'avancado',
+    incluso: (p) => p === 'avancado',
   },
 ];
 
-// ── toggle visual ───────────────────────────────────────────────────────────
-
-function Toggle({ on }: { on: boolean }) {
-  return (
-    <div style={{
-      width: 40, height: 24, borderRadius: 12,
-      backgroundColor: on ? 'var(--sucesso)' : 'var(--bg-terciario)',
-      position: 'relative', flexShrink: 0, transition: 'background-color 200ms',
-    }}>
-      <div style={{
-        position: 'absolute', top: 3,
-        left: on ? 19 : 3,
-        width: 18, height: 18, borderRadius: '50%',
-        backgroundColor: '#ffffff',
-        transition: 'left 200ms',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-      }} />
-    </div>
-  );
-}
 
 // ── página ──────────────────────────────────────────────────────────────────
 
@@ -217,18 +200,25 @@ export function ModulosPage() {
           </span>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-16)' }}>
             {MODULOS.map((mod) => {
-              const on = mod.ativo(planoAtivo);
+              const on = mod.incluso(planoAtivo);
               return (
-                <div key={mod.nome} style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)', display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-16)' }}>
+                <div key={mod.nome} style={{ border: on ? '1px solid var(--marca)' : '1px solid var(--borda)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)', display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-16)', position: 'relative', transition: 'border-color 200ms' }}>
+                  {on && (
+                    <i className="ifdl-icon-filled ifdl-icon-check" style={{ position: 'absolute', top: 12, right: 12, fontSize: 16, color: 'var(--marca)' }} />
+                  )}
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
                       {mod.nome}
                     </span>
+                    {mod.escolhaEssencial && planoAtivo === 'essencial' && (
+                      <span style={{ ...fontBase, fontSize: '11px', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>
+                        escolha 1 destes
+                      </span>
+                    )}
                     <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)', lineHeight: 1.5 }}>
                       {mod.descricao}
                     </span>
                   </div>
-                  <Toggle on={on} />
                 </div>
               );
             })}
