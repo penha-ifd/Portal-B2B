@@ -65,6 +65,12 @@ const MODULOS: {
   escolhaEssencial?: boolean;
 }[] = [
   {
+    nome: 'Promoções',
+    descricao: 'Crie cupons, cashback e campanhas de atração direto no painel. Acompanhe desempenho por campanha e veja quantos clientes cada promoção trouxe ao salão.',
+    impacto: 'Cupons trouxeram 285 clientes confirmados esta semana',
+    incluso: (p) => p === 'base' || p === 'essencial' || p === 'avancado',
+  },
+  {
     nome: 'Cardápio digital',
     descricao: 'Importa o cardápio que você já tem no delivery do iFood, em um clique. Destrava o cruzamento entre o que seus clientes pedem no delivery e o que você oferece no salão.',
     impacto: 'Destrava cruzamento delivery × salão no CRM',
@@ -165,9 +171,9 @@ export function ModulosPage() {
                 )}
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: plano.destaque ? 8 : 0 }}>
-                  <span style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
+                  <h2 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
                     {plano.nome}
-                  </span>
+                  </h2>
                   <span style={{ ...fontBase, fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
                     {plano.preco}
                   </span>
@@ -203,9 +209,9 @@ export function ModulosPage() {
 
         {/* Seção Módulos */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-          <span style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
+          <h1 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
             Módulos
-          </span>
+          </h1>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-16)' }}>
             {MODULOS.map((mod) => {
               const on = mod.incluso(planoAtivo);

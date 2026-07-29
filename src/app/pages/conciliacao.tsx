@@ -162,9 +162,9 @@ export function ConciliacaoPage() {
         {/* 1. Cabeçalho */}
         <div className="flex items-center justify-between">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <span style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
+            <h2 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
               Presenças de ontem
-            </span>
+            </h2>
             <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>
               {casados} de {TOTAL} casados automaticamente
             </span>
