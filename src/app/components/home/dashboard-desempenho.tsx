@@ -292,9 +292,9 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           ${Array.from({ length: 16 }).map((_, i) => `@keyframes composer-wave-${i} { from { height: ${18 + (i * 5) % 82}%; } to { height: ${18 + (i * 5) % 82}%; } }`).join("\n")}
         }
       `}</style>
-      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "calc(100% - 48px)", maxWidth: "880px", zIndex: 40, paddingBottom: 24, paddingTop: 16, backgroundColor: "var(--bg-primario)", boxShadow: "0 -8px 24px rgba(255,255,255,1)" }}>
+      <div style={{ position: "fixed", bottom: 24, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: "640px", zIndex: 40 }}>
         {composerResponse && (
-          <div style={{ marginBottom: "var(--spacing-12)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+          <div style={{ marginBottom: "var(--spacing-12)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)", boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}>
             <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.5, margin: 0 }}>{composerResponse}</p>
             <div style={{ display: "flex", gap: "var(--spacing-8)", alignItems: "center" }}>
               <button type="button" onClick={() => setComposerResponse(null)} style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Dispensar</button>
@@ -302,7 +302,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
           </div>
         )}
-        <div className="flex flex-wrap gap-2" style={{ marginBottom: "var(--spacing-12)" }}>
+        <div className="flex flex-wrap gap-2 justify-center" style={{ marginBottom: "var(--spacing-8)" }}>
           {(selectedCard && d.sugestoes[selectedCard as keyof typeof d.sugestoes]
             ? d.sugestoes[selectedCard as keyof typeof d.sugestoes]
             : ["Como foi meu fim de semana", "Por que a sexta caiu", "Abrir mais mesas sexta às 20h", "Quem são meus clientes recorrentes"]
@@ -314,32 +314,32 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               style={{
                 border: "1px solid var(--borda)",
                 borderRadius: "var(--radius-pill)",
-                padding: "6px 12px",
+                padding: "5px 10px",
                 fontFamily: "var(--font-inter)",
-                fontSize: "var(--font-size-12)",
+                fontSize: "11px",
                 fontWeight: "var(--font-weight-regular)",
                 letterSpacing: "var(--letter-spacing)",
                 color: "var(--text-secundario)",
-                backgroundColor: "transparent",
+                backgroundColor: "var(--bg-primario)",
                 cursor: "pointer",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
               }}
             >
               {chip}
             </button>
           ))}
         </div>
-        <div style={{ marginBottom: "var(--spacing-24)" }}>
         <div
           className="flex items-center relative"
           style={{
-            height: 56,
-            backgroundColor: composerRecording ? "var(--invertido)" : "var(--bg-primario)",
-            border: "1px solid var(--borda)",
-            borderRadius: "var(--radius-12)",
+            height: 48,
+            backgroundColor: composerRecording ? "#000000" : "#1a1a1a",
+            borderRadius: 9999,
             paddingLeft: "var(--spacing-16)",
-            paddingRight: "var(--spacing-16)",
+            paddingRight: 6,
             gap: "var(--spacing-8)",
             transition: "background-color 200ms",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.25)",
           }}
         >
           {composerRecording && (
@@ -386,14 +386,14 @@ export function DashboardDesempenho({ onSubmit }: Props) {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "var(--spacing-4)",
-                backgroundColor: "var(--bg-secundario)",
+                backgroundColor: "rgba(255,255,255,0.12)",
                 borderRadius: "var(--radius-pill)",
                 padding: "3px 9px",
                 fontFamily: "var(--font-inter)",
                 fontSize: "11px",
                 fontWeight: "var(--font-weight-regular)",
                 letterSpacing: "var(--letter-spacing)",
-                color: "var(--text-primario)",
+                color: "rgba(255,255,255,0.8)",
                 flexShrink: 0,
               }}
             >
@@ -401,7 +401,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               <button
                 type="button"
                 onClick={() => setSelectedCard(null)}
-                style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, color: "var(--text-secundario)" }}
+                style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, color: "rgba(255,255,255,0.5)" }}
                 aria-label="Desmarcar"
               >
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -421,7 +421,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               fontSize: "var(--font-size-14)",
               fontWeight: "var(--font-weight-regular)",
               letterSpacing: "var(--letter-spacing)",
-              color: composerRecording ? "rgba(255,255,255,0.7)" : "var(--text-primario)",
+              color: "#ffffff",
               background: "none",
               border: "none",
               outline: "none",
@@ -432,13 +432,13 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             onClick={handleComposerButtonClick}
             className="flex items-center justify-center shrink-0 relative"
             aria-label={composerRecording ? "Parar gravação" : composerValue.trim() ? "Enviar" : "Gravar áudio"}
-            style={{ width: 40, height: 40, borderRadius: "var(--radius-pill)", backgroundColor: composerRecording ? "#ffffff" : "var(--marca)", border: "none", cursor: "pointer", overflow: "hidden" }}
+            style={{ width: 36, height: 36, borderRadius: "var(--radius-pill)", backgroundColor: composerRecording ? "#ffffff" : composerValue.trim() ? "#ffffff" : "transparent", border: "none", cursor: "pointer", overflow: "hidden", transition: "background-color 160ms" }}
           >
             <i
               className="ifdl-icon-line ifdl-icon-microphone"
               style={{
                 fontSize: 18,
-                color: composerRecording ? "var(--invertido)" : "#ffffff",
+                color: composerRecording ? "var(--invertido)" : "rgba(255,255,255,0.5)",
                 position: "absolute",
                 transition: "transform 160ms ease-out, opacity 160ms ease-out",
                 transform: composerValue.trim() && !composerRecording ? "scale(0.6)" : "scale(1)",
@@ -449,7 +449,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               className="ifdl-icon-line ifdl-icon-arrow-up"
               style={{
                 fontSize: 18,
-                color: composerRecording ? "var(--invertido)" : "#ffffff",
+                color: "#1a1a1a",
                 position: "absolute",
                 transition: "transform 160ms ease-out, opacity 160ms ease-out",
                 transform: composerValue.trim() && !composerRecording ? "scale(1)" : "scale(0.6)",
@@ -461,7 +461,6 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             )}
           </button>
         </div>
-      </div>
       </div>
 
       {planoAtivo === "base" && (
