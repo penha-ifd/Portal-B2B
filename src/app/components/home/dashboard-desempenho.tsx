@@ -521,7 +521,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       {planoAtivo !== "base" && (<>
 
       {mostrarAlerta && (
-        <div style={{ backgroundColor: "var(--atencao)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
+        <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>
               Sua oferta sai da vitrine hoje — seu pacote de cupons acabou.

@@ -81,7 +81,7 @@ export function ClientesPage() {
         <p className="paragraph-p2-14-regular text-[#666666]">Confira informações do seu perfil, promoções e clientes do seu salão</p>
       </div>
 
-      <div style={{ borderRadius: "var(--radius-12)", border: "1px solid var(--atencao)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: "transparent" }}>
+      <div style={{ borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: "transparent" }}>
         <div className="flex flex-col gap-1">
           <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>285 de 3.482 clientes identificados</span>
           <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>8% da sua base. Sem identificar, o CRM não consegue segmentar nem sugerir campanhas.</span>

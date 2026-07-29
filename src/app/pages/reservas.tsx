@@ -16,7 +16,7 @@ const RESERVAS = [
 
 const STATUS_STYLE: Record<string, { color: string; bg: string }> = {
   'Confirmada': { color: 'var(--sucesso)',        bg: 'rgba(31,173,104,0.10)' },
-  'Aguardando': { color: 'var(--atencao)',        bg: 'rgba(255,195,71,0.15)' },
+  'Aguardando': { color: 'var(--text-secundario)', bg: 'var(--bg-secundario)' },
   'No-show':    { color: 'var(--text-secundario)', bg: 'var(--bg-secundario)' },
 };
 
@@ -64,7 +64,7 @@ export function ReservasPage() {
       {/* Sub-header */}
       <div
         className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: isBase ? 'var(--atencao)' : '#ffffff' }}
+        style={{ backgroundColor: '#ffffff' }}
       >
         <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
           <i className="ifdl-icon-filled ifdl-icon-calendar text-white" style={{ fontSize: '12px' }} />
@@ -99,7 +99,7 @@ export function ReservasPage() {
               { dia: 'Sáb', data: '02', alm: 10, jan: 12 },
               { dia: 'Dom', data: '03', alm: 9, jan: 5 },
             ].map((d) => {
-              const getColor = (n: number) => n >= 10 ? 'var(--marca)' : n >= 7 ? 'var(--atencao)' : 'var(--sucesso)';
+              const getColor = (n: number) => n >= 10 ? 'var(--marca)' : n >= 7 ? 'var(--text-secundario)' : 'var(--sucesso)';
               const getLabel = (n: number) => n >= 10 ? 'Lotado' : n >= 7 ? 'Alta' : 'Normal';
               return (
                 <div key={d.dia} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '8px 0', borderRadius: 'var(--radius-8)', backgroundColor: 'var(--bg-primario)' }}>
@@ -125,7 +125,7 @@ export function ReservasPage() {
               <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Normal</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--atencao)' }} />
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--text-secundario)' }} />
               <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Alta</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>

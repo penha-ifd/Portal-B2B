@@ -215,7 +215,7 @@ export function LpComerFora() {
       {/* CTA */}
       <section style={{ margin: '0 48px', padding: 'var(--spacing-40)', borderRadius: 'var(--radius-12)', backgroundColor: 'var(--invertido)', display: 'flex', alignItems: 'center', gap: 'var(--spacing-40)' }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--atencao)', display: 'inline-block', alignSelf: 'flex-start', backgroundColor: 'rgba(255,195,71,0.15)', borderRadius: 'var(--radius-pill)', padding: '4px 12px' }}>Oferta por tempo limitado</span>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--marca)', display: 'inline-block', alignSelf: 'flex-start', backgroundColor: 'rgba(235,0,51,0.08)', borderRadius: 'var(--radius-pill)', padding: '4px 12px' }}>Oferta por tempo limitado</span>
           <h3 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff', margin: 0 }}>Alcance mais de 226 mil clientes que usam o iFood na sua região</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
             {['Ative em poucos minutos sem custos', 'Pause ou ajuste quando quiser'].map((item) => (
