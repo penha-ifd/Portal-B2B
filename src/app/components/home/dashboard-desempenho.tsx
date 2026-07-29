@@ -513,6 +513,22 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         {/* Grupo — Performance */}
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Performance</span>
 
+        {/* Legenda dos badges */}
+        <div className="col-span-full" style={{ display: "flex", alignItems: "center", gap: "var(--spacing-12)", flexWrap: "wrap" }}>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>
+            <span style={{ display: "inline-block", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px", marginRight: "4px", color: "var(--text-secundario)" }}>Fixo</span>
+            métrica permanente
+          </span>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>
+            <span style={{ display: "inline-block", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "1px 6px", marginRight: "4px", color: "#ffffff" }}>Cross-channel</span>
+            cruzamento delivery + salão
+          </span>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>
+            <span style={{ display: "inline-block", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px", marginRight: "4px", color: "var(--sucesso)" }}>Gerado</span>
+            insight da IA
+          </span>
+        </div>
+
         {/* Card 1 — Retorno do investimento (2 colunas, primeiro bloco) */}
         <div className="col-span-2 md:col-span-2" onClick={() => handleCardClick("faturamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "faturamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.faturamento}</span>
