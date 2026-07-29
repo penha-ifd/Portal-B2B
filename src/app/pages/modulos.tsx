@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { usePlano, PlanoAtivo } from '../state/plano-context';
 
 const fontBase: React.CSSProperties = {
@@ -122,6 +123,7 @@ const MODULOS: {
 export function ModulosPage() {
   const { planoAtivo, setPlanoAtivo } = usePlano();
   const isBase = planoAtivo === 'base';
+  const [confirmando, setConfirmando] = useState<PlanoAtivo | null>(null);
 
   return (
     <div className="relative">
@@ -198,7 +200,7 @@ export function ModulosPage() {
                     Plano atual
                   </button>
                 ) : (
-                  <button type="button" onClick={() => setPlanoAtivo(plano.key)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'var(--invertido)', color: '#ffffff', border: 'none', borderRadius: 'var(--radius-pill)', padding: '10px 16px', cursor: 'pointer', marginTop: 'auto' }}>
+                  <button type="button" onClick={() => setConfirmando(plano.key)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'var(--invertido)', color: '#ffffff', border: 'none', borderRadius: 'var(--radius-pill)', padding: '10px 16px', cursor: 'pointer', marginTop: 'auto' }}>
                     Escolher plano
                   </button>
                 )}
@@ -243,6 +245,29 @@ export function ModulosPage() {
         </div>
 
       </div>
+
+      {/* Modal de confirmação */}
+      {confirmando && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.4)' }} onClick={() => setConfirmando(null)} />
+          <div style={{ position: 'relative', backgroundColor: '#ffffff', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-24)', maxWidth: 360, width: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
+            <h2 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
+              Mudar para {PLANOS.find((p) => p.key === confirmando)?.nome}?
+            </h2>
+            <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)', lineHeight: 1.5 }}>
+              Seu plano será alterado imediatamente. Você pode trocar novamente a qualquer momento.
+            </span>
+            <div style={{ display: 'flex', gap: 'var(--spacing-8)', justifyContent: 'flex-end' }}>
+              <button type="button" onClick={() => setConfirmando(null)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'transparent', color: 'var(--text-primario)', border: '1px solid var(--borda)', borderRadius: 'var(--radius-pill)', padding: '10px 16px', cursor: 'pointer' }}>
+                Cancelar
+              </button>
+              <button type="button" onClick={() => { setPlanoAtivo(confirmando); setConfirmando(null); }} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'var(--invertido)', color: '#ffffff', border: 'none', borderRadius: 'var(--radius-pill)', padding: '10px 16px', cursor: 'pointer' }}>
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
