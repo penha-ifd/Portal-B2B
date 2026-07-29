@@ -7,6 +7,7 @@ export const mockDashboard = {
   publico: { primeiraVezIfood: 194, jaVieramPeloIfood: 91, voltaramSemCupom: 64 },
   vitrine: { impressoes: 14200 },
   benchmark: { percentil: 80, categoria: "italianos", descontoMedioRegiao: 0.20, descontoProprio: 0.10 },
+  narrativa: "Esta semana seus cupons trouxeram 285 clientes confirmados — 91 deles nunca tinham vindo pelo iFood. O ticket médio subiu 12% vs. a média da região. Sua melhor terça desde dezembro.",
   sugestao: { texto: "Restaurantes similares com sobremesa grátis convertem 20% mais no almoço de terça a quinta. Testar no próximo pacote?" },
   causa: {
     faturamento: "R$ 1.090,24 em cashback trouxeram R$ 8.976,24 em vendas",
@@ -533,6 +534,16 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <button type="button" style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", flexShrink: 0, marginLeft: "var(--spacing-16)" }}>
             Renovar pacote
           </button>
+        </div>
+      )}
+      {temDados && (
+        <div style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
+            <span style={{ fontSize: "16px" }}>✦</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>Gerado</span>
+          </div>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.6 }}>{d.narrativa}</span>
+          <button type="button" style={{ alignSelf: "flex-start", border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Perguntar mais</button>
         </div>
       )}
       {temDados && <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)" }}>
