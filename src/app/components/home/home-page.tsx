@@ -84,44 +84,44 @@ export function HomePage() {
 
   return (
     <div className="relative">
-      {/* Sub-header */}
-      <div
-        className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: isBase ? 'var(--atencao)' : '#ffffff' }}
-      >
-        <span
-          className="flex items-center justify-center size-5 rounded-[6px] shrink-0"
-          style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}
+      {!isBase && (
+        <div
+          className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
+          style={{ backgroundColor: '#ffffff' }}
         >
-          <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: '12px' }} />
-        </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: isBase ? 'var(--text-primario)' : '#141414' }}>Início</span>
-        <div className="flex items-center gap-3 ml-auto">
-          <span style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: 'var(--font-size-12)',
-            fontWeight: 'var(--font-weight-regular)',
-            letterSpacing: 'var(--letter-spacing)',
-            color: isBase ? 'var(--text-primario)' : 'var(--text-secundario)',
-          }}>
-            {isBase ? 'Ative um módulo para liberar inteligência e CRM' : PLANO_INFO[planoAtivo].text}
-          </span>
-          <span style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: 'var(--font-size-12)',
-            fontWeight: 'var(--font-weight-regular)',
-            letterSpacing: 'var(--letter-spacing)',
-            color: isBase ? 'var(--text-primario)' : 'var(--marca)',
-            cursor: 'pointer',
-          }}
-            onClick={() => navigate('/modulos')}
+          <span
+            className="flex items-center justify-center size-5 rounded-[6px] shrink-0"
+            style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}
           >
-            Mudar assinatura
+            <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: '12px' }} />
           </span>
+          <span className="paragraph-p2-14-medium ml-1" style={{ color: '#141414' }}>Início</span>
+          <div className="flex items-center gap-3 ml-auto">
+            <span style={{
+              fontFamily: 'var(--font-inter)',
+              fontSize: 'var(--font-size-12)',
+              fontWeight: 'var(--font-weight-regular)',
+              letterSpacing: 'var(--letter-spacing)',
+              color: 'var(--text-secundario)',
+            }}>
+              {PLANO_INFO[planoAtivo].text}
+            </span>
+            <span style={{
+              fontFamily: 'var(--font-inter)',
+              fontSize: 'var(--font-size-12)',
+              fontWeight: 'var(--font-weight-regular)',
+              letterSpacing: 'var(--letter-spacing)',
+              color: 'var(--marca)',
+              cursor: 'pointer',
+            }}
+              onClick={() => navigate('/modulos')}
+            >
+              Mudar assinatura
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Conteúdo */}
       {isBase ? (
         <LpComerFora />
       ) : (
