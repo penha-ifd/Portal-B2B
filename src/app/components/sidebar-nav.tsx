@@ -140,6 +140,7 @@ function GroupLabel({ label, collapsed }: { label: string; collapsed: boolean })
 export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   const { planoAtivo } = usePlano();
 
+  const isBase = planoAtivo === 'base';
   const isEssencialOrAvancado = planoAtivo === 'essencial' || planoAtivo === 'avancado';
   const isAvancado = planoAtivo === 'avancado';
 
@@ -147,12 +148,17 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
     { to: '/', label: 'Início', icon: 'home', end: true },
   ];
 
-  const reservasPdv: NavItem[] = [
+  const baseModulos: NavItem[] = [
+    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
+    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
+  ];
+
+  const essencialModulos: NavItem[] = [
     { to: '/cardapio', label: 'Cardápio', icon: 'store' },
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
     { to: '/pdv', label: 'PDV', icon: 'store' },
     { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
-    ...(isEssencialOrAvancado ? [{ to: '/conciliacao', label: 'Conciliação', icon: 'sync' }] : []),
+    { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
   ];
 
   const clientes: NavItem[] = [
@@ -166,12 +172,17 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   ];
 
   const activeItems: NavItem[] = [
-    ...(isEssencialOrAvancado ? reservasPdv : []),
+    ...(isAvancado ? essencialModulos : isEssencialOrAvancado ? essencialModulos : isBase ? baseModulos : []),
     ...(isAvancado ? pagamentoAgregador : []),
   ];
 
   const lockedItems: NavItem[] = [
-    ...(!isEssencialOrAvancado ? reservasPdv : []),
+    ...(isBase ? [
+      { to: '/reservas', label: 'Reservas', icon: 'calendar' },
+      { to: '/pdv', label: 'PDV', icon: 'store' },
+      { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
+    ] : []),
+    ...(!isBase && !isEssencialOrAvancado ? essencialModulos : []),
     ...(!isAvancado ? pagamentoAgregador : []),
   ];
 
@@ -197,8 +208,8 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
           </>
         )}
 
-        {/* Grupo 3 — Seus clientes (só com módulo contratado) */}
-        {isEssencialOrAvancado && (
+        {/* Grupo 3 — Seus clientes (qualquer módulo contratado) */}
+        {(isBase || isEssencialOrAvancado) && (
           <>
             <GroupLabel label="Seus clientes" collapsed={collapsed} />
             {clientes.map((item) => (
@@ -209,7 +220,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
 
         {/* Grupo 4 — Disponíveis */}
         <GroupLabel label="Disponíveis" collapsed={collapsed} />
-        {!isEssencialOrAvancado && clientes.map((item) => (
+        {!isBase && !isEssencialOrAvancado && clientes.map((item) => (
           <LockedItem key={item.to} item={item} collapsed={collapsed} />
         ))}
         {lockedItems.map((item) => (
