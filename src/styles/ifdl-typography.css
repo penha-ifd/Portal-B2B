@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Typography classes — paragraph-*, heading-*
+   Maps the typography classes used in the project to CSS rules.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Paragraph P1 - 16px */
+.paragraph-p1-16-regular {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+.paragraph-p1-16-medium {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+.paragraph-p1-16-bold {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+/* Paragraph P2 - 14px */
+.paragraph-p2-14-regular {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+.paragraph-p2-14-medium {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+/* Paragraph P3 - 12px */
+.paragraph-p3-12-regular {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+.paragraph-p3-12-medium {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+.paragraph-p3-12-bold {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+/* Heading H3 - 18px */
+.heading-h3-18-medium {
+  font-family: var(--ifdl-font-family-ifood-body, 'Google Sans', sans-serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0;
+}
