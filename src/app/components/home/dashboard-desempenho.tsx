@@ -172,6 +172,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
   const [composerRecording, setComposerRecording] = useState(false);
   const [composerTranscribing, setComposerTranscribing] = useState(false);
   const [composerTimer, setComposerTimer] = useState(0);
+  const [composerResponse, setComposerResponse] = useState<string | null>(null);
   const modoNovo = useModoNovo();
   const d = modoNovo ? mockDashboardVazio : mockDashboard;
 
@@ -193,8 +194,17 @@ export function DashboardDesempenho({ onSubmit }: Props) {
     setSelectedCard((prev) => (prev === id ? null : id));
   }
 
+  const mockResponses: Record<string, string> = {
+    "Como foi meu fim de semana": "Sábado teve 42 check-ins (18% acima da média) com ticket médio de R$ 58. Domingo caiu para 28, concentrados no almoço. Os cupons de sobremesa grátis tiveram 89% de resgate.",
+    "Por que a sexta caiu": "Sexta registrou 31 check-ins contra 44 da semana anterior. O principal fator foi a chuva — dias chuvosos reduzem o fluxo em 25% na sua região. Nenhuma campanha estava ativa.",
+    "Abrir mais mesas sexta às 20h": "Com base no histórico, sexta às 20h tem ocupação média de 78%. Uma campanha de cashback R$ 15 para horário 19h-21h pode trazer 8-12 clientes adicionais com custo estimado de R$ 180.",
+    "Quem são meus clientes recorrentes": "Você tem 412 clientes fiéis (4+ visitas no trimestre). Perfil predominante: casais, jantar, ticket médio R$ 62. 73% deles também pedem delivery pelo menos 1x por mês.",
+  };
+
   function handleComposerSubmit() {
     if (composerValue.trim()) {
+      const response = mockResponses[composerValue.trim()] || "Com base nos dados do último mês, seu restaurante teve crescimento de 12% em check-ins confirmados. A campanha de cashback gerou R$ 8.976 em vendas com investimento de R$ 1.090 — um retorno de 8,2x.";
+      setComposerResponse(response);
       onSubmit?.(composerValue.trim());
     }
     setComposerValue("");
@@ -282,7 +292,16 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           ${Array.from({ length: 16 }).map((_, i) => `@keyframes composer-wave-${i} { from { height: ${18 + (i * 5) % 82}%; } to { height: ${18 + (i * 5) % 82}%; } }`).join("\n")}
         }
       `}</style>
-      <div style={{ position: "fixed", bottom: "24px", left: "50%", transform: "translateX(-50%)", width: "calc(100% - 48px)", maxWidth: "880px", zIndex: 40 }}>
+      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "calc(100% - 48px)", maxWidth: "880px", zIndex: 40, paddingBottom: 24, paddingTop: 16, backgroundColor: "var(--bg-primario)", boxShadow: "0 -8px 24px rgba(255,255,255,1)" }}>
+        {composerResponse && (
+          <div style={{ marginBottom: "var(--spacing-12)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+            <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.5, margin: 0 }}>{composerResponse}</p>
+            <div style={{ display: "flex", gap: "var(--spacing-8)", alignItems: "center" }}>
+              <button type="button" onClick={() => setComposerResponse(null)} style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Dispensar</button>
+              <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Fixar no painel</button>
+            </div>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2" style={{ marginBottom: "var(--spacing-12)" }}>
           {(selectedCard && d.sugestoes[selectedCard as keyof typeof d.sugestoes]
             ? d.sugestoes[selectedCard as keyof typeof d.sugestoes]
