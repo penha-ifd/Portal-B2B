@@ -75,7 +75,7 @@ const MODULOS: {
     nome: 'Cardápio digital',
     descricao: 'Importa o cardápio que você já tem no delivery do iFood, em um clique. Destrava o cruzamento entre o que seus clientes pedem no delivery e o que você oferece no salão.',
     impacto: 'Destrava cruzamento delivery × salão no CRM',
-    incluso: (p) => p === 'avancado',
+    incluso: (p) => p === 'base' || p === 'essencial' || p === 'avancado',
   },
   {
     nome: 'Reservas',
