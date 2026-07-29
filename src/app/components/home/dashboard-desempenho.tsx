@@ -267,7 +267,6 @@ export function DashboardDesempenho({ onSubmit }: Props) {
   }
 
   function isCardLocked(modulo: string): boolean {
-    if (modulo === "cupons") return planoAtivo === "base";
     return !modulosLiberados.includes(modulo);
   }
   const temDados = d.checkins.confirmados > 0;
@@ -466,61 +465,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       </div>
       </div>
 
-      {planoAtivo === "base" && (
-        <>
-          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "var(--spacing-8)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Dados de demonstração</span>
-          </div>
-
-          {/* Mapa de segmentação */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
-            {[
-              { nome: "Novato", count: 194, causa: "primeira visita nos últimos 90 dias" },
-              { nome: "Fiel", count: 412, causa: "4 ou mais visitas, ativo no último mês" },
-              { nome: "VIP", count: 88, causa: "ticket médio acima de R$ 150" },
-              { nome: "Em risco", count: 604, causa: "já vieram 3+ vezes, sumiram há 60 dias" },
-              { nome: "Perdido", count: 331, causa: "sem visita há mais de 6 meses" },
-            ].map((seg) => (
-              <div key={seg.nome} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Automático</span>
-                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{seg.nome}</span>
-                <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>{seg.count}</div>
-                <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>{seg.causa}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Ative um módulo para ver seus clientes de verdade</span>
-            <button type="button" onClick={() => window.location.href = "/modulos"} style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)" }}>Ver módulos</button>
-          </div>
-
-          {/* Módulos habilitadores */}
-          <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
-            {[
-              { nome: "Cardápio", icone: "store", destrava: "Importa cardápio do delivery em um clique" },
-              { nome: "Avaliações", icone: "store", destrava: "Reúne Google e iFood, avisa respostas pendentes" },
-              { nome: "Reservas", icone: "calendar", destrava: "Recebe reservas do app e organiza o salão" },
-              { nome: "PDV", icone: "store", destrava: "Integra ponto de venda ao painel em tempo real" },
-              { nome: "Pagamento na mesa", icone: "credit-card", destrava: "Cliente fecha conta pelo app" },
-              { nome: "Agregador", icone: "delivery", destrava: "Centraliza pedidos de todos os canais" },
-              { nome: "Fidelidade", icone: "store", destrava: "Selos e recompensas para clientes recorrentes" },
-            ].map((m) => (
-              <div key={m.nome} style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-12)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
-                  <i className={`ifdl-icon-line ifdl-icon-${m.icone}`} style={{ fontSize: "18px", color: "var(--marca)" }} />
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{m.nome}</span>
-                </div>
-                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", flex: 1 }}>{m.destrava}</span>
-                <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", alignSelf: "flex-start" }}>Ativar</button>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-
-      {planoAtivo !== "base" && (<>
+      {planoAtivo !== "novo" && (<>
 
       {mostrarAlerta && (
         <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>

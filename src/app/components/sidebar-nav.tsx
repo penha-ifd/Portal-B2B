@@ -208,8 +208,8 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
           </>
         )}
 
-        {/* Grupo 3 — Seus clientes (qualquer módulo contratado) */}
-        {(isBase || isEssencialOrAvancado) && (
+        {/* Grupo 3 — Seus clientes (essencial+) */}
+        {isEssencialOrAvancado && (
           <>
             <GroupLabel label="Seus clientes" collapsed={collapsed} />
             {clientes.map((item) => (
@@ -220,7 +220,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
 
         {/* Grupo 4 — Disponíveis */}
         <GroupLabel label="Disponíveis" collapsed={collapsed} />
-        {!isBase && !isEssencialOrAvancado && clientes.map((item) => (
+        {!isEssencialOrAvancado && clientes.map((item) => (
           <LockedItem key={item.to} item={item} collapsed={collapsed} />
         ))}
         {lockedItems.map((item) => (
