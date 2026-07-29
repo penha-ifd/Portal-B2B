@@ -174,8 +174,17 @@ export function ClientesPage() {
                 ))}
               </div>
               {clientesFiltrados.map((c, i) => (
-                <div key={i} onClick={() => setSelectedClient(c.nome)} className="flex items-center justify-between border-b border-[#DCDCDC] py-2 h-12 cursor-pointer hover:bg-[#F5F5F5] transition-colors">
-                  <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.nome}</span>
+                <div key={i} onClick={() => setSelectedClient(c.nome)} className="flex items-center justify-between border-b border-[#DCDCDC] py-2 min-h-12 cursor-pointer hover:bg-[#F5F5F5] transition-colors">
+                  <span className="flex-1 min-w-0 flex flex-col gap-0.5">
+                    <span className="paragraph-p2-14-regular text-[#666666]">{c.nome}</span>
+                    {CLIENTE_PROFILE[c.nome] && (
+                      <span className="flex gap-1 flex-wrap">
+                        {CLIENTE_PROFILE[c.nome].tags.slice(0, 2).map((tag) => (
+                          <span key={tag} style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
+                        ))}
+                      </span>
+                    )}
+                  </span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.telefone}</span>
                   <span className="flex-1 min-w-0">
                     <span className={`inline-block paragraph-p3-12-medium rounded-full px-2.5 py-0.5 ${c.status === "Ativo" ? "text-[#1FAD68] bg-[rgba(31,173,104,0.10)]" : "text-[#A3A3A3] bg-[#F5F5F5]"}`}>{c.status}</span>
