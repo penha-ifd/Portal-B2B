@@ -167,6 +167,69 @@ export function LpComerFora() {
           ))}
         </div>
       </section>
+
+      {/* Mecânicas */}
+      <section style={{ padding: '64px 48px' }}>
+        <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: '0 0 var(--spacing-24)' }}>Mais estratégia pro seu negócio</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--spacing-16)', marginBottom: 'var(--spacing-40)' }}>
+          {[
+            { titulo: 'Compre e ganhe', desc: 'Ofertas com cortesia e peça 2, pague 1' },
+            { titulo: 'Desconto no item', desc: 'Promove e destaca pratos específicos' },
+            { titulo: 'Desconto em valor', desc: 'R$ off aplicado no total do pedido' },
+            { titulo: 'Cashback', desc: 'Acumula saldo pra usar na próxima visita' },
+          ].map((mec) => (
+            <div key={mec.titulo} style={{ borderRadius: 'var(--radius-12)', border: '1px solid var(--borda)', padding: 'var(--spacing-20)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
+              <div style={{ width: '100%', height: 120, borderRadius: 'var(--radius-8)', backgroundColor: 'var(--bg-secundario)' }} />
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>{mec.titulo}</span>
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>{mec.desc}</span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-40)' }}>
+          <div>
+            <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', display: 'block', marginBottom: 'var(--spacing-16)' }}>Use promoções de forma estratégica para:</span>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
+              {['Movimentar horários de menor fluxo', 'Divulgar pratos estratégicos', 'Aumentar o ticket médio', 'Incentivar novas visitas'].map((item) => (
+                <li key={item} style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
+                  <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 14, color: 'var(--sucesso)', flexShrink: 0 }} />
+                  <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', display: 'block', marginBottom: 'var(--spacing-16)' }}>Você decide:</span>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
+              {['Quando suas promoções aparecem', 'Quais clientes podem usar', 'Quanto liberar em descontos e benefícios', 'Ative, pause ou ajuste quando quiser'].map((item) => (
+                <li key={item} style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
+                  <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 14, color: 'var(--sucesso)', flexShrink: 0 }} />
+                  <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section style={{ margin: '0 48px', padding: 'var(--spacing-40)', borderRadius: 'var(--radius-12)', backgroundColor: 'var(--invertido)', display: 'flex', alignItems: 'center', gap: 'var(--spacing-40)' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--atencao)', display: 'inline-block', alignSelf: 'flex-start', backgroundColor: 'rgba(255,195,71,0.15)', borderRadius: 'var(--radius-pill)', padding: '4px 12px' }}>Oferta por tempo limitado</span>
+          <h3 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff', margin: 0 }}>Alcance mais de 226 mil clientes que usam o iFood na sua região</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+            {['Ative em poucos minutos sem custos', 'Pause ou ajuste quando quiser'].map((item) => (
+              <div key={item} style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
+                <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 14, color: 'var(--sucesso)', flexShrink: 0 }} />
+                <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff' }}>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button type="button" style={{ padding: '14px 32px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', flexShrink: 0 }}>
+          Ativar Comer Fora
+        </button>
+      </section>
     </div>
   );
 }
