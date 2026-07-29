@@ -5,21 +5,6 @@ export function SegmentosTab() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div className="flex flex-col gap-10">
-      {/* Composer */}
-      <div style={{ marginBottom: "var(--spacing-24)" }}>
-        <div className="flex items-center" style={{ height: 56, backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", paddingLeft: "var(--spacing-16)", paddingRight: "var(--spacing-16)", gap: "var(--spacing-8)" }}>
-          <input type="text" placeholder="Descreva o público que você quer alcançar" style={{ flex: 1, fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", background: "none", border: "none", outline: "none" }} />
-          <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: "var(--text-secundario)" }} />
-          <button type="button" className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)", border: "none", cursor: "pointer" }}>
-            <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: "#ffffff" }} />
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2" style={{ marginTop: "var(--spacing-12)" }}>
-          {["Quem não volta há 60 dias", "Quem só vem no fim de semana", "Quem pede delivery e nunca veio"].map((chip) => (
-            <button key={chip} type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "6px 12px", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", cursor: "pointer" }}>{chip}</button>
-          ))}
-        </div>
-      </div>
 
       {/* Grade de segmentos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: "var(--spacing-16)" }}>

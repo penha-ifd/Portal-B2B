@@ -1,35 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { usePlano } from '../state/plano-context';
-
-// ── tipos de card gerado ────────────────────────────────────────────────────
-
-interface GenCard {
-  id: string;
-  kind: 'answer' | 'action';
-  question: string;
-  body: string;
-  confirmed?: boolean;
-  confirmedLabel?: string;
-}
-
-let counter = 0;
-const ACTION_RE = /^(abrir|bloquear|criar|cancelar|alterar)\b/i;
-
-function buildCard(text: string): GenCard {
-  const q = text.toLowerCase();
-  const id = String(counter++);
-  if (ACTION_RE.test(text.trim())) {
-    if (q.includes('bloquear')) {
-      return { id, kind: 'action', question: text, body: 'Bloquear mesa 12 hoje a partir das 19h até o fechamento.', confirmedLabel: 'Feito · mesa 12 bloqueada hoje' };
-    }
-    return { id, kind: 'action', question: text, body: 'Abrir 2 mesas adicionais às 21h de hoje.', confirmedLabel: 'Feito · 2 mesas abertas às 21h' };
-  }
-  if (q.includes('no-show') || q.includes('no show')) {
-    return { id, kind: 'answer', question: text, body: '3 no-shows registrados esta semana: terça (1), quinta (1) e sexta (1). Taxa de 8%, dentro da média do mês.' };
-  }
-  return { id, kind: 'answer', question: text, body: 'Analisando os dados de reservas do período.' };
-}
 
 // ── dados da tabela ─────────────────────────────────────────────────────────
 
@@ -74,93 +44,7 @@ const headCell: React.CSSProperties = {
   textAlign: 'left' as const,
 };
 
-// ── composer local ──────────────────────────────────────────────────────────
 
-const CHIPS = [
-  'Bloquear mesa 12 hoje',
-  'Quantos no-shows esta semana',
-  'Abrir mais duas mesas às 21h',
-];
-
-function ReservasComposer({ onSubmit }: { onSubmit: (t: string) => void }) {
-  const [value, setValue] = useState('');
-
-  function submit() {
-    const t = value.trim();
-    if (!t) return;
-    onSubmit(t);
-    setValue('');
-  }
-
-  return (
-    <div style={{ marginBottom: 'var(--spacing-24)' }}>
-      <div className="flex items-center" style={{ height: 56, backgroundColor: 'var(--bg-primario)', border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', paddingLeft: 'var(--spacing-16)', paddingRight: 'var(--spacing-16)', gap: 'var(--spacing-8)' }}>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && submit()}
-          placeholder="Peça algo sobre suas reservas"
-          style={{ flex: 1, ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-primario)', background: 'none', border: 'none', outline: 'none' }}
-        />
-        <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: 'var(--text-secundario)' }} />
-        <button type="button" onClick={submit} className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', border: 'none', cursor: 'pointer' }}>
-          <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: '#ffffff' }} />
-        </button>
-      </div>
-      <div className="flex flex-wrap gap-2" style={{ marginTop: 'var(--spacing-12)' }}>
-        {CHIPS.map((chip) => (
-          <button key={chip} type="button" onClick={() => { onSubmit(chip); setValue(''); }}
-            style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-pill)', padding: '6px 12px', ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-secundario)', backgroundColor: 'transparent', cursor: 'pointer' }}>
-            {chip}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── cards gerados ───────────────────────────────────────────────────────────
-
-function GenCards({ cards, onConfirm, onRemove }: { cards: GenCard[]; onConfirm: (id: string) => void; onRemove: (id: string) => void }) {
-  if (!cards.length) return null;
-  const bodyTxt: React.CSSProperties = { ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', lineHeight: 1.5, margin: 0 };
-  const labelSm: React.CSSProperties = { ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' };
-  const base: React.CSSProperties = { backgroundColor: 'var(--bg-primario)', border: '1px solid var(--marca)', borderRadius: 'var(--radius-12)' };
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)', marginBottom: 'var(--spacing-24)' }}>
-      {cards.map((card) => {
-        if (card.kind === 'action' && card.confirmed) {
-          return (
-            <div key={card.id} style={{ ...base, display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)', height: 40, padding: '0 var(--spacing-16)' }}>
-              <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 16, color: 'var(--sucesso)' }} />
-              <span style={{ ...bodyTxt, lineHeight: 1 }}>{card.confirmedLabel}</span>
-            </div>
-          );
-        }
-        if (card.kind === 'action') {
-          return (
-            <div key={card.id} style={{ ...base, padding: 'var(--spacing-16)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-              <span style={labelSm}>Confirmar ação</span>
-              <p style={bodyTxt}>{card.body}</p>
-              <div className="flex items-center gap-2" style={{ marginTop: 'var(--spacing-4)' }}>
-                <button type="button" onClick={() => onConfirm(card.id)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'var(--invertido)', color: '#ffffff', border: 'none', borderRadius: 'var(--radius-pill)', padding: '8px 16px', cursor: 'pointer' }}>Confirmar</button>
-                <button type="button" onClick={() => onRemove(card.id)} style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], background: 'none', border: 'none', color: 'var(--text-secundario)', cursor: 'pointer', padding: '8px 4px' }}>Cancelar</button>
-              </div>
-            </div>
-          );
-        }
-        return (
-          <div key={card.id} style={{ ...base, padding: 'var(--spacing-16)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-            <span style={{ ...labelSm, color: 'var(--marca)' }}>Gerado agora · «{card.question}»</span>
-            <p style={bodyTxt}>{card.body}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 // ── página ──────────────────────────────────────────────────────────────────
 
@@ -173,18 +57,7 @@ const PLANO_INFO: Record<string, string> = {
 export function ReservasPage() {
   const { planoAtivo } = usePlano();
   const navigate = useNavigate();
-  const [cards, setCards] = useState<GenCard[]>([]);
   const isBase = planoAtivo === 'base';
-
-  function handleSubmit(text: string) {
-    setCards((prev) => [buildCard(text), ...prev]);
-  }
-  function handleConfirm(id: string) {
-    setCards((prev) => prev.map((c) => c.id === id ? { ...c, confirmed: true } : c));
-  }
-  function handleRemove(id: string) {
-    setCards((prev) => prev.filter((c) => c.id !== id));
-  }
 
   return (
     <div className="relative">
@@ -209,8 +82,6 @@ export function ReservasPage() {
 
       {/* Conteúdo */}
       <div className="flex flex-col p-6" style={{ gap: 'var(--spacing-24)' }}>
-        <ReservasComposer onSubmit={handleSubmit} />
-        <GenCards cards={cards} onConfirm={handleConfirm} onRemove={handleRemove} />
 
         {/* Calendário de ocupação semanal */}
         <div style={{ backgroundColor: 'var(--bg-secundario)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)' }}>

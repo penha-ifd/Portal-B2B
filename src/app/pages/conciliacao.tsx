@@ -158,27 +158,6 @@ export function ConciliacaoPage() {
           </span>
         </div>
 
-        {/* Composer */}
-        <div style={{ marginBottom: 'var(--spacing-24)' }}>
-          <div className="flex items-center" style={{ height: 56, backgroundColor: 'var(--bg-primario)', border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', paddingLeft: 'var(--spacing-16)', paddingRight: 'var(--spacing-16)', gap: 'var(--spacing-8)' }}>
-            <input
-              type="text"
-              placeholder="Peça algo sobre a conciliação"
-              style={{ flex: 1, ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-primario)', background: 'none', border: 'none', outline: 'none' }}
-            />
-            <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: 'var(--text-secundario)' }} />
-            <button type="button" className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', border: 'none', cursor: 'pointer' }}>
-              <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: '#ffffff' }} />
-            </button>
-          </div>
-          <div className="flex flex-wrap gap-2" style={{ marginTop: 'var(--spacing-12)' }}>
-            {['Resolver os pendentes', 'Por que 27 não confirmaram'].map((chip) => (
-              <button key={chip} type="button" style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-pill)', padding: '6px 12px', ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-secundario)', backgroundColor: 'transparent', cursor: 'pointer' }}>
-                {chip}
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* 1. Cabeçalho */}
         <div className="flex items-center justify-between">
