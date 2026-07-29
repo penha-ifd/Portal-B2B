@@ -75,6 +75,47 @@ export function LpComerFora() {
           ))}
         </div>
       </section>
+
+      {/* Vídeo */}
+      <section style={{ padding: '0 48px 64px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-24)' }}>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', display: 'block', marginBottom: 'var(--spacing-8)' }}>Em menos de 1 minuto</span>
+          <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0 }}>Veja o Comer Fora em ação</h2>
+        </div>
+        <div style={{ width: '100%', maxWidth: 1250, height: 400, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', backgroundColor: 'var(--invertido)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#ffffff"/></svg>
+          </div>
+        </div>
+      </section>
+
+      {/* Vantagens */}
+      <section style={{ padding: '64px 48px', display: 'flex', gap: 'var(--spacing-40)', alignItems: 'center' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>Vantagens</span>
+          <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0 }}>Atraia clientes com estratégia e conheça quem entra no salão</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-20)' }}>
+            {[
+              { titulo: 'Aumentar movimento com estratégia', desc: 'Preencha horários ociosos e promova itens estratégicos' },
+              { titulo: 'Conhecer os hábitos de consumo dos seus clientes', desc: 'Tenha acesso a nome, ticket médio, frequência, etc' },
+            ].map((item, i) => (
+              <div key={i} style={{ display: 'flex', gap: 'var(--spacing-12)', alignItems: 'flex-start' }}>
+                <i className="ifdl-icon-line ifdl-icon-check" style={{ fontSize: 20, color: 'var(--sucesso)', marginTop: 2, flexShrink: 0 }} />
+                <div>
+                  <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', display: 'block' }}>{item.titulo}</span>
+                  <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)' }}>{item.desc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button type="button" style={{ alignSelf: 'flex-start', padding: '12px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--invertido)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)' }}>
+            Começar agora
+          </button>
+        </div>
+        <div style={{ width: 480, height: 400, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', color: 'var(--text-desabilitado)' }}>Device mockup</span>
+        </div>
+      </section>
     </div>
   );
 }
