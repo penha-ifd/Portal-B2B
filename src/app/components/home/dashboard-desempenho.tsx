@@ -7,6 +7,7 @@ export const mockDashboard = {
   publico: { primeiraVezIfood: 194, jaVieramPeloIfood: 91, voltaramSemCupom: 64 },
   vitrine: { impressoes: 14200 },
   benchmark: { percentil: 80, categoria: "italianos", descontoMedioRegiao: 0.20, descontoProprio: 0.10 },
+  narrativa: "Esta semana seus cupons trouxeram 285 clientes confirmados — 91 deles nunca tinham vindo pelo iFood. O ticket médio subiu 12% vs. a média da região. Sua melhor terça desde dezembro.",
   sugestao: { texto: "Restaurantes similares com sobremesa grátis convertem 20% mais no almoço de terça a quinta. Testar no próximo pacote?" },
   causa: {
     faturamento: "R$ 1.090,24 em cashback trouxeram R$ 8.976,24 em vendas",
@@ -144,6 +145,7 @@ function formatarFaixaFaturamento(confirmados: number, ticket: number): string {
 
 import { useState, useEffect, useRef } from "react";
 import { usePlano } from "../../state/plano-context";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const MOSTRAR_JA_FEITO = true;
 
@@ -265,7 +267,6 @@ export function DashboardDesempenho({ onSubmit }: Props) {
   }
 
   function isCardLocked(modulo: string): boolean {
-    if (modulo === "cupons") return planoAtivo === "base";
     return !modulosLiberados.includes(modulo);
   }
   const temDados = d.checkins.confirmados > 0;
@@ -464,61 +465,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       </div>
       </div>
 
-      {planoAtivo === "base" && (
-        <>
-          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "var(--spacing-8)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Dados de demonstração</span>
-          </div>
-
-          {/* Mapa de segmentação */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
-            {[
-              { nome: "Novato", count: 194, causa: "primeira visita nos últimos 90 dias" },
-              { nome: "Fiel", count: 412, causa: "4 ou mais visitas, ativo no último mês" },
-              { nome: "VIP", count: 88, causa: "ticket médio acima de R$ 150" },
-              { nome: "Em risco", count: 604, causa: "já vieram 3+ vezes, sumiram há 60 dias" },
-              { nome: "Perdido", count: 331, causa: "sem visita há mais de 6 meses" },
-            ].map((seg) => (
-              <div key={seg.nome} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Automático</span>
-                <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{seg.nome}</span>
-                <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>{seg.count}</div>
-                <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>{seg.causa}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Ative um módulo para ver seus clientes de verdade</span>
-            <button type="button" onClick={() => window.location.href = "/modulos"} style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)" }}>Ver módulos</button>
-          </div>
-
-          {/* Módulos habilitadores */}
-          <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
-            {[
-              { nome: "Cardápio", icone: "store", destrava: "Importa cardápio do delivery em um clique" },
-              { nome: "Avaliações", icone: "store", destrava: "Reúne Google e iFood, avisa respostas pendentes" },
-              { nome: "Reservas", icone: "calendar", destrava: "Recebe reservas do app e organiza o salão" },
-              { nome: "PDV", icone: "store", destrava: "Integra ponto de venda ao painel em tempo real" },
-              { nome: "Pagamento na mesa", icone: "credit-card", destrava: "Cliente fecha conta pelo app" },
-              { nome: "Agregador", icone: "delivery", destrava: "Centraliza pedidos de todos os canais" },
-              { nome: "Fidelidade", icone: "store", destrava: "Selos e recompensas para clientes recorrentes" },
-            ].map((m) => (
-              <div key={m.nome} style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-12)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
-                  <i className={`ifdl-icon-line ifdl-icon-${m.icone}`} style={{ fontSize: "18px", color: "var(--marca)" }} />
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{m.nome}</span>
-                </div>
-                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", flex: 1 }}>{m.destrava}</span>
-                <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", alignSelf: "flex-start" }}>Ativar</button>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-
-      {planoAtivo !== "base" && (<>
+      {planoAtivo !== "novo" && (<>
 
       {mostrarAlerta && (
         <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
@@ -533,6 +480,16 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <button type="button" style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", flexShrink: 0, marginLeft: "var(--spacing-16)" }}>
             Renovar pacote
           </button>
+        </div>
+      )}
+      {temDados && (
+        <div style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
+            <span style={{ fontSize: "16px" }}>✦</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>Gerado</span>
+          </div>
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.6 }}>{d.narrativa}</span>
+          <button type="button" style={{ alignSelf: "flex-start", border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Perguntar mais</button>
         </div>
       )}
       {temDados && <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)" }}>
@@ -703,6 +660,20 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </button>
         </div>
 
+        {/* Card — Gráfico de linha temporal */}
+        <div className="col-span-2" style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
+          <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginBottom: "var(--spacing-12)" }}>Check-ins confirmados — últimas 8 semanas</span>
+          <ResponsiveContainer width="100%" height={160}>
+            <LineChart data={[{sem:"Sem 1",valor:180},{sem:"Sem 2",valor:195},{sem:"Sem 3",valor:210},{sem:"Sem 4",valor:198},{sem:"Sem 5",valor:240},{sem:"Sem 6",valor:255},{sem:"Sem 7",valor:268},{sem:"Sem 8",valor:285}]} margin={{top:8,right:8,bottom:0,left:-16}}>
+              <XAxis dataKey="sem" tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
+              <YAxis tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{fontFamily:"var(--font-inter)",fontSize:12,borderRadius:8,border:"1px solid var(--borda)"}} />
+              <Line type="monotone" dataKey="valor" stroke="#EB0033" strokeWidth={2} dot={{r:3,fill:"#EB0033"}} activeDot={{r:5}} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
         {/* Card — Avaliações */}
         {isCardLocked("avaliacoes") ? (
           <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
@@ -716,6 +687,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "80%" }} />
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "55%" }} />
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Restaurantes com nota visível recebem 34% mais reservas</span>
             <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
               Ativar Avaliações
             </button>
@@ -755,6 +727,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "35%" }} />
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "60%" }} />
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ativar identifica 40% mais clientes no CRM</span>
             <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
               Ativar Reservas
             </button>
@@ -794,6 +767,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "70%" }} />
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "45%" }} />
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Check-in automático sem depender do garçom</span>
             <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
               Ativar Pagamento
             </button>

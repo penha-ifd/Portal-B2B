@@ -60,44 +60,58 @@ const PLANOS: {
 const MODULOS: {
   nome: string;
   descricao: string;
+  impacto: string;
   incluso: (p: PlanoAtivo) => boolean;
   escolhaEssencial?: boolean;
 }[] = [
   {
+    nome: 'Promoções',
+    descricao: 'Crie cupons, cashback e campanhas de atração direto no painel. Acompanhe desempenho por campanha e veja quantos clientes cada promoção trouxe ao salão.',
+    impacto: 'Cupons trouxeram 285 clientes confirmados esta semana',
+    incluso: (p) => p === 'base' || p === 'essencial' || p === 'avancado',
+  },
+  {
     nome: 'Cardápio digital',
     descricao: 'Importa o cardápio que você já tem no delivery do iFood, em um clique. Destrava o cruzamento entre o que seus clientes pedem no delivery e o que você oferece no salão.',
+    impacto: 'Destrava cruzamento delivery × salão no CRM',
     incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Reservas',
     descricao: 'Recebe reservas do app do iFood e organiza a ocupação do salão. Destrava a aba Reservas e a identificação de clientes.',
+    impacto: 'Identifica 40% mais clientes pela reserva',
     incluso: (p) => p === 'essencial' || p === 'avancado',
     escolhaEssencial: true,
   },
   {
     nome: 'PDV',
     descricao: 'Integra o ponto de venda ao painel e enriquece os dados de faturamento e ticket médio em tempo real.',
+    impacto: 'Troca estimativa por faturamento real — 23% mais precisão',
     incluso: (p) => p === 'essencial' || p === 'avancado',
     escolhaEssencial: true,
   },
   {
     nome: 'Pagamento na mesa',
     descricao: 'Permite que o cliente feche a conta pelo app. Destrava a identificação pelo pagamento e aumenta a recorrência.',
+    impacto: 'Check-in automático sem depender do garçom',
     incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Agregador de pedidos',
     descricao: 'Centraliza pedidos de diferentes canais em um único painel, reduzindo erros e tempo de operação.',
+    impacto: 'Visão unificada de todos os canais num lugar',
     incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Avaliações',
     descricao: 'Reúne as avaliações do Google e do iFood num lugar só e avisa quando alguma precisa de resposta. Destrava a nota do salão no painel e o fluxo de cortesia para avaliação negativa.',
+    impacto: 'Nota do salão visível — 34% mais reservas',
     incluso: (p) => p === 'avancado',
   },
   {
     nome: 'Fidelidade',
     descricao: 'Cria programas de fidelidade com selos e recompensas para clientes recorrentes. Destrava a taxa de retorno e o ticket médio por cliente fidelizado.',
+    impacto: 'Clientes com selo voltam 2,4× mais',
     incluso: (p) => p === 'avancado',
   },
 ];
@@ -217,6 +231,9 @@ export function ModulosPage() {
                     )}
                     <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)', lineHeight: 1.5 }}>
                       {mod.descricao}
+                    </span>
+                    <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--marca)' }}>
+                      {mod.impacto}
                     </span>
                   </div>
                 </div>

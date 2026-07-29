@@ -89,20 +89,6 @@ export function ClientesPage() {
         <button type="button" onClick={() => navigate("/conciliacao")} style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", flexShrink: 0 }}>Conciliar check-ins</button>
       </div>
 
-      <div style={{ marginBottom: "var(--spacing-24)" }}>
-        <div className="flex items-center" style={{ height: 56, backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", paddingLeft: "var(--spacing-16)", paddingRight: "var(--spacing-16)", gap: "var(--spacing-8)" }}>
-          <input type="text" placeholder="Pergunte sobre seus clientes" style={{ flex: 1, fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", background: "none", border: "none", outline: "none" }} />
-          <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: "var(--text-secundario)" }} />
-          <button type="button" className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)", border: "none", cursor: "pointer" }}>
-            <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: "#ffffff" }} />
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2" style={{ marginTop: "var(--spacing-12)" }}>
-          {["Quem gasta mais", "Quem sumiu este mês", "Quem veio do delivery"].map((chip) => (
-            <button key={chip} type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "6px 12px", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", cursor: "pointer" }}>{chip}</button>
-          ))}
-        </div>
-      </div>
 
       <div className="flex flex-col gap-6">
         <div className="flex gap-1 border-b border-[#EBEBEB]">
@@ -174,13 +160,24 @@ export function ClientesPage() {
                 ))}
               </div>
               {clientesFiltrados.map((c, i) => (
-                <div key={i} onClick={() => setSelectedClient(c.nome)} className="flex items-center justify-between border-b border-[#DCDCDC] py-2 h-12 cursor-pointer hover:bg-[#F5F5F5] transition-colors">
-                  <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.nome}</span>
+                <div key={i} onClick={() => setSelectedClient(c.nome)} className="flex items-center justify-between border-b border-[#DCDCDC] py-2 min-h-12 cursor-pointer hover:bg-[#F5F5F5] transition-colors">
+                  <span className="flex-1 min-w-0 flex flex-col gap-0.5">
+                    <span className="paragraph-p2-14-regular text-[#666666]">{c.nome}</span>
+                    {CLIENTE_PROFILE[c.nome] && (
+                      <span className="flex gap-1 flex-wrap">
+                        {CLIENTE_PROFILE[c.nome].tags.slice(0, 2).map((tag) => (
+                          <span key={tag} style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
+                        ))}
+                      </span>
+                    )}
+                  </span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.telefone}</span>
                   <span className="flex-1 min-w-0">
                     <span className={`inline-block paragraph-p3-12-medium rounded-full px-2.5 py-0.5 ${c.status === "Ativo" ? "text-[#1FAD68] bg-[rgba(31,173,104,0.10)]" : "text-[#A3A3A3] bg-[#F5F5F5]"}`}>{c.status}</span>
                   </span>
-                  <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.perfil}</span>
+                  <span className="flex-1 min-w-0">
+                    <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", ...({"VIP":{backgroundColor:"rgba(235,0,51,0.08)",color:"var(--marca)"},"Fiel":{backgroundColor:"rgba(31,173,104,0.10)",color:"#1FAD68"},"Em risco":{backgroundColor:"rgba(255,152,0,0.10)",color:"#F57C00"},"Perdido":{backgroundColor:"#F5F5F5",color:"#A3A3A3"},"Novato":{backgroundColor:"rgba(33,150,243,0.10)",color:"#1E88E5"}}[c.perfil] || {backgroundColor:"#F5F5F5",color:"#666666"}) }}>{c.perfil}</span>
+                  </span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.origem}</span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.visitas}</span>
                   <span className="flex-1 min-w-0 paragraph-p2-14-regular text-[#666666]">{c.primeiraVisita}</span>

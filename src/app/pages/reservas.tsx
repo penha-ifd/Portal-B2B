@@ -152,8 +152,10 @@ export function ReservasPage() {
                   <td style={cell14}>{r.hora}</td>
                   <td style={cell14}>
                     <div>{r.nome}</div>
-                    <div style={{ ...fontBase, fontSize: "11px", fontWeight: "var(--font-weight-regular)", color: r.tags.includes("veio do delivery") ? "var(--marca)" : "var(--text-secundario)", marginTop: 2 }}>
-                      {r.tags}
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
+                      {r.tags.split(" · ").map((tag) => (
+                        <span key={tag} style={{ ...fontBase, fontSize: "11px", fontWeight: "var(--font-weight-regular)", color: tag === "veio do delivery" ? "var(--marca)" : "var(--text-secundario)", backgroundColor: tag === "veio do delivery" ? "rgba(235,0,51,0.08)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
+                      ))}
                     </div>
                   </td>
                   <td style={cell14}>{r.pessoas}</td>

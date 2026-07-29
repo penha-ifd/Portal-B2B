@@ -68,7 +68,7 @@ export function HomePage() {
   const navigate = useNavigate();
   const [generatedCards, setGeneratedCards] = useState<GeneratedCard[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const isBase = planoAtivo === 'base' || planoAtivo === 'novo';
+  const isBase = planoAtivo === 'novo';
 
   function handleSubmit(text: string) {
     setGeneratedCards((prev) => [buildCard(text), ...prev]);
