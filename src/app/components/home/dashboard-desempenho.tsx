@@ -205,7 +205,6 @@ export function DashboardDesempenho({ onSubmit }: Props) {
     if (composerValue.trim()) {
       const response = mockResponses[composerValue.trim()] || "Com base nos dados do último mês, seu restaurante teve crescimento de 12% em check-ins confirmados. A campanha de cashback gerou R$ 8.976 em vendas com investimento de R$ 1.090 — um retorno de 8,2x.";
       setComposerResponse(response);
-      onSubmit?.(composerValue.trim());
     }
     setComposerValue("");
   }
@@ -292,7 +291,8 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           ${Array.from({ length: 16 }).map((_, i) => `@keyframes composer-wave-${i} { from { height: ${18 + (i * 5) % 82}%; } to { height: ${18 + (i * 5) % 82}%; } }`).join("\n")}
         }
       `}</style>
-      <div style={{ position: "fixed", bottom: 24, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: "640px", zIndex: 40 }}>
+      <div style={{ position: "fixed", bottom: 24, left: 0, right: 0, marginLeft: "276px", display: "flex", justifyContent: "center", zIndex: 40, pointerEvents: "none" }}>
+      <div style={{ width: "100%", maxWidth: "640px", pointerEvents: "auto" }}>
         {composerResponse && (
           <div style={{ marginBottom: "var(--spacing-12)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)", boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}>
             <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.5, margin: 0 }}>{composerResponse}</p>
@@ -461,6 +461,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             )}
           </button>
         </div>
+      </div>
       </div>
 
       {planoAtivo === "base" && (
