@@ -145,7 +145,7 @@ export function ClientesPage() {
               <h3 className="text-[14px] font-medium text-[#141414] leading-4">Conecte-se com seus clientes</h3>
               <p className="paragraph-p3-12-regular text-[#666666] mt-1">Envie mensagens pelo WhatsApp para divulgar promoções e eventos do seu salão.</p>
             </div>
-            <button type="button" className="paragraph-p2-14-medium text-[#141414] border border-[#EBEBEB] rounded-xl px-4 py-2 bg-white hover:bg-[#F5F5F5] transition-colors shrink-0">Agendar disparo</button>
+            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Agendar disparo</button>
           </div>
 
           <div className="flex flex-col gap-4">
