@@ -18,7 +18,7 @@ const PLANOS: {
   {
     key: 'base',
     nome: 'Base',
-    preco: 'R$ 0',
+    preco: 'R$ 290/mês',
     subtitulo: 'Sua vitrine e seus cupons',
     beneficios: [
       'Quantos clientes seus já pedem delivery e nunca foram ao salão',
