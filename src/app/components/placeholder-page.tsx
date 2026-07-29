@@ -5,7 +5,13 @@ interface Props {
   icon: string;
 }
 
-const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: string }> = {
+const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: string; ativo?: boolean }> = {
+  Cardápio: {
+    frase: "Seu cardápio do delivery já está no iFood. Importe para o salão em um clique.",
+    cards: [],
+    preco: "",
+    ativo: true,
+  },
   PDV: {
     frase: "Conecta seu caixa e troca faturamento estimado por faturamento real.",
     cards: ["Faturamento real", "Pratos mais vendidos", "Faturamento por mesa"],
@@ -52,7 +58,58 @@ export function PlaceholderPage({ title, icon }: Props) {
               </svg>
             </div>
             <h3 className="heading-h3-18-medium text-text-primary mb-2">{title}</h3>
-            <p className="paragraph-p2-14-regular text-text-secondary">Esta seção faz parte do CRM e será apresentada nas próximas etapas.</p>
+            <p className="paragraph-p2-14-regular text-text-secondary">Esta área não faz parte do escopo deste protótipo.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (conteudo.ativo) {
+    const PRATOS = ["Risoto de camarão", "Salmão grelhado", "Polenta com ragu", "Bruschetta caprese", "Tiramisu", "Nhoque ao molho pesto", "Panna cotta"];
+    return (
+      <div>
+        <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
+          <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+            <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "12px" }} />
+          </span>
+          <span className="paragraph-p2-14-medium ml-1" style={{ color: "#141414" }}>{title}</span>
+        </div>
+        <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-6">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-[24px] font-medium text-[#141414] leading-8">{title}</h1>
+            <p className="paragraph-p2-14-regular text-[#666666]">{conteudo.frase}</p>
+          </div>
+
+          {/* Card 1 — Importar do delivery */}
+          <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>Importar do delivery</span>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>87 itens</div>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>é o cardápio que você já mantém atualizado no iFood</div>
+            <button type="button" style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", marginTop: "var(--spacing-12)" }}>Importar cardápio</button>
+          </div>
+
+          {/* Card 2 — Pratos que faltam */}
+          <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Cross-channel</span>
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>7 pratos que faltam no salão</span>
+            <div style={{ borderTop: "1px solid var(--borda)" }}>
+              {PRATOS.map((prato, i) => (
+                <div key={i} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", padding: "var(--spacing-8) 0", borderBottom: i < PRATOS.length - 1 ? "1px solid var(--borda)" : "none" }}>{prato}</div>
+              ))}
+            </div>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-12)" }}>seus clientes de delivery pedem, seu cardápio do salão não tem</div>
+            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Adicionar ao salão</button>
+          </div>
+
+          {/* Card 3 — Importar de outros sistemas */}
+          <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>Importar de outros sistemas</span>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>Get In e Tagme</div>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>o Cardápio Hub conecta o que você já usa em outros lugares</div>
+            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Conectar sistemas</button>
           </div>
         </div>
       </div>
