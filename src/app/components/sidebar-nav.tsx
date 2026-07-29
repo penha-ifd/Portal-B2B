@@ -131,7 +131,7 @@ function GroupLabel({ label, collapsed }: { label: string; collapsed: boolean })
         fontSize: 'var(--font-size-12)',
         fontWeight: 'var(--font-weight-regular)',
         letterSpacing: 'var(--letter-spacing)',
-        color: 'var(--text-desabilitado)',
+        color: 'var(--text-secundario)',
         marginTop: 20,
         marginBottom: 4,
       }}
