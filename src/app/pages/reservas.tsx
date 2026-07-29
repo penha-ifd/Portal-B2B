@@ -212,6 +212,59 @@ export function ReservasPage() {
         <ReservasComposer onSubmit={handleSubmit} />
         <GenCards cards={cards} onConfirm={handleConfirm} onRemove={handleRemove} />
 
+        {/* Calendário de ocupação semanal */}
+        <div style={{ backgroundColor: 'var(--bg-secundario)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--spacing-12)' }}>
+            <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>Ocupação da semana</span>
+            <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>12 mesas disponíveis por turno</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 8 }}>
+            {[
+              { dia: 'Seg', data: '28', alm: 4, jan: 7 },
+              { dia: 'Ter', data: '29', alm: 3, jan: 8 },
+              { dia: 'Qua', data: '30', alm: 5, jan: 6 },
+              { dia: 'Qui', data: '31', alm: 6, jan: 9 },
+              { dia: 'Sex', data: '01', alm: 8, jan: 12 },
+              { dia: 'Sáb', data: '02', alm: 10, jan: 12 },
+              { dia: 'Dom', data: '03', alm: 9, jan: 5 },
+            ].map((d) => {
+              const getColor = (n: number) => n >= 10 ? 'var(--marca)' : n >= 7 ? 'var(--atencao)' : 'var(--sucesso)';
+              const getLabel = (n: number) => n >= 10 ? 'Lotado' : n >= 7 ? 'Alta' : 'Normal';
+              return (
+                <div key={d.dia} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '8px 0', borderRadius: 'var(--radius-8)', backgroundColor: 'var(--bg-primario)' }}>
+                  <span style={{ ...fontBase, fontSize: '11px', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>{d.dia}</span>
+                  <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>{d.data}</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center', marginTop: 4 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: getColor(d.alm) }} />
+                      <span style={{ ...fontBase, fontSize: '10px', color: 'var(--text-secundario)' }}>Alm</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: getColor(d.jan) }} />
+                      <span style={{ ...fontBase, fontSize: '10px', color: 'var(--text-secundario)' }}>Jan</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ display: 'flex', gap: 'var(--spacing-16)', marginTop: 'var(--spacing-12)', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--sucesso)' }} />
+              <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Normal</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--atencao)' }} />
+              <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Alta</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: 'var(--marca)' }} />
+              <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)' }}>Lotado</span>
+            </div>
+            <span style={{ ...fontBase, fontSize: '11px', color: 'var(--text-secundario)', marginLeft: 'auto' }}>Quarta almoço com baixa ocupação — bom momento para campanha</span>
+          </div>
+        </div>
+
         {/* Tabela */}
         <div style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
