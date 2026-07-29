@@ -1,9 +1,23 @@
 import { useNavigate } from "react-router";
+import { usePlano } from "../state/plano-context";
 
 interface Props {
   title: string;
   icon: string;
 }
+
+const TITULO_MODULO: Record<string, string> = {
+  "Pagamento na mesa": "pagamento",
+  "Avaliações": "avaliacoes",
+  "Agregador de pedidos": "agregador",
+};
+
+const PLANO_MODULOS: Record<string, string[]> = {
+  novo: [],
+  base: ["delivery", "cupons"],
+  essencial: ["delivery", "cupons", "reservas"],
+  avancado: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes", "agregador"],
+};
 
 const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: string; ativo?: boolean }> = {
   Cardápio: {
@@ -36,7 +50,12 @@ const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: s
 
 export function PlaceholderPage({ title, icon }: Props) {
   const navigate = useNavigate();
+  const { planoAtivo } = usePlano();
   const conteudo = MODULO_CONTEUDO[title];
+
+  const slugModulo = TITULO_MODULO[title];
+  const modulosLiberados = PLANO_MODULOS[planoAtivo] ?? [];
+  const desbloqueado = slugModulo ? modulosLiberados.includes(slugModulo) : false;
 
   if (!conteudo) {
     return (
@@ -65,8 +84,51 @@ export function PlaceholderPage({ title, icon }: Props) {
     );
   }
 
-  if (conteudo.ativo) {
+  if (conteudo.ativo || desbloqueado) {
     const PRATOS = ["Risoto de camarão", "Salmão grelhado", "Polenta com ragu", "Bruschetta caprese", "Tiramisu", "Nhoque ao molho pesto", "Panna cotta"];
+    const MOCK_VALORES: Record<string, string[]> = {
+      "Pagamento na mesa": ["1.247", "R$ 82,40", "48 min"],
+      "Agregador de pedidos": ["312", "14 min", "2,1%"],
+      "Avaliações": ["4,6", "127 / 84", "5"],
+    };
+    const valores = MOCK_VALORES[title];
+
+    if (!conteudo.ativo && desbloqueado && valores) {
+      return (
+        <div>
+          <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
+            <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+              <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "12px" }} />
+            </span>
+            <span className="paragraph-p2-14-medium ml-1" style={{ color: "#141414" }}>{title}</span>
+          </div>
+          <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-6">
+            <div className="flex flex-col gap-1">
+              <h1 className="text-[24px] font-medium text-[#141414] leading-8">{title}</h1>
+              <p className="paragraph-p2-14-regular text-[#666666]">{conteudo.frase}</p>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4">
+              {conteudo.cards.map((card, i) => (
+                <div
+                  key={card}
+                  style={{
+                    backgroundColor: "var(--bg-primario)",
+                    borderRadius: "var(--radius-12)",
+                    border: "1px solid var(--borda)",
+                    padding: "var(--spacing-16)",
+                    flex: 1,
+                  }}
+                >
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>{card}</span>
+                  <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-8)" }}>{valores[i]}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div>
         <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
