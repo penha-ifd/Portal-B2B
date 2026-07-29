@@ -44,6 +44,13 @@ export function PromocoesPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
   const [tab, setTab] = useState<"ativas" | "desempenho">("ativas");
+  const [sortCol, setSortCol] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const toggleSort = (col: string) => {
+    if (sortCol === col) { setSortDir(sortDir === "asc" ? "desc" : "asc"); }
+    else { setSortCol(col); setSortDir("asc"); }
+  };
 
   function handleCriarPromocao() { setDrawerOpen(true); }
   function handleDrawerClose() {
@@ -119,7 +126,13 @@ export function PromocoesPage() {
             <div className="overflow-x-auto">
               <div className="flex items-center justify-between border-b border-[#DCDCDC] pb-2 min-w-[1000px]">
                 {["Nome", "Status", "Público-alvo", "Acesso", "Objetivo", "Subsídio", "Data início", "Data fim", "QRCode"].map((h) => (
-                  <span key={h} className="flex-1 text-[12px] font-bold text-[#3E3E3E] leading-4 min-w-0" style={{ fontFamily: "var(--font-inter)" }}>{h}</span>
+                  <span key={h} className="flex-1 text-[12px] font-bold text-[#3E3E3E] leading-4 min-w-0" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }} onClick={() => toggleSort(h)}>
+                    {h}
+                    <span style={{ display: "inline-flex", flexDirection: "column", lineHeight: 0 }}>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "asc" ? "var(--text-primario)" : "var(--text-desabilitado)" }}>&#9650;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "desc" ? "var(--text-primario)" : "var(--text-desabilitado)", marginTop: -2 }}>&#9660;</span>
+                    </span>
+                  </span>
                 ))}
               </div>
               {CAMPANHAS.map((c, i) => (

@@ -1,53 +1,37 @@
 import { useNavigate } from 'react-router';
+import logoComerFora from '../../assets/logo_comer-fora.png';
+import heroIlustracao from '../../assets/hero-ilustracao.png';
 
 export function LpComerFora() {
   const navigate = useNavigate();
   return (
-    <div style={{ maxWidth: 1314, margin: '0 auto', width: '100%' }}>
-      {/* Hero */}
-      <section style={{ display: 'flex', alignItems: 'center', minHeight: 744, gap: 0 }}>
-        <div style={{ flex: 1, padding: 48, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
-          <span style={{
-            display: 'inline-block', alignSelf: 'flex-start',
-            fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)',
-            letterSpacing: 'var(--letter-spacing)', color: '#ffffff',
-            backgroundColor: 'var(--marca)', borderRadius: 'var(--radius-pill)', padding: '4px 12px',
-          }}>
-            Comer Fora by iFood
-          </span>
-          <h1 style={{
-            fontFamily: 'var(--font-inter)', fontSize: '32px', fontWeight: 'var(--font-weight-medium)',
-            letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', lineHeight: 1.2, margin: 0,
-          }}>
-            Transforme horários vazios no salão em mais mesas ocupadas
-          </h1>
-          <p style={{
-            fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-regular)',
-            letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', lineHeight: 1.5, margin: 0,
-          }}>
-            Crie promoções pra atrair clientes sem perder o controle da operação com o Comer Fora
-          </p>
-          <button type="button" onClick={() => navigate('/modulos')} style={{
-            width: 257, padding: '14px 24px', border: 'none', borderRadius: 'var(--radius-pill)',
-            backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer',
-            fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)',
-            letterSpacing: 'var(--letter-spacing)',
-          }}>
-            Ativar Comer Fora
-          </button>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)' }}>
-            <i className="ifdl-icon-line ifdl-icon-2-people" style={{ fontSize: 16, color: 'var(--text-secundario)' }} />
-            <span style={{
-              fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)',
-              letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)',
-            }}>
-              +59 restaurantes da sua região ativaram
-            </span>
+    <div style={{ maxWidth: 1180, margin: '0 auto', width: '100%' }}>
+      {/* Banner */}
+      <section style={{ backgroundColor: 'var(--marca)', borderRadius: 'var(--radius-12)', padding: 48, display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', minHeight: 476, marginTop: 'var(--spacing-24)', marginBottom: 'var(--spacing-24)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 48, maxWidth: 352, position: 'relative', zIndex: 1 }}>
+          <img src={logoComerFora} alt="Comer Fora" style={{ width: 127, height: 24, objectFit: 'contain' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '32px', fontWeight: 'var(--font-weight-bold)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff', lineHeight: '40px', margin: 0 }}>
+              Transforme horários vazios no salão em mais mesas ocupadas
+            </h1>
+            <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff', lineHeight: '24px', margin: 0 }}>
+              Crie promoções pra atrair clientes sem perder o controle da operação com o Comer Fora
+            </p>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+            <button type="button" onClick={() => navigate('/modulos')} style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-8)', padding: '14px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: '#ffffff', color: 'var(--text-primario)', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', alignSelf: 'flex-start' }}>
+              Ativar Comer Fora
+              <i className="ifdl-icon-line ifdl-icon-chevron-right" style={{ fontSize: 16 }} />
+            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '0 var(--spacing-8)' }}>
+              <i className="ifdl-icon-filled ifdl-icon-fire" style={{ fontSize: 14, color: '#ffffff' }} />
+              <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff' }}>
+                <strong>+59 restaurantes</strong> da sua região ativaram
+              </span>
+            </div>
           </div>
         </div>
-        <div style={{ width: 553, height: 500, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', color: 'var(--text-desabilitado)' }}>Hero image</span>
-        </div>
+        <img src={heroIlustracao} alt="" style={{ position: 'absolute', right: -40, bottom: -40, width: 520, height: 'auto', objectFit: 'contain', zIndex: 0 }} />
       </section>
 
       {/* Quatro passos */}
@@ -79,18 +63,6 @@ export function LpComerFora() {
         </div>
       </section>
 
-      {/* Vídeo */}
-      <section style={{ padding: '0 48px 64px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-24)' }}>
-          <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', display: 'block', marginBottom: 'var(--spacing-8)' }}>Em menos de 1 minuto</span>
-          <h2 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0 }}>Veja o Comer Fora em ação</h2>
-        </div>
-        <div style={{ width: '100%', maxWidth: 1250, height: 400, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-          <div style={{ width: 64, height: 64, borderRadius: '50%', backgroundColor: 'var(--invertido)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#ffffff"/></svg>
-          </div>
-        </div>
-      </section>
 
       {/* Vantagens */}
       <section style={{ padding: '64px 48px', display: 'flex', gap: 'var(--spacing-40)', alignItems: 'center' }}>

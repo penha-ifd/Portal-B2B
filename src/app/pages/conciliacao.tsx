@@ -129,7 +129,7 @@ export function ConciliacaoPage() {
         <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
           <i className="ifdl-icon-filled ifdl-icon-sync text-white" style={{ fontSize: '12px' }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: isBase ? 'var(--text-primario)' : '#141414' }}>Conciliação</span>
+        <span className="paragraph-p2-14-medium ml-1" style={{ color: isBase ? 'var(--text-primario)' : '#141414' }}>Confirmar presenças</span>
         <div className="flex items-center gap-3 ml-auto">
           <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: isBase ? 'var(--text-primario)' : 'var(--text-secundario)' }}>
             {isBase ? 'Ative um módulo para liberar inteligência e CRM' : PLANO_INFO[planoAtivo]}
@@ -162,9 +162,9 @@ export function ConciliacaoPage() {
         {/* 1. Cabeçalho */}
         <div className="flex items-center justify-between">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <span style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
-              Conciliação de ontem
-            </span>
+            <h2 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
+              Presenças de ontem
+            </h2>
             <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>
               {casados} de {TOTAL} casados automaticamente
             </span>

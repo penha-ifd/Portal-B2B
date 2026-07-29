@@ -31,7 +31,7 @@ const PlanoContext = createContext<PlanoContextValue>({
 });
 
 export function PlanoProvider({ children }: { children: React.ReactNode }) {
-  const [planoAtivo, setPlanoAtivo] = useState<PlanoAtivo>('essencial');
+  const [planoAtivo, setPlanoAtivo] = useState<PlanoAtivo>('novo');
   return (
     <PlanoContext.Provider value={{ planoAtivo, setPlanoAtivo }}>
       {children}

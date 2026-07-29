@@ -65,8 +65,15 @@ export function ClientesPage() {
   const [perfilFilter, setPerfilFilter] = useState<string | null>(null);
   const [origemFilter, setOrigemFilter] = useState<string | null>(null);
   const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const [sortCol, setSortCol] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const { planoAtivo } = usePlano();
   const isBase = planoAtivo === "base";
+
+  const toggleSort = (col: string) => {
+    if (sortCol === col) { setSortDir(sortDir === "asc" ? "desc" : "asc"); }
+    else { setSortCol(col); setSortDir("asc"); }
+  };
 
   const clientesFiltrados = CLIENTES.filter((c) => {
     if (perfilFilter && c.perfil !== perfilFilter) return false;
@@ -89,6 +96,20 @@ export function ClientesPage() {
         <button type="button" onClick={() => navigate("/conciliacao")} style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", flexShrink: 0 }}>Conciliar check-ins</button>
       </div>
 
+      <div style={{ marginBottom: "var(--spacing-24)" }}>
+        <div className="flex items-center" style={{ height: 56, backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", paddingLeft: "var(--spacing-16)", paddingRight: "var(--spacing-16)", gap: "var(--spacing-8)" }}>
+          <input type="text" placeholder="Pergunte sobre seus clientes" style={{ flex: 1, fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", background: "none", border: "none", outline: "none" }} />
+          <i className="ifdl-icon-line ifdl-icon-microphone" style={{ fontSize: 20, color: "var(--text-secundario)" }} />
+          <button type="button" className="flex items-center justify-center shrink-0" style={{ width: 40, height: 40, borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)", border: "none", cursor: "pointer" }}>
+            <i className="ifdl-icon-line ifdl-icon-arrow-up" style={{ fontSize: 18, color: "#ffffff" }} />
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-2" style={{ marginTop: "var(--spacing-12)" }}>
+          {["Quem gasta mais", "Quem sumiu este mês", "Quem veio do delivery"].map((chip) => (
+            <button key={chip} type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "6px 12px", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", cursor: "pointer" }}>{chip}</button>
+          ))}
+        </div>
+      </div>
 
       <div className="flex flex-col gap-6">
         <div className="flex gap-1 border-b border-[#EBEBEB]">
@@ -131,7 +152,7 @@ export function ClientesPage() {
               <h3 className="text-[14px] font-medium text-[#141414] leading-4">Conecte-se com seus clientes</h3>
               <p className="paragraph-p3-12-regular text-[#666666] mt-1">Envie mensagens pelo WhatsApp para divulgar promoções e eventos do seu salão.</p>
             </div>
-            <button type="button" className="paragraph-p2-14-medium text-[#141414] border border-[#EBEBEB] rounded-xl px-4 py-2 bg-white hover:bg-[#F5F5F5] transition-colors shrink-0">Agendar disparo</button>
+            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Agendar disparo</button>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -156,7 +177,13 @@ export function ClientesPage() {
             <div className="overflow-x-auto">
               <div className="flex items-center justify-between border-b border-[#DCDCDC] py-2 min-w-[900px]">
                 {["Nome", "Telefone", "Status", "Perfil", "Origem", "Total de visitas", "Primeira visita", "Última visita"].map((h) => (
-                  <span key={h} className="flex-1 min-w-0 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)" }}>{h}</span>
+                  <span key={h} className="flex-1 min-w-0 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }} onClick={() => toggleSort(h)}>
+                    {h}
+                    <span style={{ display: "inline-flex", flexDirection: "column", lineHeight: 0 }}>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "asc" ? "var(--text-primario)" : "var(--text-desabilitado)" }}>&#9650;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h && sortDir === "desc" ? "var(--text-primario)" : "var(--text-desabilitado)", marginTop: -2 }}>&#9660;</span>
+                    </span>
+                  </span>
                 ))}
               </div>
               {clientesFiltrados.map((c, i) => (

@@ -48,7 +48,11 @@ function LockedItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) 
   const navigate = useNavigate();
   return (
     <div
+      role="button"
+      tabIndex={0}
       onClick={() => navigate('/modulos')}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate('/modulos'); } }}
+      aria-label={`Ativar módulo ${item.label}`}
       className="flex h-14 items-center gap-2 pl-5 pr-6 w-full transition-all duration-200"
       style={{
         border: '1px dashed var(--bg-terciario)',
@@ -127,7 +131,7 @@ function GroupLabel({ label, collapsed }: { label: string; collapsed: boolean })
         fontSize: 'var(--font-size-12)',
         fontWeight: 'var(--font-weight-regular)',
         letterSpacing: 'var(--letter-spacing)',
-        color: 'var(--text-desabilitado)',
+        color: 'var(--text-secundario)',
         marginTop: 20,
         marginBottom: 4,
       }}
@@ -158,7 +162,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
     { to: '/pdv', label: 'PDV', icon: 'store' },
     { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
-    { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
+    { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
   ];
 
   const clientes: NavItem[] = [
@@ -180,7 +184,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
     ...(isBase ? [
       { to: '/reservas', label: 'Reservas', icon: 'calendar' },
       { to: '/pdv', label: 'PDV', icon: 'store' },
-      { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
+      { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
     ] : []),
     ...(!isBase && !isEssencialOrAvancado ? essencialModulos : []),
     ...(!isAvancado ? pagamentoAgregador : []),
