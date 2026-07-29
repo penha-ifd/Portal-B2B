@@ -19,22 +19,24 @@ const PLANOS: {
     key: 'base',
     nome: 'Base',
     preco: 'R$ 0',
-    subtitulo: 'Analytics do seu PDV',
+    subtitulo: 'Sua vitrine e seus cupons',
     beneficios: [
-      'Painel de faturamento, ocupação e horário de pico',
-      'Acesso ao app de gestão iFood',
+      'Quantos clientes seus já pedem delivery e nunca foram ao salão',
+      'Funil de cupons e alcance na vitrine',
+      'Comparativo com restaurantes da sua região',
     ],
   },
   {
     key: 'essencial',
     nome: 'Essencial',
     preco: 'R$ 600/mês',
-    subtitulo: 'Um módulo à sua escolha, mais inteligência e CRM',
+    subtitulo: 'Qualquer módulo libera o CRM e a inteligência',
     beneficios: [
       'Tudo do plano Base',
-      'Um módulo ativo (Reservas ou PDV)',
-      'Identificação e histórico de clientes',
-      'Composer de perguntas no painel',
+      'Um módulo ativo: Reservas ou PDV',
+      'CRM com identificação de quem realmente foi ao salão',
+      'Retorno do investimento, ticket médio e origem do público',
+      'Segmentos automáticos e sugestões do agente',
     ],
     destaque: true,
   },
@@ -45,7 +47,7 @@ const PLANOS: {
     subtitulo: 'Todos os módulos liberados',
     beneficios: [
       'Tudo do plano Essencial',
-      'Reservas, PDV, Pagamento na mesa, Agregador, Avaliações, Cardápio digital e Fidelidade',
+      'Reservas, PDV, Pagamento na mesa, Agregador, Avaliações e Fidelidade',
       'Identificação de clientes em todos os canais',
       'Relatórios avançados e exportação',
       'Suporte prioritário',
@@ -59,13 +61,11 @@ const MODULOS: {
   nome: string;
   descricao: string;
   ativo: (p: PlanoAtivo) => boolean;
-  gratuito?: boolean;
 }[] = [
   {
     nome: 'Cardápio digital',
     descricao: 'Importa o cardápio que você já tem no delivery do iFood, em um clique. Destrava o cruzamento entre o que seus clientes pedem no delivery e o que você oferece no salão.',
-    ativo: () => true,
-    gratuito: true,
+    ativo: (p) => p === 'essencial' || p === 'avancado',
   },
   {
     nome: 'Reservas',
@@ -219,8 +219,7 @@ export function ModulosPage() {
             {MODULOS.map((mod) => {
               const on = mod.ativo(planoAtivo);
               return (
-                <div key={mod.nome} style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)', display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-16)', position: 'relative' }}>
-                  {mod.gratuito && <span style={{ position: 'absolute', top: 'var(--spacing-12)', right: 'var(--spacing-12)', ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], backgroundColor: 'var(--sucesso)', color: '#ffffff', borderRadius: 'var(--radius-pill)', padding: '2px 10px' }}>Grátis</span>}
+                <div key={mod.nome} style={{ border: '1px solid var(--borda)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)', display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-16)' }}>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
                       {mod.nome}
