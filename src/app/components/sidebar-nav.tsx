@@ -48,7 +48,11 @@ function LockedItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) 
   const navigate = useNavigate();
   return (
     <div
+      role="button"
+      tabIndex={0}
       onClick={() => navigate('/modulos')}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate('/modulos'); } }}
+      aria-label={`Ativar módulo ${item.label}`}
       className="flex h-14 items-center gap-2 pl-5 pr-6 w-full transition-all duration-200"
       style={{
         border: '1px dashed var(--bg-terciario)',
