@@ -28,8 +28,10 @@ export function AppShell() {
           )}
 
           <main className="flex-1 overflow-hidden min-w-0">
-            <div className="h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-white border border-[#ebebeb] shadow-[0px_1px_3px_rgba(21,21,21,0.08)]">
-              <Outlet />
+            <div className="h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-white border border-[#ebebeb] shadow-[0px_1px_3px_rgba(21,21,21,0.08)]" style={{ paddingBottom: "120px" }}>
+              <div className="max-w-[1180px] mx-auto">
+                <Outlet />
+              </div>
             </div>
           </main>
         </div>

@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { usePlano } from '../../state/plano-context';
-import { ProfileStatusCard } from './profile-status-card';
-import { PromoBanner } from './promo-banner';
-import { FaqSection } from './faq-section';
 import { CriarPromocaoDrawer } from './CriarPromocaoDrawer';
 import { AnalyticsGrid, GeneratedCard } from './analytics-grid';
 import { DashboardDesempenho } from './dashboard-desempenho';
+import { LpComerFora } from '../../pages/lp-comer-fora';
 
 let cardCounter = 0;
 
@@ -123,15 +121,15 @@ export function HomePage() {
       </div>
 
       {/* Conteúdo */}
-      <div className="flex flex-col gap-10 p-6">
-        <DashboardDesempenho onSubmit={handleSubmit} />
-        <AnalyticsGrid generatedCards={generatedCards} onConfirm={handleConfirm} onRemove={handleRemove} />
-        <ProfileStatusCard />
-        <PromoBanner onCriarPromocao={() => setDrawerOpen(true)} />
-        <FaqSection />
-
-        <CriarPromocaoDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-      </div>
+      {isBase ? (
+        <LpComerFora />
+      ) : (
+        <div className="flex flex-col gap-10 p-6">
+          <DashboardDesempenho onSubmit={handleSubmit} onCriarPromocao={() => setDrawerOpen(true)} />
+          <AnalyticsGrid generatedCards={generatedCards} onConfirm={handleConfirm} onRemove={handleRemove} />
+          <CriarPromocaoDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+        </div>
+      )}
     </div>
   );
 }
