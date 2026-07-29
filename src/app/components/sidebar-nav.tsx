@@ -158,7 +158,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
     { to: '/pdv', label: 'PDV', icon: 'store' },
     { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
-    { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
+    { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
   ];
 
   const clientes: NavItem[] = [
@@ -180,7 +180,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
     ...(isBase ? [
       { to: '/reservas', label: 'Reservas', icon: 'calendar' },
       { to: '/pdv', label: 'PDV', icon: 'store' },
-      { to: '/conciliacao', label: 'Conciliação', icon: 'sync' },
+      { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
     ] : []),
     ...(!isBase && !isEssencialOrAvancado ? essencialModulos : []),
     ...(!isAvancado ? pagamentoAgregador : []),
