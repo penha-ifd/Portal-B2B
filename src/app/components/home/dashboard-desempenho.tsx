@@ -716,7 +716,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "80%" }} />
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "55%" }} />
-            <button type="button" style={{ border: "1px solid var(--marca)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", marginTop: "var(--spacing-12)" }}>
+            <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
               Ativar Avaliações
             </button>
           </div>
@@ -755,7 +755,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "35%" }} />
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "60%" }} />
-            <button type="button" style={{ border: "1px solid var(--marca)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", marginTop: "var(--spacing-12)" }}>
+            <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
               Ativar Reservas
             </button>
           </div>
@@ -794,7 +794,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </div>
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "70%" }} />
             <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "45%" }} />
-            <button type="button" style={{ border: "1px solid var(--marca)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", marginTop: "var(--spacing-12)" }}>
+            <button type="button" style={{ border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "var(--invertido)", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", marginTop: "var(--spacing-12)" }}>
               Ativar Pagamento
             </button>
           </div>
