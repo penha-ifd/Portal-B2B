@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router';
+import logoComerFora from '../../assets/logo_comer-fora.png';
+import heroIlustracao from '../../assets/hero-ilustracao.png';
 
 export function LpComerFora() {
   const navigate = useNavigate();
   return (
     <div style={{ maxWidth: 1314, margin: '0 auto', width: '100%' }}>
       {/* Banner */}
-      <section style={{ backgroundColor: 'var(--marca)', borderRadius: 'var(--radius-12)', padding: 48, display: 'flex', flexDirection: 'column', gap: 48 }}>
-        <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff' }}>
-          comer fora
-        </span>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 48, maxWidth: 352 }}>
+      <section style={{ backgroundColor: 'var(--marca)', borderRadius: 'var(--radius-12)', padding: 48, display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', minHeight: 476 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 48, maxWidth: 352, position: 'relative', zIndex: 1 }}>
+          <img src={logoComerFora} alt="Comer Fora" style={{ width: 127, height: 24, objectFit: 'contain' }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '32px', fontWeight: 'var(--font-weight-bold)', letterSpacing: 'var(--letter-spacing)', color: '#ffffff', lineHeight: '40px', margin: 0 }}>
               Transforme horários vazios no salão em mais mesas ocupadas
@@ -31,6 +31,7 @@ export function LpComerFora() {
             </div>
           </div>
         </div>
+        <img src={heroIlustracao} alt="" style={{ position: 'absolute', right: -40, bottom: -40, width: 520, height: 'auto', objectFit: 'contain', zIndex: 0 }} />
       </section>
 
       {/* Quatro passos */}
