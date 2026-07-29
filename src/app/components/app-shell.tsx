@@ -1,11 +1,33 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router';
+import { useState, useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router';
 import { TopBar } from './top-bar';
 import { SidebarNav } from './sidebar-nav';
+
+const ROUTE_TITLES: Record<string, string> = {
+  '/': 'Início',
+  '/reservas': 'Reservas',
+  '/promocoes': 'Promoções',
+  '/cardapio': 'Cardápio',
+  '/modulos': 'Módulos e planos',
+  '/conciliacao': 'Confirmar presenças',
+  '/pdv': 'PDV',
+  '/pagamento-mesa': 'Pagamento na mesa',
+  '/avaliacoes': 'Avaliações',
+  '/agregador': 'Agregador de pedidos',
+  '/clientes': 'Clientes',
+  '/configuracoes': 'Configurações',
+  '/perfil': 'Perfil',
+};
 
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const name = ROUTE_TITLES[pathname] ?? 'Comer Fora';
+    document.title = `${name} — Comer Fora B2B`;
+  }, [pathname]);
 
   return (
     <div className="flex flex-col h-screen w-full overflow-hidden bg-[#e0e0e0] p-1 md:p-[10px]">
