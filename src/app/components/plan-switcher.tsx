@@ -1,10 +1,10 @@
 import { usePlano, PlanoAtivo } from '../state/plano-context';
 
-const OPTIONS: { value: PlanoAtivo | 'novo'; label: string }[] = [
+const OPTIONS: { value: PlanoAtivo; label: string }[] = [
   { value: 'novo', label: 'Novo' },
-  { value: 'base', label: 'Base' },
   { value: 'essencial', label: 'Essencial' },
-  { value: 'avancado', label: 'Avançado' },
+  { value: 'profissional', label: 'Profissional' },
+  { value: 'premium', label: 'Premium' },
 ];
 
 export function PlanSwitcher() {

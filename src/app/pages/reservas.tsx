@@ -50,15 +50,15 @@ const headCell: React.CSSProperties = {
 // ── página ──────────────────────────────────────────────────────────────────
 
 const PLANO_INFO: Record<string, string> = {
-  base:      'Plano Base · nenhum módulo ativo',
-  essencial: 'Plano Essencial · Cardápio, Reservas, PDV',
-  avancado:  'Plano Avançado · todos os módulos',
+  essencial:    'Plano Essencial · módulos básicos',
+  profissional: 'Plano Profissional · todos os módulos',
+  premium:      'Plano Premium · todos os módulos',
 };
 
 export function ReservasPage() {
   const { planoAtivo } = usePlano();
   const navigate = useNavigate();
-  const isBase = planoAtivo === 'base';
+  const isBase = planoAtivo === 'novo';
   const [sortCol, setSortCol] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
 

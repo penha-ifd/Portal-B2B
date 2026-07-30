@@ -8,9 +8,9 @@ const fontBase: React.CSSProperties = {
 };
 
 const PLANO_INFO: Record<string, string> = {
-  base:      'Plano Base · nenhum módulo ativo',
-  essencial: 'Plano Essencial · Cardápio, Reservas, PDV',
-  avancado:  'Plano Avançado · todos os módulos',
+  essencial:    'Plano Essencial · módulos básicos',
+  profissional: 'Plano Profissional · todos os módulos',
+  premium:      'Plano Premium · todos os módulos',
 };
 
 // ── dados fixos ─────────────────────────────────────────────────────────────
@@ -79,7 +79,7 @@ const INITIAL_CASADOS = 92;
 export function ConciliacaoPage() {
   const navigate = useNavigate();
   const { planoAtivo } = usePlano();
-  const isBase = planoAtivo === 'base';
+  const isBase = planoAtivo === 'novo';
   const [resolvidos, setResolvidos] = useState<Set<number>>(new Set());
 
   function resolver(id: number) {

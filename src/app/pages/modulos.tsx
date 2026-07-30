@@ -8,50 +8,65 @@ const fontBase: React.CSSProperties = {
 
 // ── dados dos planos ────────────────────────────────────────────────────────
 
+interface Beneficio {
+  texto: string;
+  destaque?: boolean;
+}
+
 const PLANOS: {
   key: PlanoAtivo;
   nome: string;
   preco: string;
   subtitulo: string;
-  beneficios: string[];
-  destaque?: boolean;
+  beneficios: Beneficio[];
+  popular?: boolean;
 }[] = [
-  {
-    key: 'base',
-    nome: 'Base',
-    preco: 'R$ 290/mês',
-    subtitulo: 'Sua vitrine e seus cupons',
-    beneficios: [
-      'Quantos clientes seus já pedem delivery e nunca foram ao salão',
-      'Funil de cupons e alcance na vitrine',
-      'Comparativo com restaurantes da sua região',
-    ],
-  },
   {
     key: 'essencial',
     nome: 'Essencial',
-    preco: 'R$ 600/mês',
-    subtitulo: 'Qualquer módulo libera o CRM e a inteligência',
+    preco: 'R$ 59/mês',
+    subtitulo: 'Para quem está começando a digitalizar a operação',
     beneficios: [
-      'Tudo do plano Base',
-      'Um módulo ativo: Reservas ou PDV',
-      'CRM com identificação de quem realmente foi ao salão',
-      'Retorno do investimento, ticket médio e origem do público',
-      'Segmentos automáticos e sugestões do agente',
+      { texto: 'Cardápio digital com QR Code' },
+      { texto: 'Agregador de pedidos (delivery + salão)' },
+      { texto: 'CRM — Identificação e perfil do cliente' },
+      { texto: 'PDV básico (1 dispositivo)' },
+      { texto: 'Relatórios simples de vendas' },
+      { texto: 'Suporte por chat e central de ajuda' },
     ],
-    destaque: true,
   },
   {
-    key: 'avancado',
-    nome: 'Avançado',
-    preco: 'R$ 1.200/mês',
-    subtitulo: 'Todos os módulos liberados',
+    key: 'profissional',
+    nome: 'Profissional',
+    preco: 'R$ 249/mês',
+    subtitulo: 'A operação completa integrada em um só lugar',
+    popular: true,
     beneficios: [
-      'Tudo do plano Essencial',
-      'Reservas, PDV, Pagamento na mesa, Agregador, Avaliações e Fidelidade',
-      'Identificação de clientes em todos os canais',
-      'Relatórios avançados e exportação',
-      'Suporte prioritário',
+      { texto: 'Tudo do Essencial' },
+      { texto: 'PDV multi-terminal (até 5 dispositivos)' },
+      { texto: 'Pagamento na mesa' },
+      { texto: 'App garçom' },
+      { texto: 'Mecânica de fidelidade' },
+      { texto: 'Sistema de avaliações e reputação' },
+      { texto: 'CRM avançado (Delivery + Salão integrados)' },
+      { texto: 'Tuca IA — insights básicos' },
+      { texto: 'Suporte prioritário (SLA 4h)' },
+    ],
+  },
+  {
+    key: 'premium',
+    nome: 'Premium',
+    preco: 'R$ 499/mês',
+    subtitulo: 'Inteligência total + capital de giro para crescer',
+    beneficios: [
+      { texto: 'Tudo do Profissional' },
+      { texto: 'PDV ilimitado (todos dispositivos)' },
+      { texto: 'Tuca IA avançada (insights preditivos + recomendações de ações)' },
+      { texto: 'Campanhas de CRM automatizadas (push, e-mail, WhatsApp)' },
+      { texto: 'Gestão multi-unidade' },
+      { texto: 'API aberta para integrações customizadas' },
+      { texto: 'Atendimento VIP (SLA 2h)', destaque: true },
+      { texto: 'Carteira de crédito iFood', destaque: true },
     ],
   },
 ];
@@ -63,57 +78,60 @@ const MODULOS: {
   descricao: string;
   impacto: string;
   incluso: (p: PlanoAtivo) => boolean;
-  escolhaEssencial?: boolean;
 }[] = [
   {
     nome: 'Promoções',
     descricao: 'Crie cupons, cashback e campanhas de atração direto no painel. Acompanhe desempenho por campanha e veja quantos clientes cada promoção trouxe ao salão.',
     impacto: 'Cupons trouxeram 285 clientes confirmados esta semana',
-    incluso: (p) => p === 'base' || p === 'essencial' || p === 'avancado',
+    incluso: (p) => p === 'essencial' || p === 'profissional' || p === 'premium',
   },
   {
     nome: 'Cardápio digital',
     descricao: 'Importa o cardápio que você já tem no delivery do iFood, em um clique. Destrava o cruzamento entre o que seus clientes pedem no delivery e o que você oferece no salão.',
     impacto: 'Destrava cruzamento delivery × salão no CRM',
-    incluso: (p) => p === 'base' || p === 'essencial' || p === 'avancado',
-  },
-  {
-    nome: 'Reservas',
-    descricao: 'Recebe reservas do app do iFood e organiza a ocupação do salão. Destrava a aba Reservas e a identificação de clientes.',
-    impacto: 'Identifica 40% mais clientes pela reserva',
-    incluso: (p) => p === 'essencial' || p === 'avancado',
-    escolhaEssencial: true,
+    incluso: (p) => p === 'essencial' || p === 'profissional' || p === 'premium',
   },
   {
     nome: 'PDV',
     descricao: 'Integra o ponto de venda ao painel e enriquece os dados de faturamento e ticket médio em tempo real.',
     impacto: 'Troca estimativa por faturamento real — 23% mais precisão',
-    incluso: (p) => p === 'essencial' || p === 'avancado',
-    escolhaEssencial: true,
+    incluso: (p) => p === 'essencial' || p === 'profissional' || p === 'premium',
   },
   {
-    nome: 'Pagamento na mesa',
-    descricao: 'Permite que o cliente feche a conta pelo app. Destrava a identificação pelo pagamento e aumenta a recorrência.',
-    impacto: 'Check-in automático sem depender do garçom',
-    incluso: (p) => p === 'avancado',
+    nome: 'Clientes',
+    descricao: 'Identifica quem realmente foi ao salão e constrói o perfil do cliente com histórico, frequência e ticket médio.',
+    impacto: 'CRM com identificação de quem realmente foi ao salão',
+    incluso: (p) => p === 'essencial' || p === 'profissional' || p === 'premium',
   },
   {
     nome: 'Agregador de pedidos',
     descricao: 'Centraliza pedidos de diferentes canais em um único painel, reduzindo erros e tempo de operação.',
     impacto: 'Visão unificada de todos os canais num lugar',
-    incluso: (p) => p === 'avancado',
+    incluso: (p) => p === 'essencial' || p === 'profissional' || p === 'premium',
+  },
+  {
+    nome: 'Pagamento na mesa',
+    descricao: 'Permite que o cliente feche a conta pelo app. Destrava a identificação pelo pagamento e aumenta a recorrência.',
+    impacto: 'Check-in automático sem depender do garçom',
+    incluso: (p) => p === 'profissional' || p === 'premium',
   },
   {
     nome: 'Avaliações',
     descricao: 'Reúne as avaliações do Google e do iFood num lugar só e avisa quando alguma precisa de resposta. Destrava a nota do salão no painel e o fluxo de cortesia para avaliação negativa.',
     impacto: 'Nota do salão visível — 34% mais reservas',
-    incluso: (p) => p === 'avancado',
+    incluso: (p) => p === 'profissional' || p === 'premium',
+  },
+  {
+    nome: 'Reservas',
+    descricao: 'Recebe reservas do app do iFood e organiza a ocupação do salão. Destrava a aba Reservas e a identificação de clientes.',
+    impacto: 'Identifica 40% mais clientes pela reserva',
+    incluso: (p) => p === 'profissional' || p === 'premium',
   },
   {
     nome: 'Fidelidade',
     descricao: 'Cria programas de fidelidade com selos e recompensas para clientes recorrentes. Destrava a taxa de retorno e o ticket médio por cliente fidelizado.',
     impacto: 'Clientes com selo voltam 2,4× mais',
-    incluso: (p) => p === 'avancado',
+    incluso: (p) => p === 'profissional' || p === 'premium',
   },
 ];
 
@@ -122,7 +140,7 @@ const MODULOS: {
 
 export function ModulosPage() {
   const { planoAtivo, setPlanoAtivo } = usePlano();
-  const isBase = planoAtivo === 'base';
+  const isBase = planoAtivo === 'novo';
   const [confirmando, setConfirmando] = useState<PlanoAtivo | null>(null);
 
   return (
@@ -150,29 +168,31 @@ export function ModulosPage() {
                 key={plano.key}
                 style={{
                   borderRadius: 'var(--radius-12)',
-                  border: plano.destaque ? '2px solid var(--marca)' : '1px solid var(--borda)',
+                  border: plano.popular ? '2px solid var(--marca)' : '1px solid var(--borda)',
                   padding: 'var(--spacing-24)',
                   display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)',
                   position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
-                {plano.destaque && (
-                  <div style={{ position: 'absolute', top: -1, left: 'var(--spacing-24)' }}>
-                    <span style={{
-                      ...fontBase,
-                      fontSize: 'var(--font-size-12)',
-                      fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'],
-                      backgroundColor: 'var(--marca)', color: '#ffffff',
-                      borderRadius: 'var(--radius-pill)', padding: '3px 10px',
-                      display: 'inline-block',
-                      transform: 'translateY(-50%)',
-                    }}>
-                      Mais contratado
-                    </span>
+                {plano.popular && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 16,
+                    right: -32,
+                    backgroundColor: 'var(--marca)',
+                    color: '#ffffff',
+                    fontSize: '11px',
+                    fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'],
+                    fontFamily: 'var(--font-inter)',
+                    padding: '4px 40px',
+                    transform: 'rotate(45deg)',
+                  }}>
+                    Mais popular
                   </div>
                 )}
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: plano.destaque ? 8 : 0 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: plano.popular ? 8 : 0 }}>
                   <h2 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
                     {plano.nome}
                   </h2>
@@ -186,10 +206,14 @@ export function ModulosPage() {
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, margin: 0, padding: 0, listStyle: 'none' }}>
                   {plano.beneficios.map((b) => (
-                    <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                      <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 14, color: 'var(--sucesso)', marginTop: 2, flexShrink: 0 }} />
+                    <li key={b.texto} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                      {b.destaque ? (
+                        <span style={{ fontSize: 14, marginTop: 1, flexShrink: 0, color: 'var(--marca)' }}>&#11088;</span>
+                      ) : (
+                        <i className="ifdl-icon-filled ifdl-icon-check" style={{ fontSize: 14, color: 'var(--sucesso)', marginTop: 2, flexShrink: 0 }} />
+                      )}
                       <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>
-                        {b}
+                        {b.texto}
                       </span>
                     </li>
                   ))}
@@ -226,11 +250,6 @@ export function ModulosPage() {
                     <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>
                       {mod.nome}
                     </span>
-                    {mod.escolhaEssencial && planoAtivo === 'essencial' && (
-                      <span style={{ ...fontBase, fontSize: '11px', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>
-                        escolha 1 destes
-                      </span>
-                    )}
                     <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)', lineHeight: 1.5 }}>
                       {mod.descricao}
                     </span>

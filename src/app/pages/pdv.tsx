@@ -31,7 +31,7 @@ const INTEGRACOES = [
 export function PdvPage() {
   const navigate = useNavigate();
   const { planoAtivo } = usePlano();
-  const isBase = planoAtivo === 'novo' || planoAtivo === 'base';
+  const isBase = planoAtivo === 'novo';
   const [conectados, setConectados] = useState<string[]>([]);
 
   function toggleConectar(id: string) {

@@ -34,17 +34,17 @@ const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: s
   "Pagamento na mesa": {
     frase: "O cliente paga pelo app e o check-in se confirma sozinho, sem depender do garçom.",
     cards: ["Check-ins confirmados sozinhos", "Ticket real por cliente", "Tempo médio de mesa"],
-    preco: "R$ 79/mês no plano Avançado",
+    preco: "R$ 79/mês no plano Profissional",
   },
   "Agregador de pedidos": {
     frase: "Junta os pedidos de todos os canais numa fila só.",
     cards: ["Pedidos por canal", "Tempo de preparo", "Cancelamentos"],
-    preco: "R$ 79/mês no plano Avançado",
+    preco: "R$ 79/mês no plano Profissional",
   },
   Avaliações: {
     frase: "Reúne as avaliações do Google e do iFood num lugar só e avisa quando alguma precisa de resposta.",
     cards: ["Nota média do salão", "Avaliações por plataforma", "Respostas pendentes"],
-    preco: "R$ 49/mês no plano Avançado",
+    preco: "R$ 49/mês no plano Profissional",
   },
 };
 

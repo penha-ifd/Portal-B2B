@@ -8,9 +8,9 @@ import { CriarPromocaoDrawer } from "../components/home/CriarPromocaoDrawer";
 import { DesempenhoTab } from "./DesempenhoTab";
 
 const PLANO_INFO: Record<string, string> = {
-  base: "Plano Base · nenhum módulo ativo",
-  essencial: "Plano Essencial · Cardápio, Reservas, PDV",
-  avancado: "Plano Avançado · todos os módulos",
+  essencial: "Plano Essencial · módulos básicos",
+  profissional: "Plano Profissional · todos os módulos",
+  premium: "Plano Premium · todos os módulos",
 };
 
 interface Campanha {
@@ -41,7 +41,7 @@ const STATUS_STYLE: Record<string, { bg: string; color: string; dot: string }> =
 export function PromocoesPage() {
   const { planoAtivo } = usePlano();
   const navigate = useNavigate();
-  const isBase = planoAtivo === "base";
+  const isBase = planoAtivo === "novo";
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
   const [tab, setTab] = useState<"ativas" | "desempenho">("ativas");

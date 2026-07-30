@@ -126,7 +126,7 @@ export function ClientesPage() {
   const [sortCol, setSortCol] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const { planoAtivo } = usePlano();
-  const isBase = planoAtivo === "base";
+  const isBase = planoAtivo === "novo";
 
   const toggleSort = (col: string) => {
     if (sortCol === col) { setSortDir(sortDir === "asc" ? "desc" : "asc"); }

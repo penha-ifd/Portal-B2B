@@ -78,7 +78,7 @@ export default function AvaliacoesPage() {
         <span className="paragraph-p2-14-medium ml-1" style={{ color: '#141414' }}>Avaliações</span>
         <div className="flex items-center gap-3 ml-auto">
           <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 400, color: 'var(--text-secundario)' }}>
-            Plano Avançado · todos os módulos
+            Plano Profissional · todos os módulos
           </span>
           <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 400, color: 'var(--marca)', cursor: 'pointer' }}>
             Mudar assinatura

@@ -57,10 +57,10 @@ function buildCard(text: string): GeneratedCard {
 }
 
 const PLANO_INFO: Record<string, { text: string }> = {
-  novo:      { text: 'Novo · nenhum módulo contratado' },
-  base:      { text: 'Plano Base · nenhum módulo ativo' },
-  essencial: { text: 'Plano Essencial · Cardápio, Reservas, PDV' },
-  avancado:  { text: 'Plano Avançado · todos os módulos' },
+  novo:         { text: 'Novo · nenhum módulo contratado' },
+  essencial:    { text: 'Plano Essencial · módulos básicos' },
+  profissional: { text: 'Plano Profissional · todos os módulos' },
+  premium:      { text: 'Plano Premium · todos os módulos' },
 };
 
 export function HomePage() {
