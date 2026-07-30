@@ -26,7 +26,7 @@ export function DesempenhoTab() {
       {/* ROI Block */}
       <div className="bg-[#F5F5F5] flex flex-col gap-2 p-2 rounded-xl">
         <div className="bg-white border border-[#EBEBEB] flex flex-col gap-6 p-8 rounded-lg">
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <div className="flex gap-3 items-center">
@@ -81,7 +81,7 @@ export function DesempenhoTab() {
         <div className="flex flex-col md:flex-row gap-2">
           {/* Identificações e revisitas */}
           <div className="bg-white border border-[#EBEBEB] flex-1 flex flex-col gap-6 p-8 rounded-xl">
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
             <div className="flex gap-2 items-center">
               <div className="size-8 rounded-lg bg-[#F5F5F5] flex items-center justify-center">
                 <svg className="size-5 text-[#141414]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
@@ -118,7 +118,7 @@ export function DesempenhoTab() {
 
           {/* Investimento */}
           <div className="bg-white border border-[#EBEBEB] flex-1 flex flex-col gap-6 p-8 rounded-xl">
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
             <div className="flex gap-2 items-center">
               <div className="size-8 rounded-lg bg-[#F5F5F5] flex items-center justify-center">
                 <svg className="size-5 text-[#141414]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>

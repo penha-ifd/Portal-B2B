@@ -170,7 +170,7 @@ export function ReservasPage() {
                     <div>{r.nome}</div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
                       {r.tags.split(" · ").map((tag) => (
-                        <span key={tag} className="animate-[pillPop_250ms_ease-out_both]" style={{ ...fontBase, fontSize: "11px", fontWeight: "var(--font-weight-regular)", color: tag === "veio do delivery" ? "var(--marca)" : "var(--text-secundario)", backgroundColor: tag === "veio do delivery" ? "rgba(235,0,51,0.08)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
+                        <span key={tag} className="animate-[pillPop_250ms_ease-out_both]" style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", color: tag === "veio do delivery" ? "var(--marca)" : "var(--text-secundario)", backgroundColor: tag === "veio do delivery" ? "rgba(235,0,51,0.08)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
                       ))}
                     </div>
                   </td>

@@ -76,7 +76,7 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
                 <button
                   type="button"
                   onClick={() => { setDropdownAberto(false); }}
-                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 8px', border: 'none', background: 'none', cursor: 'pointer', borderRadius: 8, fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 500, color: 'var(--text-primario)' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 8px', border: 'none', background: 'none', cursor: 'pointer', borderRadius: 8, fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: "var(--font-weight-medium)", color: 'var(--text-primario)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secundario)')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
