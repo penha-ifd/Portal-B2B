@@ -13,6 +13,7 @@ import { ConciliacaoPage } from "./pages/conciliacao";
 import { PdvPage } from "./pages/pdv";
 import { PerfilPage } from "./pages/perfil";
 import AvaliacoesPage from "./pages/avaliacoes";
+import { AgregadorPage } from "./pages/agregador";
 import { Navigate } from "react-router";
 
 export default function App() {
@@ -63,12 +64,7 @@ export default function App() {
               />
               <Route
                 path="agregador"
-                element={
-                  <PlaceholderPage
-                    title="Agregador de pedidos"
-                    icon="delivery"
-                  />
-                }
+                element={<AgregadorPage />}
               />
               <Route
                 path="crm"
