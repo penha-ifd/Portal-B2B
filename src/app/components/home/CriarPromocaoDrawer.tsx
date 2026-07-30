@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import cupomImg from "../../../assets/cupom-pra-comer-fora.png";
-import cashbackImg from "../../../assets/cashback.png";
 
 const DAYS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 const PERIODS = ["Diurno (00:01 até 17:00)", "Noturno (17:01 até 00:00)"];
@@ -48,7 +46,6 @@ interface Props {
 }
 
 export function CriarPromocaoDrawer({ open, onClose }: Props) {
-  const [step, setStep] = useState<"select" | "configure">("select");
   const [cupomType, setCupomType] = useState<string | null>(null);
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [selectedPeriods, setSelectedPeriods] = useState<string[]>([]);
@@ -57,11 +54,6 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
   const [audienceType, setAudienceType] = useState<"todos" | "segmentos" | "personalizado">("todos");
   const [selectedSegments, setSelectedSegments] = useState<string[]>([]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
-
-  // Reset step when drawer opens
-  useEffect(() => {
-    if (open) setStep("select");
-  }, [open]);
 
   // Lock body scroll when open
   useEffect(() => {
@@ -145,18 +137,6 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
             {/* Top Bar */}
             <div className="bg-white border-b border-[#EBEBEB] flex gap-4 items-center justify-center px-4 py-3 shrink-0">
               <div className="flex flex-1 items-center gap-2 min-w-0">
-                {step === "configure" && (
-                  <button
-                    type="button"
-                    onClick={() => setStep("select")}
-                    className="size-8 flex items-center justify-center rounded-lg hover:bg-[#F5F5F5] transition-colors shrink-0"
-                    aria-label="Voltar"
-                  >
-                    <svg className="w-5 h-5 text-[#141414]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                  </button>
-                )}
                 <span className="text-[16px] font-medium text-[#141414] leading-6 truncate">
                   Criar promoção
                 </span>
@@ -176,50 +156,6 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
             {/* Content */}
             <div className="flex-1 overflow-y-auto">
               <div className="flex flex-col gap-10 px-4 py-6">
-                {step === "select" ? (
-                  /* Step 1: Select promo type */
-                  <div className="flex flex-col gap-6">
-                    <h2 className="text-[24px] font-medium text-[#141414] leading-8 text-center">
-                      O que gostaria de criar?
-                    </h2>
-                    <div className="flex gap-3">
-                      {/* Cupom */}
-                      <button
-                        type="button"
-                        onClick={() => setStep("configure")}
-                        className="flex-1 flex flex-col gap-3 items-center p-6 rounded-2xl border border-[#EBEBEB] hover:border-[#141414] transition-colors bg-white"
-                      >
-                        <div className="size-20 rounded-[18px] overflow-hidden flex items-center justify-center">
-                          <img src={cupomImg} alt="Cupom pra Comer Fora" className="size-full object-contain" />
-                        </div>
-                        <div className="text-center w-full">
-                          <p className="paragraph-p2-14-medium text-[#141414]">Cupom pra Comer Fora</p>
-                          <p className="paragraph-p2-14-regular text-[#666666] mt-2 whitespace-pre-wrap">
-                            Cliente consome no local e{"\n"}já usa o benefício
-                          </p>
-                        </div>
-                      </button>
-
-                      {/* Cashback */}
-                      <button
-                        type="button"
-                        onClick={() => setStep("configure")}
-                        className="flex-1 flex flex-col gap-3 items-center p-6 rounded-2xl border border-[#EBEBEB] hover:border-[#141414] transition-colors bg-white"
-                      >
-                        <div className="size-20 rounded-[18px] overflow-hidden flex items-center justify-center">
-                          <img src={cashbackImg} alt="Cashback" className="size-full object-contain" />
-                        </div>
-                        <div className="text-center w-full">
-                          <p className="paragraph-p2-14-medium text-[#141414]">Cashback</p>
-                          <p className="paragraph-p2-14-regular text-[#666666] mt-2 whitespace-pre-wrap">
-                            Cliente consome no local e{"\n"}ganha saldo pra retornar
-                          </p>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  /* Step 2: Configure */
                   <div className="flex flex-col gap-6">
                     <h2 className="text-[24px] font-medium text-[#141414] leading-8 text-center">
                       Escolha o tipo de cupom e configure
@@ -697,7 +633,6 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
                       )}
                     </div>
                   </div>
-                )}
               </div>
             </div>
 
