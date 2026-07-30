@@ -122,7 +122,7 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-[rgba(0,0,0,0.32)]"
+            className="absolute inset-0 bg-[rgba(0,0,0,0.32)] backdrop-blur-[4px]"
             onClick={onClose}
           />
 

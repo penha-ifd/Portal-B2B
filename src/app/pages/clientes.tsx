@@ -1,7 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "motion/react";
 import { usePlano } from "../state/plano-context";
 import { SegmentosTab } from "./SegmentosTab";
+
+function useCountUp(target: string) {
+  const num = parseInt(target.replace(/\./g, ''), 10);
+  const [current, setCurrent] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        const duration = 800;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          setCurrent(Math.round(eased * num));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.5 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [num]);
+  const formatted = current.toLocaleString('pt-BR');
+  return { ref, formatted };
+}
+
+function AnimatedMetricValue({ value }: { value: string }) {
+  const { ref, formatted } = useCountUp(value);
+  return <span ref={ref} className="text-[18px] font-medium text-[#141414] leading-6">{formatted}</span>;
+}
 
 interface ClienteProfile {
   tags: string[];
@@ -122,7 +157,7 @@ export function ClientesPage() {
           {["Pessoas", "Segmentos"].map((tab) => (
             <button key={tab} type="button" onClick={() => setActiveTab(tab)} className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${activeTab === tab ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}>
               {tab}
-              {activeTab === tab && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EB0033] rounded-full" />}
+              {activeTab === tab && <motion.div layoutId="clientes-tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EB0033] rounded-full" transition={{ type: "spring", stiffness: 500, damping: 30 }} />}
             </button>
           ))}
         </div>
@@ -144,7 +179,7 @@ export function ClientesPage() {
                     <span className="paragraph-p3-12-medium text-[#666666] whitespace-nowrap">{m.label}</span>
                     {m.hasInfo && <i className="ifdl-icon-line ifdl-icon-help text-[#A3A3A3]" style={{ fontSize: "14px" }} />}
                   </div>
-                  <span className="text-[18px] font-medium text-[#141414] leading-6">{m.value}</span>
+                  <AnimatedMetricValue value={m.value} />
                 </div>
               ))}
             </div>
@@ -212,7 +247,7 @@ export function ClientesPage() {
                 const voucherLabel = profile ? (profile.sensibilidadeVoucher === "alta" ? "Adora cupom" : profile.sensibilidadeVoucher === "baixa" ? "Ignora cupom" : null) : null;
                 const potencialLabel = profile && (profile.potencialCompra === "premium" || profile.potencialCompra === "ultra-premium") ? "Alto ticket" : null;
                 return (
-                <div key={i} onClick={() => setSelectedClient(c.nome)} className="flex items-center border-b border-[#DCDCDC] py-2 min-h-12 cursor-pointer hover:bg-[#F5F5F5] transition-colors" style={{ gap: 8 }}>
+                <div key={i} onClick={() => setSelectedClient(c.nome)} className="flex items-center border-b border-[#DCDCDC] py-2 min-h-12 cursor-pointer hover:bg-[#F5F5F5] transition-colors animate-[fadeSlideIn_300ms_ease-out_both]" style={{ gap: 8, animationDelay: `${i * 50}ms` }}>
                   <span className="min-w-0 flex flex-col gap-0.5" style={{ flex: 2.5 }}>
                     <span className="paragraph-p2-14-regular text-[#666666]">{c.nome}</span>
                     {profile && (
@@ -224,7 +259,7 @@ export function ClientesPage() {
                     )}
                   </span>
                   <span className="min-w-0" style={{ flex: 0.8 }}>
-                    <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", ...({"VIP":{backgroundColor:"rgba(235,0,51,0.08)",color:"var(--marca)"},"Fiel":{backgroundColor:"rgba(31,173,104,0.10)",color:"#1FAD68"},"Em risco":{backgroundColor:"rgba(255,152,0,0.10)",color:"#F57C00"},"Perdido":{backgroundColor:"#F5F5F5",color:"#A3A3A3"},"Novato":{backgroundColor:"rgba(33,150,243,0.10)",color:"#1E88E5"}}[c.perfil] || {backgroundColor:"#F5F5F5",color:"#666666"}) }}>{c.perfil}</span>
+                    <span className="animate-[pillPop_250ms_ease-out_both]" style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", animationDelay: `${i * 50 + 100}ms`, ...({"VIP":{backgroundColor:"rgba(235,0,51,0.08)",color:"var(--marca)"},"Fiel":{backgroundColor:"rgba(31,173,104,0.10)",color:"#1FAD68"},"Em risco":{backgroundColor:"rgba(255,152,0,0.10)",color:"#F57C00"},"Perdido":{backgroundColor:"#F5F5F5",color:"#A3A3A3"},"Novato":{backgroundColor:"rgba(33,150,243,0.10)",color:"#1E88E5"}}[c.perfil] || {backgroundColor:"#F5F5F5",color:"#666666"}) }}>{c.perfil}</span>
                   </span>
                   <span className="min-w-0" style={{ flex: 0.9 }}>
                     {profile && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{profile.jornadaUsuario}</span>}

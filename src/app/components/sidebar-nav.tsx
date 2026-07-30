@@ -26,7 +26,8 @@ function ActiveItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) 
       title={collapsed ? item.label : undefined}
     >
       {({ isActive }) => (
-        <div className="flex h-14 items-center py-4 w-full gap-2 pl-5 pr-6">
+        <div className={`relative flex h-14 items-center py-4 w-full gap-2 pl-5 pr-6 transition-transform duration-150 ease-out ${!isActive ? 'hover:translate-x-0.5' : ''}`}>
+          {isActive && <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-[#EB0033]" />}
           <i
             className={`${isActive ? 'ifdl-icon-filled' : 'ifdl-icon-line'} ifdl-icon-${item.icon} shrink-0 text-[#141414]`}
             style={{ fontSize: '24px' }}

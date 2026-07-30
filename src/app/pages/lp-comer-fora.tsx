@@ -1,9 +1,24 @@
+import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import logoComerFora from '../../assets/logo_comer-fora.png';
 import heroIlustracao from '../../assets/hero-ilustracao.png';
 
+function useInView() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.2 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, visible };
+}
+
 export function LpComerFora() {
   const navigate = useNavigate();
+  const steps = useInView();
   return (
     <div style={{ maxWidth: 1180, margin: '0 auto', width: '100%' }}>
       {/* Banner */}
@@ -19,7 +34,7 @@ export function LpComerFora() {
             </p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
-            <button type="button" onClick={() => navigate('/modulos')} style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-8)', padding: '14px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: '#ffffff', color: 'var(--text-primario)', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', alignSelf: 'flex-start' }}>
+            <button type="button" onClick={() => navigate('/modulos')} className="transition-[transform,box-shadow] duration-150 ease-out hover:scale-[1.02] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] active:scale-[0.98]" style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--spacing-8)', padding: '14px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: '#ffffff', color: 'var(--text-primario)', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', alignSelf: 'flex-start' }}>
               Ativar Comer Fora
               <i className="ifdl-icon-line ifdl-icon-chevron-right" style={{ fontSize: 16 }} />
             </button>
@@ -45,14 +60,14 @@ export function LpComerFora() {
             <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', padding: '6px 16px' }}>Para seu cliente</span>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div ref={steps.ref} style={{ display: 'flex', gap: 8 }}>
           {[
             { titulo: 'Crie uma promoção pro salão', desc: 'Monte ofertas pra atrair clientes nos períodos de menor movimento' },
             { titulo: 'Seu salão aparece no app', desc: 'O iFood divulga sua oferta pra clientes próximos na sua região' },
             { titulo: 'Receba clientes no salão', desc: 'O cliente vai ao salão e faz o check-in no app para liberar a oferta' },
             { titulo: 'Controle suas promoções', desc: 'Defina horários, público e limites sem afetar sua operação' },
           ].map((step, i) => (
-            <div key={i} style={{ width: 306, height: 164, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', padding: 'var(--spacing-20)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>
+            <div key={i} className="transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]" style={{ width: 306, height: 164, borderRadius: 'var(--radius-12)', backgroundColor: 'var(--bg-secundario)', padding: 'var(--spacing-20)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)', opacity: steps.visible ? 1 : 0, transform: steps.visible ? 'translateY(0)' : 'translateY(16px)', transition: `opacity 400ms ease-out ${i * 100}ms, transform 400ms ease-out ${i * 100}ms, box-shadow 200ms ease-out, translate 200ms ease-out` }}>
               <i className="ifdl-icon-line ifdl-icon-store" style={{ fontSize: 24, color: 'var(--text-primario)' }} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <span style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)' }}>{step.titulo}</span>
@@ -83,7 +98,7 @@ export function LpComerFora() {
               </div>
             ))}
           </div>
-          <button type="button" style={{ alignSelf: 'flex-start', padding: '12px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--invertido)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)' }}>
+          <button type="button" className="transition-[transform,box-shadow] duration-150 ease-out hover:scale-[1.02] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] active:scale-[0.98]" style={{ alignSelf: 'flex-start', padding: '12px 24px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--invertido)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)' }}>
             Começar agora
           </button>
         </div>
@@ -201,7 +216,7 @@ export function LpComerFora() {
             ))}
           </div>
         </div>
-        <button type="button" onClick={() => navigate('/modulos')} style={{ padding: '14px 32px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', flexShrink: 0 }}>
+        <button type="button" onClick={() => navigate('/modulos')} className="transition-[transform,box-shadow] duration-150 ease-out hover:scale-[1.02] hover:shadow-[0_4px_12px_rgba(235,0,51,0.2)] active:scale-[0.98]" style={{ padding: '14px 32px', border: 'none', borderRadius: 'var(--radius-pill)', backgroundColor: 'var(--marca)', color: '#ffffff', cursor: 'pointer', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-16)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', flexShrink: 0 }}>
           Ativar Comer Fora
         </button>
       </section>

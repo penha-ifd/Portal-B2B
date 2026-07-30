@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "motion/react";
 import { usePlano } from "../state/plano-context";
 import { ImageWithFallback } from "../components/image-with-fallback";
 import megaphone from "../../imports/Web1350X690/d2104b50070a7f32609c2aaa0f48eeb0ae175fb0.png";
@@ -86,7 +87,7 @@ export function PromocoesPage() {
         {(["ativas", "desempenho"] as const).map((t) => (
           <button key={t} type="button" onClick={() => setTab(t)} className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${tab === t ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}>
             {t === "ativas" ? "Ativas" : "Desempenho"}
-            {tab === t && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EB0033] rounded-full" />}
+            {tab === t && <motion.div layoutId="promo-tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EB0033] rounded-full" transition={{ type: "spring", stiffness: 500, damping: 30 }} />}
           </button>
         ))}
       </div>
@@ -104,7 +105,7 @@ export function PromocoesPage() {
                 <p className="heading-h3-18-medium text-[#141414]">Atraia, fidelize e recupere seus clientes</p>
                 <p className="paragraph-p1-16-regular text-[#666]">Monte uma promoção do seu jeito e alavanque seu negócio</p>
               </div>
-              <button type="button" onClick={handleCriarPromocao} className="shrink-0 w-full md:w-[248px] flex items-center justify-center rounded-[12px] bg-[#141414] p-3 paragraph-p1-16-medium text-white hover:opacity-90">Criar promoção</button>
+              <button type="button" onClick={handleCriarPromocao} className="shrink-0 w-full md:w-[248px] flex items-center justify-center rounded-[12px] bg-[#141414] p-3 paragraph-p1-16-medium text-white transition-[transform,box-shadow] duration-150 ease-out hover:scale-[1.02] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] active:scale-[0.98]">Criar promoção</button>
             </div>
           </section>
 
@@ -136,7 +137,7 @@ export function PromocoesPage() {
                 ))}
               </div>
               {CAMPANHAS.map((c, i) => (
-                <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-3">
+                <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-3 animate-[fadeSlideIn_300ms_ease-out_both]" style={{ animationDelay: `${i * 50}ms` }}>
                   <div className="flex-1 flex items-center gap-2 min-w-0 overflow-hidden"><div className="size-6 rounded-lg bg-[#F2F2F2] flex items-center justify-center shrink-0"><svg className="w-4 h-4 text-[#717171]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg></div><span className="text-[16px] text-[#717171] truncate" style={{ fontFamily: "var(--font-inter)" }}>{c.nome}</span></div>
                   <div className="flex-1 min-w-0 flex items-center"><span className="inline-flex items-center gap-1.5 paragraph-p3-12-medium rounded-full px-2.5 py-0.5" style={{ backgroundColor: STATUS_STYLE[c.status].bg, color: STATUS_STYLE[c.status].color }}><span className="size-1.5 rounded-full shrink-0" style={{ backgroundColor: STATUS_STYLE[c.status].dot }} />{c.status}</span></div>
                   <span className="flex-1 paragraph-p2-14-regular text-[#717171] min-w-0">{c.publicoAlvo}</span>
