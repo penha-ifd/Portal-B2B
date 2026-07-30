@@ -12,6 +12,7 @@ import { PromocoesPage } from "./pages/promocoes";
 import { ConciliacaoPage } from "./pages/conciliacao";
 import { PdvPage } from "./pages/pdv";
 import { PerfilPage } from "./pages/perfil";
+import AvaliacoesPage from "./pages/avaliacoes";
 import { Navigate } from "react-router";
 
 export default function App() {
@@ -58,12 +59,7 @@ export default function App() {
               />
               <Route
                 path="avaliacoes"
-                element={
-                  <PlaceholderPage
-                    title="Avaliações"
-                    icon="store"
-                  />
-                }
+                element={<AvaliacoesPage />}
               />
               <Route
                 path="agregador"
