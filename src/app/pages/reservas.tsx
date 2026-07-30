@@ -110,7 +110,7 @@ export function ReservasPage() {
               const getColor = (n: number) => n >= 10 ? 'var(--marca)' : n >= 7 ? 'var(--text-secundario)' : 'var(--sucesso)';
               const getLabel = (n: number) => n >= 10 ? 'Lotado' : n >= 7 ? 'Alta' : 'Normal';
               return (
-                <div key={d.dia} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '8px 0', borderRadius: 'var(--radius-8)', backgroundColor: 'var(--bg-primario)' }}>
+                <div key={d.dia} className="transition-[transform,box-shadow] duration-150 ease-out hover:scale-[1.04] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '8px 0', borderRadius: 'var(--radius-8)', backgroundColor: 'var(--bg-primario)', cursor: 'pointer' }}>
                   <span style={{ ...fontBase, fontSize: '11px', fontWeight: 'var(--font-weight-regular)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)' }}>{d.dia}</span>
                   <span style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)' }}>{d.data}</span>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center', marginTop: 4 }}>
@@ -170,7 +170,7 @@ export function ReservasPage() {
                     <div>{r.nome}</div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
                       {r.tags.split(" · ").map((tag) => (
-                        <span key={tag} style={{ ...fontBase, fontSize: "11px", fontWeight: "var(--font-weight-regular)", color: tag === "veio do delivery" ? "var(--marca)" : "var(--text-secundario)", backgroundColor: tag === "veio do delivery" ? "rgba(235,0,51,0.08)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
+                        <span key={tag} className="animate-[pillPop_250ms_ease-out_both]" style={{ ...fontBase, fontSize: "11px", fontWeight: "var(--font-weight-regular)", color: tag === "veio do delivery" ? "var(--marca)" : "var(--text-secundario)", backgroundColor: tag === "veio do delivery" ? "rgba(235,0,51,0.08)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{tag}</span>
                       ))}
                     </div>
                   </td>

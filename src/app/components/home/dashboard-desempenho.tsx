@@ -167,6 +167,36 @@ const MODULO_LABELS: Record<string, string> = {
   avaliacoes: "Avaliações",
 };
 
+function useCountUp(target: number, decimals = 0) {
+  const [current, setCurrent] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        const duration = 800;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          setCurrent(eased * target);
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.5 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [target]);
+  const formatted = decimals > 0
+    ? current.toFixed(decimals).replace(".", ",")
+    : Math.round(current).toLocaleString("pt-BR");
+  return { ref, formatted };
+}
+
 export function DashboardDesempenho({ onSubmit }: Props) {
   const navigate = useNavigate();
   const { planoAtivo, usarVazio } = usePlano();
@@ -179,6 +209,13 @@ export function DashboardDesempenho({ onSubmit }: Props) {
   const [composerTimer, setComposerTimer] = useState(0);
   const [composerResponse, setComposerResponse] = useState<string | null>(null);
   const d = mockDashboard;
+
+  const roiValue = d.roi.retornado / d.roi.investido;
+  const countRoi = useCountUp(roiValue, 1);
+  const countCheckins = useCountUp(d.checkins.confirmados);
+  const countTicket = useCountUp(d.ticketMedio.valor, 2);
+  const countVoltaram = useCountUp(d.publico.voltaramSemCupom);
+  const countCross = useCountUp(d.crossChannel.pediramDelivery);
 
   const cardLabels: Record<string, string> = {
     faturamento: "Retorno do investimento",
@@ -544,7 +581,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </button>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-16)", marginTop: "var(--spacing-4)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "32px", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1 }}>{(d.roi.retornado / d.roi.investido).toFixed(1).replace(".", ",")}x</span>
+            <span ref={countRoi.ref} style={{ fontFamily: "var(--font-inter)", fontSize: "32px", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1 }}>{countRoi.formatted}x</span>
             <div style={{ width: "1px", height: "32px", backgroundColor: "var(--borda)", flexShrink: 0 }} />
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-4)" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {d.roi.investido.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} investidos</span>
@@ -603,7 +640,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </span>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
-            {d.crossChannel.pediramDelivery.toLocaleString("pt-BR")} clientes
+            <span ref={countCross.ref}>{countCross.formatted}</span> clientes
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
             {d.causa.crossChannel}
@@ -635,7 +672,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </button>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
-            {d.checkins.confirmados}
+            <span ref={countCheckins.ref}>{countCheckins.formatted}</span>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
             {d.causa.checkins}
@@ -664,7 +701,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </button>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
-            R$ {d.ticketMedio.valor.toFixed(2).replace(".", ",")}
+            R$ <span ref={countTicket.ref}>{countTicket.formatted}</span>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginTop: "var(--spacing-4)" }}>
             {d.causa.ticketMedio}
@@ -693,7 +730,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </button>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
-            {d.publico.voltaramSemCupom} clientes
+            <span ref={countVoltaram.ref}>{countVoltaram.formatted}</span> clientes
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
             {d.causa.voltaramSemCupom}
