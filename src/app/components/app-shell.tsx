@@ -31,7 +31,7 @@ export function AppShell() {
   }, [pathname]);
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden bg-[#e0e0e0] p-1 md:p-[10px]">
+    <div className="flex flex-col w-full overflow-hidden bg-[#e0e0e0] p-1 md:p-[10px]" style={{ height: '100dvh' }}>
       <div className="flex flex-col flex-1 overflow-hidden rounded-[16px] md:rounded-[24px] bg-[#f5f5f5]">
         <TopBar onToggleSidebar={() => setCollapsed((c) => !c)} onMobileMenu={() => setMobileOpen(true)} />
         <div className="flex flex-1 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
