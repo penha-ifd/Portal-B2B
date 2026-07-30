@@ -53,13 +53,13 @@ export function AppShell() {
           <main className="flex-1 overflow-hidden min-w-0">
             <div className="h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-white border border-[#ebebeb] shadow-[0px_1px_3px_rgba(21,21,21,0.08)]" style={{ paddingBottom: "180px" }}>
               <div className="max-w-[1180px] mx-auto">
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="popLayout">
                   <motion.div
                     key={pathname}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
                   >
                     <Outlet />
                   </motion.div>
