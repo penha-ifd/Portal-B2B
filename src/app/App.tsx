@@ -14,6 +14,8 @@ import { PdvPage } from "./pages/pdv";
 import { PerfilPage } from "./pages/perfil";
 import AvaliacoesPage from "./pages/avaliacoes";
 import { AgregadorPage } from "./pages/agregador";
+import { ConfiguracoesPage } from "./pages/configuracoes";
+import { FidelidadePage } from "./pages/fidelidade";
 import { Navigate } from "react-router";
 
 export default function App() {
@@ -75,13 +77,12 @@ export default function App() {
                 element={<ClientesPage />}
               />
               <Route
+                path="fidelidade"
+                element={<FidelidadePage />}
+              />
+              <Route
                 path="configuracoes"
-                element={
-                  <PlaceholderPage
-                    title="Configurações"
-                    icon="configuration"
-                  />
-                }
+                element={<ConfiguracoesPage />}
               />
               <Route
                 path="perfil"

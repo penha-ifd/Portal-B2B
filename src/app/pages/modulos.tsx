@@ -145,15 +145,14 @@ export function ModulosPage() {
 
   return (
     <div className="relative">
-      {/* Sub-header */}
-      <div
-        className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: '#ffffff' }}
-      >
-        <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
-          <i className="ifdl-icon-filled ifdl-icon-store text-white" style={{ fontSize: '12px' }} />
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
+          <i className="ifdl-icon-filled ifdl-icon-store text-white" style={{ fontSize: '16px' }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: isBase ? 'var(--text-primario)' : '#141414' }}>Módulos e planos</span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0, lineHeight: 1.3 }}>Módulos e planos</h1>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 0 }}>Escolha os módulos que fazem sentido para o seu negócio.</p>
+        </div>
       </div>
 
       {/* Conteúdo */}

@@ -98,14 +98,9 @@ export function DesempenhoTab() {
                 <span style={{ fontFamily: "var(--font-inter)" }}><span className="text-[24px] font-medium text-[#141414] leading-8">5%</span><span className="text-[14px] text-[#141414] leading-4"> (180 clientes)</span></span>
               </div>
             </div>
-            <div className="flex gap-1">
+            <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
               {[0, 0, 1].map((filled, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center">
-                  <div className="h-6 w-full rounded-2xl" style={{ backgroundColor: filled ? "#1FAD68" : "var(--bg-terciario)", opacity: 0.9 }} />
-                  <div className="h-12 relative w-full flex justify-center">
-                    {i === 2 && <div className="absolute -top-1 size-12 rounded-full bg-[#1FAD68] flex items-center justify-center"><svg className="size-4 text-white" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg></div>}
-                  </div>
-                </div>
+                <div key={i} style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: filled ? "#1FAD68" : "var(--bg-terciario)" }} />
               ))}
             </div>
             <div className="bg-[#F2F2F2] h-px w-full" />
@@ -131,7 +126,7 @@ export function DesempenhoTab() {
                 <span className="text-[24px] font-medium text-[#141414] leading-8" style={{ fontFamily: "var(--font-inter)" }}>R$ 5.500,00</span>
               </div>
               <div className="flex flex-col gap-2 flex-1">
-                <div className="h-8 rounded-lg overflow-hidden flex"><div className="bg-[#EB0033] flex-1" /><div className="bg-[#FFEBEF] w-[7px]" /><div className="bg-[#CC0000] w-[4px]" /></div>
+                <div style={{ display: "flex", height: 6, borderRadius: 3, overflow: "hidden" }}><div style={{ flex: 95, backgroundColor: "#EB0033" }} /><div style={{ flex: 1, backgroundColor: "#FFEBEF" }} /><div style={{ flex: 4, backgroundColor: "#CC0000" }} /></div>
                 <span className="text-[12px] text-[#666666] leading-4 text-right" style={{ fontFamily: "var(--font-inter)" }}>95%</span>
               </div>
             </div>
@@ -170,17 +165,17 @@ export function DesempenhoTab() {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <div className="flex items-center justify-between border-b border-[#DCDCDC] pb-2 min-w-[700px]">
-            {["Nome", "Objetivo", "Incentivo", "Data início", "Data fim"].map((h) => (
+          <div className="flex items-center justify-between border-b border-[#DCDCDC] pb-2 min-w-[900px]">
+            {["Nome", "Objetivo", "Incentivo", "Data início", "Data fim", "Custo", "Receita", "ROI", "ROAS"].map((h) => (
               <span key={h} className="flex-1 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)" }}>{h}</span>
             ))}
           </div>
           {[
-            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "iFood", inicio: "22/01/2025", fim: "22/01/2025" },
-            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025" },
-            { nome: "Cupom R$ 80", objetivo: "Novos clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025" },
+            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "iFood", inicio: "22/01/2025", fim: "22/01/2025", custo: "R$ 1.200", receita: "R$ 4.800", roi: "300%", roas: "4,0x" },
+            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025", custo: "R$ 800", receita: "R$ 2.640", roi: "230%", roas: "3,3x" },
+            { nome: "Cupom R$ 80", objetivo: "Novos clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025", custo: "R$ 2.400", receita: "R$ 5.520", roi: "130%", roas: "2,3x" },
           ].map((r, i) => (
-            <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-6">
+            <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-6 min-w-[900px]">
               <div className="flex-1 flex items-center gap-2">
                 <div className="size-6 rounded-lg bg-[#F2F2F2] flex items-center justify-center shrink-0"><svg className="size-4 text-[#717171]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg></div>
                 <span className="text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.nome}</span>
@@ -189,6 +184,10 @@ export function DesempenhoTab() {
               <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.incentivo}</span>
               <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.inicio}</span>
               <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.fim}</span>
+              <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.custo}</span>
+              <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.receita}</span>
+              <span className="flex-1 text-[16px] font-medium text-[#141414]" style={{ fontFamily: "var(--font-inter)" }}>{r.roi}</span>
+              <span className="flex-1 text-[16px] font-medium text-[#141414]" style={{ fontFamily: "var(--font-inter)" }}>{r.roas}</span>
             </div>
           ))}
         </div>

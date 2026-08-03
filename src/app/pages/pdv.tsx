@@ -42,25 +42,18 @@ export function PdvPage() {
 
   return (
     <div className="relative">
-      {/* Sub-header */}
-      <div
-        className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: '#ffffff' }}
-      >
-        <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
-          <i className="ifdl-icon-filled ifdl-icon-store text-white" style={{ fontSize: '12px' }} />
+      <span onClick={() => navigate('/configuracoes')} style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-secundario)', cursor: 'pointer', display: 'block', padding: 'var(--spacing-16) var(--spacing-24) 0' }}>← Configurações</span>
+      <div className="flex items-center gap-3 px-6 pt-3 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
+          <i className="ifdl-icon-filled ifdl-icon-store text-white" style={{ fontSize: '16px' }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: 'var(--text-primario)' }}>PDV</span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0, lineHeight: 1.3 }}>PDV</h1>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 0 }}>Conecta seu caixa e troca faturamento estimado por faturamento real.</p>
+        </div>
       </div>
 
       <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-6">
-        {/* Título */}
-        <div className="flex flex-col gap-1">
-          <h1 style={{ ...fontBase, fontSize: 'var(--font-size-24)', fontWeight: 'var(--font-weight-medium)', color: 'var(--text-primario)', margin: 0 }}>PDV</h1>
-          <p style={{ ...fontBase, fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', color: 'var(--text-secundario)', margin: 0 }}>
-            Conecta seu caixa e troca faturamento estimado por faturamento real.
-          </p>
-        </div>
 
         {/* Prévia borrada — só quando não ativo */}
         {isBase && (

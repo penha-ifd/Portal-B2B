@@ -91,6 +91,12 @@ interface Cliente {
   origem: string;
 }
 
+const PLANO_INFO: Record<string, string> = {
+  essencial: "Plano Essencial · módulos básicos",
+  profissional: "Plano Profissional · todos os módulos",
+  premium: "Plano Premium · todos os módulos",
+};
+
 const CLIENTES: Cliente[] = [
   { nome: "Clara L.", telefone: "(11) 98324-****", status: "Ativo", visitas: 10, primeiraVisita: "29/12/2025", ultimaVisita: "18/02/2026", perfil: "Fiel", origem: "Ambos" },
   { nome: "Luiza V.", telefone: "(11) 99338-****", status: "Ativo", visitas: 2, primeiraVisita: "18/09/2025", ultimaVisita: "13/10/2025", perfil: "Novato", origem: "Delivery" },
@@ -144,15 +150,17 @@ export function ClientesPage() {
   });
 
   return (
-    <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-[24px] font-medium text-[#141414] leading-[32px]">Comer Fora</h1>
-        <p className="paragraph-p2-14-regular text-[#666666]">Confira informações do seu perfil, promoções e clientes do seu salão</p>
+    <div className="relative">
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+          <i className="ifdl-icon-filled ifdl-icon-2-people text-white" style={{ fontSize: "16px" }} />
+        </span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>Clientes</h1>
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>Conheça seu público, segmente e ative campanhas personalizadas.</p>
+        </div>
       </div>
-
-
-
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 p-4 md:p-8">
         <div className="flex gap-1 border-b border-[#EBEBEB]">
           {["Pessoas", "Segmentos"].map((tab) => (
             <button key={tab} type="button" onClick={() => setActiveTab(tab)} className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${activeTab === tab ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}>
@@ -255,6 +263,7 @@ export function ClientesPage() {
                         <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{profile.culinariaFavorita}</span>
                         {voucherLabel && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: profile.sensibilidadeVoucher === "alta" ? "#1FAD68" : "var(--text-secundario)", backgroundColor: profile.sensibilidadeVoucher === "alta" ? "rgba(31,173,104,0.10)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{voucherLabel}</span>}
                         {potencialLabel && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", backgroundColor: "rgba(235,0,51,0.08)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{potencialLabel}</span>}
+                        {profile.canais.length > 1 && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>Cross-channel</span>}
                       </span>
                     )}
                   </span>

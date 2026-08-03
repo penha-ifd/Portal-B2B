@@ -62,16 +62,13 @@ export function PromocoesPage() {
 
   return (
     <div className="relative">
-      <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200" style={{ backgroundColor: "#ffffff" }}>
-        <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
-          <i className="ifdl-icon-filled ifdl-icon-promotion text-white" style={{ fontSize: "12px" }} />
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+          <i className="ifdl-icon-filled ifdl-icon-promotion text-white" style={{ fontSize: "16px" }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: isBase ? "var(--text-primario)" : "#141414" }}>Promoções</span>
-        <div className="flex items-center gap-3 ml-auto">
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: isBase ? "var(--text-primario)" : "var(--text-secundario)" }}>
-            {isBase ? "Ative um módulo para liberar inteligência e CRM" : PLANO_INFO[planoAtivo] ?? ""}
-          </span>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: isBase ? "var(--text-primario)" : "var(--marca)", cursor: "pointer" }} onClick={() => navigate("/modulos")}>Mudar assinatura</span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>Promoções</h1>
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>Crie campanhas para atrair e reter clientes no salão e no delivery.</p>
         </div>
       </div>
 
@@ -108,6 +105,117 @@ export function PromocoesPage() {
               <button type="button" onClick={handleCriarPromocao} className="shrink-0 w-full md:w-[248px] flex items-center justify-center rounded-[12px] bg-[#141414] p-3 paragraph-p1-16-medium text-white transition-[transform,box-shadow] duration-150 ease-out hover:scale-[1.02] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] active:scale-[0.98]">Criar promoção</button>
             </div>
           </section>
+
+          {/* Conheça as mecânicas */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Conheça as mecânicas</span>
+            <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--spacing-12)" }}>
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+                <span style={{ fontSize: "20px" }}>🎟️</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Cupom de desconto</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.5 }}>Atrai novos clientes com valor fixo ou %.</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Ideal para: primeira visita</span>
+              </div>
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+                <span style={{ fontSize: "20px" }}>💰</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Cashback</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.5 }}>Cliente ganha crédito para próxima visita.</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Ideal para: fidelização e retorno</span>
+              </div>
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+                <span style={{ fontSize: "20px" }}>🍽️</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Item grátis</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.5 }}>Ofereça um item do cardápio como cortesia.</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Ideal para: experimentação de novos pratos</span>
+              </div>
+              <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+                <span style={{ fontSize: "20px" }}>🎁</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Combo especial</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.5 }}>Monte pacotes com preço atrativo.</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Ideal para: aumento de ticket médio</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Templates prontos */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+            <div>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", display: "block" }}>Templates prontos</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginTop: 2 }}>Crie uma campanha em 1 clique com público já segmentado</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--spacing-12)" }}>
+              {[
+                { emoji: "🔄", titulo: "Reativar inativos", desc: "Clientes sem visita há 30+ dias", publicoAlvo: "Inativos" },
+                { emoji: "👋", titulo: "Boas-vindas delivery", desc: "Primeira visita presencial", publicoAlvo: "Delivery-only" },
+                { emoji: "🎂", titulo: "Aniversariantes", desc: "Aniversário nos próximos 7 dias", publicoAlvo: "Aniversariantes" },
+                { emoji: "👑", titulo: "VIP exclusivo", desc: "Top 10% por frequência", publicoAlvo: "VIPs" },
+              ].map(t => (
+                <div key={t.titulo} onClick={() => setDrawerOpen(true)} style={{ backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-8)", cursor: "pointer", transition: "all 150ms ease" }}>
+                  <span style={{ fontSize: "20px" }}>{t.emoji}</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{t.titulo}</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.5 }}>{t.desc}</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Público: {t.publicoAlvo}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Controle de frequência (anti-spam) */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Controle de frequência</span>
+            <div style={{ backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", overflow: "hidden" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)", borderBottom: "1px solid var(--borda)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Máximo de mensagens por cliente/semana</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Evita fadiga e opt-out</span>
+                </div>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-8)", padding: "4px 12px" }}>2x</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)", borderBottom: "1px solid var(--borda)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Intervalo mínimo entre campanhas</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Respiro entre comunicações</span>
+                </div>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-8)", padding: "4px 12px" }}>48h</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Pausar envio se cliente reclamou</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Respeita clientes insatisfeitos</span>
+                </div>
+                <div style={{ width: 36, height: 20, borderRadius: "var(--radius-pill)", backgroundColor: "var(--sucesso)", position: "relative", cursor: "pointer" }}>
+                  <div style={{ width: 16, height: 16, borderRadius: "50%", backgroundColor: "#ffffff", position: "absolute", top: 2, right: 2 }} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Automações */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Automações</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>IA</span>
+            </div>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: -8 }}>Jornadas automáticas que disparam com base no comportamento do cliente</span>
+            <div style={{ backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", overflow: "hidden" }}>
+              {[
+                { nome: "Reativar inativo (30 dias)", desc: "Envia cupom após 30 dias sem pedido", ativo: true },
+                { nome: "Boas-vindas primeira visita", desc: "Mensagem de boas-vindas + benefício", ativo: true },
+                { nome: "Aniversário do cliente", desc: "Presente especial na data", ativo: false },
+                { nome: "Pós-visita (pedir review)", desc: "Solicita avaliação 24h após visita", ativo: false },
+              ].map((a, i, arr) => (
+                <div key={a.nome} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)", borderBottom: i < arr.length - 1 ? "1px solid var(--borda)" : "none" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{a.nome}</span>
+                    <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>{a.desc}</span>
+                  </div>
+                  <div style={{ width: 36, height: 20, borderRadius: "var(--radius-pill)", backgroundColor: a.ativo ? "var(--sucesso)" : "var(--bg-terciario)", position: "relative", cursor: "pointer", transition: "all 150ms ease" }}>
+                    <div style={{ width: 16, height: 16, borderRadius: "50%", backgroundColor: "#ffffff", position: "absolute", top: 2, ...(a.ativo ? { right: 2 } : { left: 2 }) }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="flex flex-col gap-6 pb-4">
             <div className="flex flex-col gap-1">

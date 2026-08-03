@@ -24,18 +24,18 @@ export const mockDashboard = {
     pagamento: "conciliado direto no PDV",
   },
   origem: {
-    faturamento: "Fixo" as const,
-    checkins: "Fixo" as const,
-    ticketMedio: "Fixo" as const,
-    voltaramSemCupom: "Fixo" as const,
-    funil: "Fixo" as const,
-    origemPublico: "Fixo" as const,
-    benchmark: "Fixo" as const,
+    faturamento: null,
+    checkins: null,
+    ticketMedio: null,
+    voltaramSemCupom: null,
+    funil: null,
+    origemPublico: null,
+    benchmark: null,
     crossChannel: "Cross-channel" as const,
     cardapio: "Cross-channel" as const,
-    avaliacoes: "Fixo" as const,
-    reservas: "Fixo" as const,
-    pagamento: "Fixo" as const,
+    avaliacoes: null,
+    reservas: null,
+    pagamento: null,
   },
   acao: {
     faturamento: "Ver por promoção",
@@ -120,7 +120,20 @@ export const mockDashboard = {
     acao: "Ver por mesa",
     origem: "Gerado" as const,
     modulo: "pagamento" as const,
-  }
+  },
+  funilFinanceiro: {
+    cashbackEmitido: 1090.24,
+    cashbackResgatado: 876.19,
+    vendasGeradas: 8976.24,
+    lucroLiquido: 7886.00,
+  },
+  segmentacaoRfv: [
+    { perfil: "Campeão", qtd: 38, cor: "#1FAD68" },
+    { perfil: "Fiel", qtd: 64, cor: "#34D399" },
+    { perfil: "Recente", qtd: 91, cor: "#60A5FA" },
+    { perfil: "Em risco", qtd: 52, cor: "#FBBF24" },
+    { perfil: "Perdido", qtd: 40, cor: "#F87171" },
+  ],
 };
 
 export const mockDashboardVazio = {
@@ -159,6 +172,8 @@ const PLANO_MODULOS: Record<string, string[]> = {
   base: ["delivery", "cupons"],
   essencial: ["delivery", "cupons", "reservas"],
   avancado: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
+  profissional: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
+  premium: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
 };
 
 const MODULO_LABELS: Record<string, string> = {
@@ -324,7 +339,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
   ];
 
   return (
-    <div className="w-full" style={{ marginBottom: "var(--spacing-40)" }}>
+    <div className="w-full" style={{ paddingBottom: "100px" }}>
       <style>{`
         ${Array.from({ length: 16 }).map((_, i) => `@keyframes composer-wave-${i} { from { height: 18%; } to { height: 100%; } }`).join("\n")}
         @media (prefers-reduced-motion: reduce) {
@@ -510,18 +525,72 @@ export function DashboardDesempenho({ onSubmit }: Props) {
 
       {planoAtivo !== "novo" && (<>
 
-      {/* Onboarding contextual — plano Essencial */}
-      {planoAtivo === "essencial" && (
-        <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Bem-vindo ao plano Essencial</span>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.6 }}>
-            Com este plano você tem cardápio digital, agregador de pedidos, PDV básico e CRM com identificação de clientes. Evolua para o Profissional para desbloquear pagamento na mesa, avaliações e fidelidade.
-          </span>
-          <div style={{ display: "flex", gap: "var(--spacing-8)" }}>
-            <span onClick={() => navigate("/modulos")} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", cursor: "pointer" }}>Ver planos e módulos</span>
+      {/* Gráfico de tendência */}
+      {temDados && (
+        <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-12)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Check-ins confirmados — últimas 8 semanas</span>
+            <div style={{ display: "flex", gap: "var(--spacing-4)" }}>
+              <button type="button" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", backgroundColor: "var(--bg-terciario)", border: "none", borderRadius: "var(--radius-pill)", padding: "3px 8px", cursor: "pointer" }}>8 sem</button>
+              <button type="button" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "3px 8px", cursor: "pointer" }}>Sex–Dom</button>
+              <button type="button" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "3px 8px", cursor: "pointer" }}>Comparar períodos</button>
+            </div>
+          </div>
+          <ResponsiveContainer width="100%" height={160}>
+            <LineChart data={[{sem:"Sem 1",valor:180,anterior:160},{sem:"Sem 2",valor:195,anterior:175},{sem:"Sem 3",valor:210,anterior:190},{sem:"Sem 4",valor:198,anterior:185},{sem:"Sem 5",valor:240,anterior:205},{sem:"Sem 6",valor:255,anterior:220},{sem:"Sem 7",valor:268,anterior:230},{sem:"Sem 8",valor:285,anterior:245}]} margin={{top:8,right:8,bottom:0,left:-16}}>
+              <XAxis dataKey="sem" tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
+              <YAxis tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{fontFamily:"var(--font-inter)",fontSize:12,borderRadius:8,border:"1px solid var(--borda)"}} />
+              <Line type="monotone" dataKey="valor" stroke="#EB0033" strokeWidth={2} dot={{r:3,fill:"#EB0033"}} activeDot={{r:5}} name="Atual" />
+              <Line type="monotone" dataKey="anterior" stroke="var(--text-desabilitado)" strokeWidth={1.5} strokeDasharray="4 4" dot={{r:2,fill:"var(--text-desabilitado)"}} name="Período anterior" />
+            </LineChart>
+          </ResponsiveContainer>
+          <div style={{ display: "flex", gap: "var(--spacing-16)", marginTop: "var(--spacing-8)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <span style={{ width: 12, height: 2, backgroundColor: "#EB0033", borderRadius: 1 }} />
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", color: "var(--text-secundario)" }}>Atual</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <span style={{ width: 12, height: 2, backgroundColor: "var(--text-desabilitado)", borderRadius: 1, borderTop: "1px dashed var(--text-desabilitado)" }} />
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", color: "var(--text-secundario)" }}>Período anterior</span>
+            </div>
           </div>
         </div>
       )}
+
+      {/* KPIs hero */}
+      {temDados && (
+        <div style={{ marginBottom: "var(--spacing-16)" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-12)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Impacto do Comer Fora</span>
+            <div style={{ display: "flex", gap: "var(--spacing-4)" }}>
+              <button type="button" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", backgroundColor: "var(--bg-terciario)", border: "none", borderRadius: "var(--radius-pill)", padding: "4px 10px", cursor: "pointer" }}>7d</button>
+              <button type="button" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", cursor: "pointer" }}>30d</button>
+              <button type="button" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "transparent", border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", cursor: "pointer" }}>vs semana anterior</button>
+            </div>
+          </div>
+          <div className="grid grid-cols-3" style={{ gap: "var(--spacing-12)" }}>
+            <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-4)" }}>Clientes novos</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>47</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginLeft: "var(--spacing-8)" }}>+12%</span>
+            </div>
+            <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-4)" }}>Retornaram após benefício</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>64</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginLeft: "var(--spacing-8)" }}>+8%</span>
+            </div>
+            <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-4)" }}>Novos reviews</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>12</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginLeft: "var(--spacing-8)" }}>+3</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
 
       {mostrarAlerta && (
         <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
@@ -551,46 +620,8 @@ export function DashboardDesempenho({ onSubmit }: Props) {
 
 
       {temDados && <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)" }}>
-        {/* Grupo — Performance */}
-        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Performance</span>
-
-        {/* Legenda dos badges */}
-        <div className="col-span-full" style={{ display: "flex", alignItems: "center", gap: "var(--spacing-12)", flexWrap: "wrap" }}>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>
-            <span style={{ display: "inline-block", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px", marginRight: "4px", color: "var(--text-secundario)" }}>Fixo</span>
-            métrica permanente
-          </span>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>
-            <span style={{ display: "inline-block", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "1px 6px", marginRight: "4px", color: "#ffffff" }}>Cross-channel</span>
-            cruzamento delivery + salão
-          </span>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>
-            <span style={{ display: "inline-block", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px", marginRight: "4px", color: "var(--sucesso)" }}>Gerado</span>
-            insight da IA
-          </span>
-        </div>
-
-        {/* Card 1 — Retorno do investimento (2 colunas, primeiro bloco) */}
-        <div className="col-span-2 md:col-span-2" onClick={() => handleCardClick("faturamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "faturamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.faturamento}</span>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Retorno do investimento</span>
-            <button type="button" aria-label="Mais informações" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, position: "relative" }} onMouseEnter={() => setTooltipAberto("faturamento")} onMouseLeave={() => setTooltipAberto(null)} onFocus={() => setTooltipAberto("faturamento")} onBlur={() => setTooltipAberto(null)}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-desabilitado)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              {tooltipAberto === "faturamento" && <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 9999, pointerEvents: "none" }}>Cashback efetivamente pago contra vendas dos clientes que usaram. Os dois valores são medidos, não estimados.</div>}
-            </button>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-16)", marginTop: "var(--spacing-4)" }}>
-            <span ref={countRoi.ref} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-32)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1 }}>{countRoi.formatted}x</span>
-            <div style={{ width: "1px", height: "32px", backgroundColor: "var(--borda)", flexShrink: 0 }} />
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-4)" }}>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {d.roi.investido.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} investidos</span>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {d.roi.retornado.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} em vendas</span>
-            </div>
-          </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>{d.causa.faturamento}</div>
-          <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>{d.acao.faturamento}</button>
-        </div>
+        {/* Ações recomendadas */}
+        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ações recomendadas</span>
 
         {(() => {
           const destaque = MOSTRAR_JA_FEITO ? d.jaFeito : d.destaqueDoDia;
@@ -650,14 +681,87 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </button>
         </div>
 
-        {/* Grupo — Clientes */}
-        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Clientes</span>
+        {/* Retorno financeiro */}
+        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Retorno financeiro</span>
+
+        {/* Card — Retorno do investimento */}
+        <div className="col-span-2 md:col-span-2" onClick={() => handleCardClick("faturamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "faturamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
+          {d.origem.faturamento && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.faturamento}</span>}
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Retorno do investimento</span>
+            <button type="button" aria-label="Mais informações" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 0, position: "relative" }} onMouseEnter={() => setTooltipAberto("faturamento")} onMouseLeave={() => setTooltipAberto(null)} onFocus={() => setTooltipAberto("faturamento")} onBlur={() => setTooltipAberto(null)}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-desabilitado)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              {tooltipAberto === "faturamento" && <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: "6px", backgroundColor: "var(--invertido)", color: "#ffffff", fontSize: "var(--font-size-12)", fontFamily: "var(--font-inter)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", borderRadius: "var(--radius-8)", padding: "var(--spacing-8) var(--spacing-12)", maxWidth: "260px", whiteSpace: "normal", zIndex: 9999, pointerEvents: "none" }}>Cashback efetivamente pago contra vendas dos clientes que usaram. Os dois valores são medidos, não estimados.</div>}
+            </button>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-16)", marginTop: "var(--spacing-4)" }}>
+            <span ref={countRoi.ref} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-32)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1 }}>{countRoi.formatted}x</span>
+            <div style={{ width: "1px", height: "32px", backgroundColor: "var(--borda)", flexShrink: 0 }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-4)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {d.roi.investido.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} investidos</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {d.roi.retornado.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} em vendas</span>
+            </div>
+          </div>
+          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>{d.causa.faturamento}</div>
+          <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>{d.acao.faturamento}</button>
+        </div>
+
+        {/* Funil financeiro */}
+        <div className="col-span-2 md:col-span-2" style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: "var(--spacing-12)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Funil financeiro</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>Gerado</span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+            {[
+              { label: "Cupons emitidos", valor: d.funilFinanceiro.cashbackEmitido, pct: 100 },
+              { label: "Cupons resgatados", valor: d.funilFinanceiro.cashbackResgatado, pct: Math.round((d.funilFinanceiro.cashbackResgatado / d.funilFinanceiro.cashbackEmitido) * 100) },
+              { label: "Vendas geradas", valor: d.funilFinanceiro.vendasGeradas, pct: 100 },
+              { label: "Lucro líquido", valor: d.funilFinanceiro.lucroLiquido, pct: Math.round((d.funilFinanceiro.lucroLiquido / d.funilFinanceiro.vendasGeradas) * 100) },
+            ].map((etapa, i) => (
+              <div key={etapa.label}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>{etapa.label}</span>
+                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {etapa.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
+                </div>
+                <div style={{ height: 6, borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", overflow: "hidden" }}>
+                  <div style={{ width: `${etapa.pct}%`, height: "100%", borderRadius: "var(--radius-pill)", backgroundColor: i < 2 ? "var(--marca)" : "var(--sucesso)", transition: "width 600ms ease" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Seu público */}
+        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Seu público</span>
+
+        {/* Card — Segmentação RFV */}
+        <div className="col-span-2 md:col-span-4" style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: "var(--spacing-12)" }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Perfil dos seus clientes</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>RFV</span>
+          </div>
+          <div style={{ display: "flex", gap: "var(--spacing-4)", height: 8, borderRadius: "var(--radius-pill)", overflow: "hidden", marginBottom: "var(--spacing-12)" }}>
+            {d.segmentacaoRfv.map((seg) => (
+              <div key={seg.perfil} style={{ flex: seg.qtd, backgroundColor: seg.cor, transition: "flex 600ms ease" }} />
+            ))}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-12)" }}>
+            {d.segmentacaoRfv.map((seg) => (
+              <div key={seg.perfil} style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: seg.cor, flexShrink: 0 }} />
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>{seg.perfil}</span>
+                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>{seg.qtd}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Card 2 — Check-ins confirmados */}
         <div onClick={() => handleCardClick("checkins")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "checkins" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+          {d.origem.checkins && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.checkins}
-          </span>
+          </span>}
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
               Check-ins confirmados
@@ -684,9 +788,9 @@ export function DashboardDesempenho({ onSubmit }: Props) {
 
         {/* Card 3 — Ticket médio */}
         <div onClick={() => handleCardClick("ticketMedio")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "ticketMedio" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+          {d.origem.ticketMedio && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.ticketMedio}
-          </span>
+          </span>}
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
               Ticket médio
@@ -713,9 +817,9 @@ export function DashboardDesempenho({ onSubmit }: Props) {
 
         {/* Card 4 — Voltaram sem cupom */}
         <div onClick={() => handleCardClick("voltaramSemCupom")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "voltaramSemCupom" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+          {d.origem.voltaramSemCupom && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.voltaramSemCupom}
-          </span>
+          </span>}
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
               Voltaram sem cupom
@@ -740,29 +844,15 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </button>
         </div>
 
-        {/* Grupo — Operação */}
-        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Operação</span>
-
-        {/* Card — Gráfico de linha temporal */}
-        <div className="col-span-2" style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
-          <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginBottom: "var(--spacing-12)" }}>Check-ins confirmados — últimas 8 semanas</span>
-          <ResponsiveContainer width="100%" height={160}>
-            <LineChart data={[{sem:"Sem 1",valor:180},{sem:"Sem 2",valor:195},{sem:"Sem 3",valor:210},{sem:"Sem 4",valor:198},{sem:"Sem 5",valor:240},{sem:"Sem 6",valor:255},{sem:"Sem 7",valor:268},{sem:"Sem 8",valor:285}]} margin={{top:8,right:8,bottom:0,left:-16}}>
-              <XAxis dataKey="sem" tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
-              <YAxis tick={{fontSize:11,fill:"var(--text-secundario)"}} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{fontFamily:"var(--font-inter)",fontSize:12,borderRadius:8,border:"1px solid var(--borda)"}} />
-              <Line type="monotone" dataKey="valor" stroke="#EB0033" strokeWidth={2} dot={{r:3,fill:"#EB0033"}} activeDot={{r:5}} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        {/* Módulos ativos */}
+        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Módulos ativos</span>
 
         {/* Card — Avaliações (só se desbloqueado) */}
         {!isCardLocked("avaliacoes") && (
           <div onClick={() => handleCardClick("avaliacoes")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "avaliacoes" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+            {d.origem.avaliacoes && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
               {d.origem.avaliacoes}
-            </span>
+            </span>}
             <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
                 Nota média no salão
@@ -783,9 +873,9 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         {/* Card — Reservas (só se desbloqueado) */}
         {!isCardLocked("reservas") && (
           <div onClick={() => handleCardClick("reservas")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "reservas" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+            {d.origem.reservas && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
               {d.origem.reservas}
-            </span>
+            </span>}
             <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
                 Taxa de no-show
@@ -806,9 +896,9 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         {/* Card — Pagamento (só se desbloqueado) */}
         {!isCardLocked("pagamento") && (
           <div onClick={() => handleCardClick("pagamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "pagamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+            {d.origem.pagamento && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
               {d.origem.pagamento}
-            </span>
+            </span>}
             <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
                 Faturamento real
@@ -834,7 +924,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: "var(--spacing-16)" }}>
             {isCardLocked("avaliacoes") && (
               <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.avaliacoes}</span>
+                {d.origem.avaliacoes && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.avaliacoes}</span>}
                 <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Nota média no salão</span>
                 <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "80%" }} />
                 <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "55%" }} />
@@ -844,7 +934,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             )}
             {isCardLocked("reservas") && (
               <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.reservas}</span>
+                {d.origem.reservas && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.reservas}</span>}
                 <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Taxa de no-show</span>
                 <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "35%" }} />
                 <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "60%" }} />
@@ -854,7 +944,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             )}
             {isCardLocked("pagamento") && (
               <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.pagamento}</span>
+                {d.origem.pagamento && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.pagamento}</span>}
                 <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Faturamento real</span>
                 <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "70%" }} />
                 <div style={{ height: "8px", borderRadius: "4px", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", width: "45%" }} />
@@ -866,105 +956,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--spacing-16)", marginTop: "var(--spacing-16)" }}>
-        <div onClick={() => handleCardClick("funil")} style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: selectedCard === "funil" ? "1.5px solid var(--marca)" : "1px solid var(--borda)", padding: "var(--spacing-16)", cursor: "pointer" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
-            {d.origem.funil}
-          </span>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-            {etapasFunil.map((etapa) => (
-              <div key={etapa.label}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                    {etapa.label}
-                  </span>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>
-                    {etapa.valor}
-                  </span>
-                </div>
-                <div style={{ height: "8px", borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-4)", overflow: "hidden" }}>
-                  <div style={{ height: "100%", borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)", width: `${(etapa.valor / maxCupons) * 100}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-12)" }}>
-            {d.causa.funil}
-          </div>
-          <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>
-            {d.acao.funil}
-          </button>
-        </div>
-        {temDados && <div onClick={() => handleCardClick("origemPublico")} style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: selectedCard === "origemPublico" ? "1.5px solid var(--marca)" : "1px solid var(--borda)", padding: "var(--spacing-16)", cursor: "pointer" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
-            {d.origem.origemPublico}
-          </span>
-          <div style={{ height: "12px", borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", overflow: "hidden", display: "flex" }}>
-            <div style={{ height: "100%", backgroundColor: "var(--marca)", width: `${(d.publico.primeiraVezIfood / (d.publico.primeiraVezIfood + d.publico.jaVieramPeloIfood)) * 100}%` }} />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-4)", marginTop: "var(--spacing-12)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
-              <div style={{ width: "8px", height: "8px", borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)", flexShrink: 0 }} />
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                Primeira vez via iFood · {d.publico.primeiraVezIfood} pessoas · {Math.round((d.publico.primeiraVezIfood / (d.publico.primeiraVezIfood + d.publico.jaVieramPeloIfood)) * 100)}%
-              </span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
-              <div style={{ width: "8px", height: "8px", borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", flexShrink: 0 }} />
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                Já haviam vindo pelo iFood · {d.publico.jaVieramPeloIfood} pessoas · {Math.round((d.publico.jaVieramPeloIfood / (d.publico.primeiraVezIfood + d.publico.jaVieramPeloIfood)) * 100)}%
-              </span>
-            </div>
-          </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)", marginTop: "var(--spacing-12)" }}>
-            {d.causa.origemPublico}
-          </div>
-          <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>
-            {d.acao.origemPublico}
-          </button>
-        </div>}
-      </div>
 
-      {temDados && <div className="flex flex-col md:flex-row" style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)", marginTop: "var(--spacing-16)" }}>
-        <div style={{ flex: 1, paddingRight: "var(--spacing-16)" }}>
-          {d.benchmark.percentil >= 50 ? (
-            <div>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>
-                Você está no top {100 - d.benchmark.percentil}% dos restaurantes {d.benchmark.categoria} da sua região
-              </span>
-              <div style={{ height: "8px", borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", marginTop: "var(--spacing-8)", position: "relative" }}>
-                <div style={{ position: "absolute", left: `${d.benchmark.percentil}%`, top: "-2px", width: "12px", height: "12px", borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)", transform: "translateX(-50%)" }} />
-              </div>
-            </div>
-          ) : (
-            <div>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>
-                Seu desconto está abaixo do bairro
-              </span>
-              <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
-                Restaurantes parecidos oferecem {Math.round(d.benchmark.descontoMedioRegiao * 100)}%. O seu oferece {Math.round(d.benchmark.descontoProprio * 100)}%.
-              </div>
-              <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-8)" }}>
-                Ajustar oferta
-              </button>
-            </div>
-          )}
-        </div>
-        <div className="w-full md:w-px h-px md:h-auto" style={{ backgroundColor: "var(--borda)", flexShrink: 0, marginTop: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }} />
-        <div style={{ flex: 1, paddingLeft: "var(--spacing-16)" }}>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>
-            {d.sugestao.texto}
-          </span>
-          <div style={{ display: "flex", gap: "var(--spacing-8)", marginTop: "var(--spacing-12)" }}>
-            <button type="button" style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)" }}>
-              Aplicar
-            </button>
-            <button type="button" style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-              Ignorar
-            </button>
-          </div>
-        </div>
-      </div>}
 
       {!temDados && (
         <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)", marginTop: "var(--spacing-16)" }}>

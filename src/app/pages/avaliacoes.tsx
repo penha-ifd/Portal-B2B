@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 // ── dados mock ──────────────────────────────────────────────────────────────
 
 const REVIEWS = [
-  { id: 1, fonte: "google" as const, estrelas: 5, nome: "Maria S.", data: "2026-07-28", texto: "Comida maravilhosa, o prato do dia estava perfeito. Atendimento super atencioso, voltarei com certeza!", respondida: false },
-  { id: 2, fonte: "ifood" as const, estrelas: 4, nome: "João P.", data: "2026-07-27", texto: "Gostei bastante, mas demorou um pouco pra chegar. Comida estava quente ainda.", respondida: true, resposta: "Olá João, obrigado pelo feedback! Estamos trabalhando para melhorar nosso tempo de entrega." },
-  { id: 3, fonte: "google" as const, estrelas: 2, nome: "Ana L.", data: "2026-07-25", texto: "Atendimento deixou a desejar, garçom demorou 20min pra trazer o cardápio. Comida ok mas nada especial pelo preço.", respondida: false },
-  { id: 4, fonte: "ifood" as const, estrelas: 5, nome: "Carlos M.", data: "2026-07-24", texto: "Melhor hambúrguer da região! Sempre peço aqui.", respondida: true, resposta: "Valeu Carlos! Fica de olho nas novidades do cardápio." },
-  { id: 5, fonte: "google" as const, estrelas: 3, nome: "Fernanda R.", data: "2026-07-23", texto: "Ambiente bonito mas achei caro pelo que oferece. Porções poderiam ser maiores.", respondida: false },
-  { id: 6, fonte: "ifood" as const, estrelas: 1, nome: "Ricardo T.", data: "2026-07-22", texto: "Pedido veio errado e frio. Terceira vez que acontece. Inaceitável.", respondida: false },
-  { id: 7, fonte: "google" as const, estrelas: 5, nome: "Patrícia G.", data: "2026-07-21", texto: "Lugar incrível pra um jantar a dois. Carta de vinhos excelente e atendimento impecável.", respondida: true, resposta: "Obrigada Patrícia! Temos novidades na carta, volte logo!" },
-  { id: 8, fonte: "ifood" as const, estrelas: 4, nome: "Bruno A.", data: "2026-07-20", texto: "Boa opção no bairro. Entrega rápida e comida saborosa.", respondida: false },
+  { id: 1, fonte: "google" as const, estrelas: 5, nome: "Maria S.", data: "2026-07-28", texto: "Comida maravilhosa, o prato do dia estava perfeito. Atendimento super atencioso, voltarei com certeza!", respondida: false, temas: ["Comida", "Atendimento"] },
+  { id: 2, fonte: "ifood" as const, estrelas: 4, nome: "João P.", data: "2026-07-27", texto: "Gostei bastante, mas demorou um pouco pra chegar. Comida estava quente ainda.", respondida: true, resposta: "Olá João, obrigado pelo feedback! Estamos trabalhando para melhorar nosso tempo de entrega.", temas: ["Comida", "Espera"] },
+  { id: 3, fonte: "google" as const, estrelas: 2, nome: "Ana L.", data: "2026-07-25", texto: "Atendimento deixou a desejar, garçom demorou 20min pra trazer o cardápio. Comida ok mas nada especial pelo preço.", respondida: false, temas: ["Atendimento", "Espera", "Preço"] },
+  { id: 4, fonte: "ifood" as const, estrelas: 5, nome: "Carlos M.", data: "2026-07-24", texto: "Melhor hambúrguer da região! Sempre peço aqui.", respondida: true, resposta: "Valeu Carlos! Fica de olho nas novidades do cardápio.", temas: ["Comida"] },
+  { id: 5, fonte: "google" as const, estrelas: 3, nome: "Fernanda R.", data: "2026-07-23", texto: "Ambiente bonito mas achei caro pelo que oferece. Porções poderiam ser maiores.", respondida: false, temas: ["Ambiente", "Preço"] },
+  { id: 6, fonte: "ifood" as const, estrelas: 1, nome: "Ricardo T.", data: "2026-07-22", texto: "Pedido veio errado e frio. Terceira vez que acontece. Inaceitável.", respondida: false, temas: ["Comida", "Atendimento"] },
+  { id: 7, fonte: "google" as const, estrelas: 5, nome: "Patrícia G.", data: "2026-07-21", texto: "Lugar incrível pra um jantar a dois. Carta de vinhos excelente e atendimento impecável.", respondida: true, resposta: "Obrigada Patrícia! Temos novidades na carta, volte logo!", temas: ["Ambiente", "Atendimento"] },
+  { id: 8, fonte: "ifood" as const, estrelas: 4, nome: "Bruno A.", data: "2026-07-20", texto: "Boa opção no bairro. Entrega rápida e comida saborosa.", respondida: false, temas: ["Comida"] },
 ];
 
 const DISTRIBUICAO = [
@@ -22,11 +22,11 @@ const DISTRIBUICAO = [
 ];
 
 const TEMAS = [
-  { nome: "Comida", sentimento: "positivo" as const },
-  { nome: "Ambiente", sentimento: "positivo" as const },
-  { nome: "Atendimento", sentimento: "neutro" as const },
-  { nome: "Preço", sentimento: "negativo" as const },
-  { nome: "Espera", sentimento: "negativo" as const },
+  { nome: "Comida", sentimento: "positivo" as const, count: 38 },
+  { nome: "Ambiente", sentimento: "positivo" as const, count: 24 },
+  { nome: "Atendimento", sentimento: "neutro" as const, count: 19 },
+  { nome: "Preço", sentimento: "negativo" as const, count: 12 },
+  { nome: "Espera", sentimento: "negativo" as const, count: 9 },
 ];
 
 // ── estilos compartilhados ──────────────────────────────────────────────────
@@ -67,22 +67,13 @@ export default function AvaliacoesPage() {
 
   return (
     <div className="relative">
-      {/* Sub-header */}
-      <div
-        className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-        style={{ backgroundColor: '#ffffff' }}
-      >
-        <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
-          <i className="ifdl-icon-filled ifdl-icon-store text-white" style={{ fontSize: '12px' }} />
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
+          <i className="ifdl-icon-filled ifdl-icon-store text-white" style={{ fontSize: '16px' }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: '#141414' }}>Avaliações</span>
-        <div className="flex items-center gap-3 ml-auto">
-          <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 400, color: 'var(--text-secundario)' }}>
-            Plano Profissional · todos os módulos
-          </span>
-          <span style={{ ...fontBase, fontSize: 'var(--font-size-12)', fontWeight: 400, color: 'var(--marca)', cursor: 'pointer' }}>
-            Mudar assinatura
-          </span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0, lineHeight: 1.3 }}>Avaliações</h1>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 0 }}>Acompanhe a percepção dos clientes e responda avaliações.</p>
         </div>
       </div>
 
@@ -146,7 +137,7 @@ export default function AvaliacoesPage() {
               color: t.sentimento === "positivo" ? "var(--sucesso)" : t.sentimento === "negativo" ? "var(--marca)" : "var(--text-secundario)",
               backgroundColor: t.sentimento === "positivo" ? "rgba(31,173,104,0.10)" : t.sentimento === "negativo" ? "rgba(235,0,51,0.08)" : "var(--bg-secundario)",
             }}>
-              {t.nome} {t.sentimento === "positivo" ? "↑" : t.sentimento === "negativo" ? "↓" : ""}
+              {t.nome} ({t.count}) {t.sentimento === "positivo" ? "↑" : t.sentimento === "negativo" ? "↓" : ""}
             </span>
           ))}
         </div>
@@ -161,6 +152,34 @@ export default function AvaliacoesPage() {
         <span style={{ ...fontBase, display: "block", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", marginBottom: "var(--spacing-8)" }}>Insight das avaliações</span>
         <span style={{ ...fontBase, display: "block", fontSize: "var(--font-size-14)", color: "var(--text-primario)", lineHeight: "20px" }}>3 dos 5 reviews negativos desta semana mencionam <strong>tempo de espera no atendimento</strong>. O problema se concentra no horário de pico (19h–20h30). Restaurantes que redistribuíram garçons nesse turno reduziram reclamações em 40%.</span>
         <button type="button" style={{ ...fontBase, border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontSize: "var(--font-size-12)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Ver reviews sobre espera</button>
+      </div>
+
+      {/* ── Roleta de prêmios (gamificação) ─────────────────────── */}
+      <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-12)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
+            <span style={{ fontSize: "20px" }}>🎡</span>
+            <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)" }}>Roleta de prêmios</span>
+            <span style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>Novo</span>
+          </div>
+          <div style={{ width: 36, height: 20, borderRadius: "var(--radius-pill)", backgroundColor: "var(--sucesso)", position: "relative", cursor: "pointer" }}>
+            <div style={{ width: 16, height: 16, borderRadius: "50%", backgroundColor: "#ffffff", position: "absolute", top: 2, right: 2, transition: "all 150ms ease" }} />
+          </div>
+        </div>
+        <span style={{ ...fontBase, display: "block", fontSize: "var(--font-size-13)", color: "var(--text-secundario)", marginBottom: "var(--spacing-12)", lineHeight: "18px" }}>
+          Clientes que deixam um review ganham uma chance na roleta de prêmios. Incentiva avaliações e aumenta engajamento.
+        </span>
+        <div style={{ display: "flex", gap: "var(--spacing-16)", marginBottom: "var(--spacing-12)" }}>
+          <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>47 participações este mês</span>
+          <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--sucesso)", fontWeight: "var(--font-weight-medium)" }}>12 prêmios entregues</span>
+        </div>
+        <div style={{ display: "flex", gap: "var(--spacing-8)", flexWrap: "wrap" }}>
+          {["Sobremesa grátis", "10% na próxima", "Drink cortesia"].map(premio => (
+            <span key={premio} style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-pill)", padding: "4px 10px" }}>
+              {premio}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* ── Feed de reviews ───────────────────────────────────────── */}
@@ -227,6 +246,25 @@ export default function AvaliacoesPage() {
               <p style={{ ...fontBase, fontSize: "var(--font-size-14)", color: "var(--text-secundario)", margin: 0, lineHeight: "20px" }}>
                 {r.texto}
               </p>
+              {/* Tags de tema */}
+              {r.temas && r.temas.length > 0 && (
+                <div style={{ display: "flex", gap: "var(--spacing-4)", flexWrap: "wrap", marginTop: "var(--spacing-8)" }}>
+                  {r.temas.map(tema => {
+                    const temaData = TEMAS.find(t => t.nome === tema);
+                    const sentimento = temaData?.sentimento || "neutro";
+                    return (
+                      <span key={tema} style={{
+                        ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)",
+                        padding: "2px 8px", borderRadius: "var(--radius-pill)",
+                        color: sentimento === "positivo" ? "var(--sucesso)" : sentimento === "negativo" ? "var(--marca)" : "var(--text-secundario)",
+                        backgroundColor: sentimento === "positivo" ? "rgba(31,173,104,0.10)" : sentimento === "negativo" ? "rgba(235,0,51,0.08)" : "var(--bg-secundario)",
+                      }}>
+                        {tema}
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
               {/* Resposta existente */}
               {r.respondida && r.resposta && (
                 <div style={{ marginTop: "var(--spacing-8)", paddingLeft: "var(--spacing-12)", borderLeft: "2px solid var(--borda)" }}>

@@ -153,22 +153,20 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
     { to: '/', label: 'Início', icon: 'home', end: true },
   ];
 
-  const essencialModulos: NavItem[] = [
-    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
-    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
-    { to: '/pdv', label: 'PDV', icon: 'store' },
-    { to: '/agregador', label: 'Agregador de pedidos', icon: 'delivery' },
-    { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
-  ];
-
   const clientes: NavItem[] = [
     { to: '/clientes', label: 'Clientes', icon: '2-people' },
   ];
 
+  const essencialModulos: NavItem[] = [
+    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
+    { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
+  ];
+
   const profissionalModulos: NavItem[] = [
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
-    { to: '/pagamento-mesa', label: 'Pagamento na mesa', icon: 'credit-card' },
     { to: '/avaliacoes', label: 'Avaliações', icon: 'store' },
+    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
+    { to: '/pagamento-mesa', label: 'Pagamento na mesa', icon: 'credit-card' },
   ];
 
   const isAnyPaid = isEssencial || isProfissionalOrPremium;
@@ -195,21 +193,21 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
           <ActiveItem key={item.to} item={item} collapsed={collapsed} />
         ))}
 
-        {/* Grupo 2 — Seu salão */}
-        {activeItems.length > 0 && (
+        {/* Grupo 2 — Seus clientes (essencial+) */}
+        {isAnyPaid && (
           <>
-            <GroupLabel label="Seu salão" collapsed={collapsed} />
-            {activeItems.map((item) => (
+            <GroupLabel label="Seus clientes" collapsed={collapsed} />
+            {clientes.map((item) => (
               <ActiveItem key={item.to} item={item} collapsed={collapsed} />
             ))}
           </>
         )}
 
-        {/* Grupo 3 — Seus clientes (essencial+) */}
-        {isAnyPaid && (
+        {/* Grupo 3 — Seu salão */}
+        {activeItems.length > 0 && (
           <>
-            <GroupLabel label="Seus clientes" collapsed={collapsed} />
-            {clientes.map((item) => (
+            <GroupLabel label="Seu salão" collapsed={collapsed} />
+            {activeItems.map((item) => (
               <ActiveItem key={item.to} item={item} collapsed={collapsed} />
             ))}
           </>
