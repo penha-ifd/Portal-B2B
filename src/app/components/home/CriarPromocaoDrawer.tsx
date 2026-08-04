@@ -31,7 +31,6 @@ const SEGMENTOS_RAPIDOS = [
 ];
 
 const CANAIS_ENTREGA = [
-  { key: "push", label: "Push iFood", icon: "ifdl-icon-notification", alcance: 1840 },
   { key: "whatsapp", label: "WhatsApp", icon: "ifdl-icon-chat", alcance: 620, requerOpt: true },
   { key: "vitrine", label: "Vitrine iFood", icon: "ifdl-icon-store", alcance: 2100 },
   { key: "qrcode", label: "QR Code no salão", icon: "ifdl-icon-qr-code", alcance: null as number | null },
