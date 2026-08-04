@@ -539,7 +539,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-24)" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)", minWidth: 180 }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Mesas ocupadas agora</span>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Mesas reservadas pro jantar</span>
             <div style={{ display: "flex", alignItems: "baseline", gap: "var(--spacing-4)" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-28)", fontWeight: "var(--font-weight-bold)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>18</span>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>de 30</span>
