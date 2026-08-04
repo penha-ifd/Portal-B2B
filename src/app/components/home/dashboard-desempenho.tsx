@@ -67,18 +67,11 @@ export const mockDashboard = {
     pagamento: "pagamento" as const,
   },
   destaqueDoDia: {
-    origem: "Sugerido" as const,
-    titulo: "Seu pacote acaba em 3 dias",
-    valor: "no ritmo atual de resgate",
-    causa: "320 cupons resgatados em 24 dias",
-    acao: "Renovar agora",
-  },
-  jaFeito: {
-    origem: "Feito" as const,
-    titulo: "Pausei a campanha de terça",
-    valor: "R$ 340 preservados",
-    causa: "4 dias sem nenhuma conversão",
-    acao: "Ver o que eu fiz",
+    origem: "Sugestão da IA" as const,
+    titulo: "Campanha de terça sem conversões",
+    valor: "4 dias",
+    causa: "Recomendamos pausar a campanha de terça: nenhuma conversão nos últimos 4 dias.",
+    acao: "Pausar campanha",
   },
   sugestoes: {
     faturamento: ["Qual promoção deu mais retorno", "Comparar com o mês passado"],
@@ -160,8 +153,6 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { usePlano } from "../../state/plano-context";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const MOSTRAR_JA_FEITO = true;
 
 interface Props {
   onSubmit?: (text: string) => void;
@@ -667,11 +658,10 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ações recomendadas</span>
 
         {(() => {
-          const destaque = MOSTRAR_JA_FEITO ? d.jaFeito : d.destaqueDoDia;
-          const isFeito = destaque.origem === "Feito";
+          const destaque = d.destaqueDoDia;
           return (
             <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--marca)", padding: "var(--spacing-16)", cursor: "default" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: isFeito ? "#ffffff" : "var(--text-secundario)", backgroundColor: isFeito ? "var(--sucesso)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
                 {destaque.origem}
               </span>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
