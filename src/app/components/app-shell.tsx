@@ -34,7 +34,7 @@ export function AppShell() {
     <div className="flex flex-col w-full overflow-hidden bg-[#e0e0e0] p-1 md:p-[10px]" style={{ height: '100dvh' }}>
       <div className="flex flex-col flex-1 overflow-hidden rounded-[16px] md:rounded-[24px] bg-[#f5f5f5]">
         <TopBar onToggleSidebar={() => setCollapsed((c) => !c)} onMobileMenu={() => setMobileOpen(true)} />
-        <div className="flex flex-1 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
+        <div className="flex flex-1 min-h-0 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
           {/* Desktop sidebar */}
           <div className="hidden md:flex h-full">
             <SidebarNav collapsed={collapsed} />
@@ -50,7 +50,7 @@ export function AppShell() {
             </div>
           )}
 
-          <main className="flex-1 overflow-hidden min-w-0">
+          <main className="flex-1 min-h-0 overflow-hidden min-w-0">
             <div className="h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-white border border-[#ebebeb] shadow-[0px_1px_3px_rgba(21,21,21,0.08)]" style={{ paddingBottom: "180px" }}>
               <div className="max-w-[1180px] mx-auto">
                 <AnimatePresence mode="popLayout">
