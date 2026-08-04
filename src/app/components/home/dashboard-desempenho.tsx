@@ -67,18 +67,11 @@ export const mockDashboard = {
     pagamento: "pagamento" as const,
   },
   destaqueDoDia: {
-    origem: "Sugerido" as const,
-    titulo: "Seu pacote acaba em 3 dias",
-    valor: "no ritmo atual de resgate",
-    causa: "320 cupons resgatados em 24 dias",
-    acao: "Renovar agora",
-  },
-  jaFeito: {
-    origem: "Feito" as const,
-    titulo: "Pausei a campanha de terça",
-    valor: "R$ 340 preservados",
-    causa: "4 dias sem nenhuma conversão",
-    acao: "Ver o que eu fiz",
+    origem: "Sugestão da IA" as const,
+    titulo: "Campanha de terça sem conversões",
+    valor: "4 dias",
+    causa: "Recomendamos pausar a campanha de terça: nenhuma conversão nos últimos 4 dias.",
+    acao: "Pausar campanha",
   },
   sugestoes: {
     faturamento: ["Qual promoção deu mais retorno", "Comparar com o mês passado"],
@@ -160,8 +153,6 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { usePlano } from "../../state/plano-context";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const MOSTRAR_JA_FEITO = true;
 
 interface Props {
   onSubmit?: (text: string) => void;
@@ -525,6 +516,49 @@ export function DashboardDesempenho({ onSubmit }: Props) {
 
       {planoAtivo !== "novo" && (<>
 
+      {/* O Salão — turno de hoje (centro de comando) */}
+      <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--spacing-12)", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "3px 10px" }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", backgroundColor: "#ffffff" }} />
+              Hoje
+            </span>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Jantar · terça-feira, 3 de ago</span>
+          </div>
+          <button type="button" onClick={() => navigate("/reservas")} style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "5px 12px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", transition: "background-color 150ms ease" }}>Ver reservas</button>
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-24)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)", minWidth: 180 }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Mesas reservadas pro jantar</span>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "var(--spacing-4)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-28)", fontWeight: "var(--font-weight-bold)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>18</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>de 30</span>
+            </div>
+            <div style={{ display: "flex", gap: 3 }}>
+              {Array.from({ length: 30 }).map((_, i) => (
+                <span key={i} style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: i < 18 ? "var(--sucesso)" : "var(--bg-terciario)" }} />
+              ))}
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)", minWidth: 180 }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Próximo turno · almoço amanhã</span>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "var(--spacing-4)" }}>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-28)", fontWeight: "var(--font-weight-bold)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>62%</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>de ocupação estimada</span>
+            </div>
+            <div style={{ height: 6, borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", overflow: "hidden" }}>
+              <div style={{ height: "100%", width: "62%", borderRadius: "var(--radius-pill)", backgroundColor: "var(--atencao)" }} />
+            </div>
+          </div>
+          <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "flex-end", minWidth: 200 }}>
+            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", lineHeight: 1.5, textAlign: "right" }}>
+              Quarta almoço com baixa ocupação — bom momento para uma campanha.
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Gráfico de tendência */}
       {temDados && (
         <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
@@ -624,11 +658,10 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ações recomendadas</span>
 
         {(() => {
-          const destaque = MOSTRAR_JA_FEITO ? d.jaFeito : d.destaqueDoDia;
-          const isFeito = destaque.origem === "Feito";
+          const destaque = d.destaqueDoDia;
           return (
             <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--marca)", padding: "var(--spacing-16)", cursor: "default" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: isFeito ? "#ffffff" : "var(--text-secundario)", backgroundColor: isFeito ? "var(--sucesso)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
                 {destaque.origem}
               </span>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
