@@ -21,7 +21,7 @@ const PLANO_MODULOS: Record<string, string[]> = {
 
 const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: string; ativo?: boolean }> = {
   Cardápio: {
-    frase: "Seu cardápio do delivery já está no iFood. Importe para o salão em um clique.",
+    frase: "Importe seu cardápio do delivery como base e personalize para o salão — preços e itens independentes.",
     cards: [],
     preco: "",
     ativo: true,
@@ -34,17 +34,17 @@ const MODULO_CONTEUDO: Record<string, { frase: string; cards: string[]; preco: s
   "Pagamento na mesa": {
     frase: "O cliente paga pelo app e o check-in se confirma sozinho, sem depender do garçom.",
     cards: ["Check-ins confirmados sozinhos", "Ticket real por cliente", "Tempo médio de mesa"],
-    preco: "R$ 79/mês no plano Avançado",
+    preco: "R$ 79/mês no plano Profissional",
   },
   "Agregador de pedidos": {
     frase: "Junta os pedidos de todos os canais numa fila só.",
     cards: ["Pedidos por canal", "Tempo de preparo", "Cancelamentos"],
-    preco: "R$ 79/mês no plano Avançado",
+    preco: "R$ 79/mês no plano Profissional",
   },
   Avaliações: {
     frase: "Reúne as avaliações do Google e do iFood num lugar só e avisa quando alguma precisa de resposta.",
     cards: ["Nota média do salão", "Avaliações por plataforma", "Respostas pendentes"],
-    preco: "R$ 49/mês no plano Avançado",
+    preco: "R$ 49/mês no plano Profissional",
   },
 };
 
@@ -60,14 +60,14 @@ export function PlaceholderPage({ title, icon }: Props) {
   if (!conteudo) {
     return (
       <div>
-        <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
-          <span
-            className="flex items-center justify-center size-5 rounded-[6px] shrink-0"
-            style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}
-          >
-            <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "12px" }} />
+        <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+          <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+            <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "16px" }} />
           </span>
-          <span className="paragraph-p2-14-medium ml-1" style={{ color: "#141414" }}>{title}</span>
+          <div className="flex flex-col gap-0.5">
+            <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>{title}</h1>
+            <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>Esta área não faz parte do escopo deste protótipo.</p>
+          </div>
         </div>
         <div className="flex items-center justify-center min-h-[480px] p-6">
           <div className="flex flex-col items-center justify-center text-center p-8 max-w-sm">
@@ -96,17 +96,16 @@ export function PlaceholderPage({ title, icon }: Props) {
     if (!conteudo.ativo && desbloqueado && valores) {
       return (
         <div>
-          <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
-            <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
-              <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "12px" }} />
+          <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+            <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+              <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "16px" }} />
             </span>
-            <span className="paragraph-p2-14-medium ml-1" style={{ color: "#141414" }}>{title}</span>
+            <div className="flex flex-col gap-0.5">
+              <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>{title}</h1>
+              <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>{conteudo.frase}</p>
+            </div>
           </div>
           <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-6">
-            <div className="flex flex-col gap-1">
-              <h1 className="text-[24px] font-medium text-[#141414] leading-8">{title}</h1>
-              <p className="paragraph-p2-14-regular text-[#666666]">{conteudo.frase}</p>
-            </div>
             <div className="flex flex-col md:flex-row gap-4">
               {conteudo.cards.map((card, i) => (
                 <div
@@ -131,54 +130,53 @@ export function PlaceholderPage({ title, icon }: Props) {
 
     return (
       <div>
-        <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
-          <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
-            <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "12px" }} />
+        <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+          <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+            <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "16px" }} />
           </span>
-          <span className="paragraph-p2-14-medium ml-1" style={{ color: "#141414" }}>{title}</span>
+          <div className="flex flex-col gap-0.5">
+            <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>{title}</h1>
+            <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>{conteudo.frase}</p>
+          </div>
         </div>
         <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-6">
-          <div className="flex flex-col gap-1">
-            <h1 className="text-[24px] font-medium text-[#141414] leading-8">{title}</h1>
-            <p className="paragraph-p2-14-regular text-[#666666]">{conteudo.frase}</p>
-          </div>
 
           {/* Card 1 — Importar do delivery */}
           <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
             <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>Importar do delivery</span>
             <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>87 itens</div>
-            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>é o cardápio que você já mantém atualizado no iFood</div>
-            <button type="button" style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", marginTop: "var(--spacing-12)" }}>Importar cardápio</button>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>use como base e personalize preços e itens para o salão</div>
+            <button type="button" style={{ backgroundColor: "var(--invertido)", color: "#ffffff", borderRadius: "var(--radius-pill)", padding: "var(--spacing-8) var(--spacing-16)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", marginTop: "var(--spacing-12)" }}>Importar como base</button>
           </div>
 
           {/* Card AI — Insight do cardápio */}
           <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", borderLeft: "3px solid var(--marca)", padding: "var(--spacing-16)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: "var(--spacing-8)" }}>
               <span style={{ fontSize: "16px" }}>✦</span>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>Gerado</span>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>Gerado</span>
             </div>
             <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-8)" }}>Insight do cardápio</span>
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.6 }}>Seus 3 pratos mais pedidos no delivery (Risoto de camarão, Salmão grelhado, Bruschetta) não estão no cardápio do salão. Restaurantes que alinharam viram 18% mais conversão no Cross-channel.</span>
-            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Adicionar os 3 ao salão</button>
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.6 }}>Seus 3 pratos mais pedidos no delivery (Risoto de camarão, Salmão grelhado, Bruschetta) vendem bem online. Considere criar versões para o salão com preço ajustado — seu cardápio do salão é independente.</span>
+            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Ver sugestões para o salão</button>
           </div>
 
           {/* Card 2 — Pratos que faltam */}
           <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Cross-channel</span>
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>7 pratos que faltam no salão</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Cross-channel</span>
+            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>7 pratos populares no delivery</span>
             <div style={{ borderTop: "1px solid var(--borda)" }}>
               {PRATOS.map((prato, i) => (
                 <div key={i} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", padding: "var(--spacing-8) 0", borderBottom: i < PRATOS.length - 1 ? "1px solid var(--borda)" : "none" }}>{prato}</div>
               ))}
             </div>
-            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-12)" }}>seus clientes de delivery pedem, seu cardápio do salão não tem</div>
-            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Adicionar ao salão</button>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-12)" }}>inspiração do delivery — adapte com preço e porção para o salão</div>
+            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Criar versões para o salão</button>
           </div>
 
           {/* Card 3 — Importar de outros sistemas */}
           <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", padding: "var(--spacing-16)" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>Fixo</span>
             <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-4)" }}>Importar de outros sistemas</span>
             <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>Get In e Tagme</div>
             <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>o Cardápio Hub conecta o que você já usa em outros lugares</div>
@@ -191,28 +189,18 @@ export function PlaceholderPage({ title, icon }: Props) {
 
   return (
     <div>
-      {/* Sub-header */}
-      <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb]" style={{ backgroundColor: "#ffffff" }}>
-        <span
-          className="flex items-center justify-center size-5 rounded-[6px] shrink-0"
-          style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}
-        >
-          <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "12px" }} />
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+          <i className={`ifdl-icon-filled ifdl-icon-${icon} text-white`} style={{ fontSize: "16px" }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: "#141414" }}>{title}</span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>{title}</h1>
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>{conteudo.frase}</p>
+        </div>
       </div>
 
       {/* Conteúdo */}
       <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-6">
-        {/* Título e frase */}
-        <div className="flex flex-col gap-1">
-          <h1 className="text-[24px] font-medium text-[#141414] leading-8">
-            {title}
-          </h1>
-          <p className="paragraph-p2-14-regular text-[#666666]">
-            {conteudo.frase}
-          </p>
-        </div>
 
         {/* Prévia borrada */}
         <div className="flex flex-col md:flex-row gap-4">

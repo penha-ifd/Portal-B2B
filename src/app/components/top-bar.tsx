@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { IFoodMark } from './ifood-mark';
+import { PlanSwitcher } from './plan-switcher';
 
 const LOJAS = [
   { id: 'cantina-pinheiros', nome: 'Cantina Di Napoli - Pinheiros', sigla: 'CN' },
@@ -28,7 +29,7 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
   }, []);
 
   return (
-    <header className="flex items-center justify-between shrink-0 h-14 pl-2 pr-4 bg-[#f5f5f5]">
+    <header className="flex items-center justify-between shrink-0 h-14 pl-2 pr-4 bg-[#F7F4F0]">
       {/* Esquerda */}
       <div className="flex items-center">
         <button
@@ -57,7 +58,7 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
           <button
             type="button"
             onClick={() => setDropdownAberto(!dropdownAberto)}
-            className="flex items-center gap-2 h-8 w-[282px] px-2 rounded-[12px] bg-white"
+            className="flex items-center gap-2 h-8 w-[150px] md:w-[282px] px-2 rounded-[12px] bg-white"
             style={{ border: 'none', cursor: 'pointer' }}
           >
             <span
@@ -71,12 +72,12 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
           </button>
 
           {dropdownAberto && (
-            <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 4, width: 282, backgroundColor: 'var(--bg-primario)', borderRadius: 'var(--radius-12)', border: '1px solid var(--borda)', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', zIndex: 100, overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 4, width: 282, maxWidth: 'min(282px, 90vw)', backgroundColor: 'var(--bg-primario)', borderRadius: 'var(--radius-12)', border: '1px solid var(--borda)', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', zIndex: 100, overflow: 'hidden' }}>
               <div style={{ padding: '8px 4px' }}>
                 <button
                   type="button"
                   onClick={() => { setDropdownAberto(false); }}
-                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 8px', border: 'none', background: 'none', cursor: 'pointer', borderRadius: 8, fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 500, color: 'var(--text-primario)' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 8px', border: 'none', background: 'none', cursor: 'pointer', borderRadius: 8, fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: "var(--font-weight-medium)", color: 'var(--text-primario)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secundario)')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
@@ -116,27 +117,14 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
       <div className="flex items-center gap-1">
         <div className="flex items-center gap-3 h-10 px-3 rounded-[12px]">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center size-5 rounded-full bg-white border border-[#ebebeb]">
+            <span className="flex items-center justify-center size-5 rounded-full bg-white border border-[#E8E3DC]">
               <IFoodMark size={11} />
             </span>
             <span className="paragraph-p2-14-medium text-[#141414]">Comer Fora</span>
           </div>
-          <span className="size-2 rounded-full" style={{ backgroundColor: '#1FAD68' }} aria-label="Ativo" />
+          <span className="size-2 rounded-full" style={{ backgroundColor: '#1FAD68' }} role="status" aria-label="Ativo" />
         </div>
-        <button
-          type="button"
-          aria-label="Buscar"
-          className="flex items-center justify-center size-10 rounded-[12px] text-[#141414] hover:bg-black/5"
-        >
-          <i className="ifdl-icon-line ifdl-icon-search" style={{ fontSize: '20px' }} />
-        </button>
-        <button
-          type="button"
-          aria-label="Ajuda"
-          className="flex items-center justify-center size-10 rounded-[12px] text-[#141414] hover:bg-black/5"
-        >
-          <i className="ifdl-icon-line ifdl-icon-help" style={{ fontSize: '20px' }} />
-        </button>
+        <PlanSwitcher />
       </div>
     </header>
   );

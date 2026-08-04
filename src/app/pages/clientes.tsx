@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { motion } from "motion/react";
 import { usePlano } from "../state/plano-context";
 import { SegmentosTab } from "./SegmentosTab";
@@ -91,6 +91,12 @@ interface Cliente {
   origem: string;
 }
 
+const PLANO_INFO: Record<string, string> = {
+  essencial: "Plano Essencial · módulos básicos",
+  profissional: "Plano Profissional · todos os módulos",
+  premium: "Plano Premium · todos os módulos",
+};
+
 const CLIENTES: Cliente[] = [
   { nome: "Clara L.", telefone: "(11) 98324-****", status: "Ativo", visitas: 10, primeiraVisita: "29/12/2025", ultimaVisita: "18/02/2026", perfil: "Fiel", origem: "Ambos" },
   { nome: "Luiza V.", telefone: "(11) 99338-****", status: "Ativo", visitas: 2, primeiraVisita: "18/09/2025", ultimaVisita: "13/10/2025", perfil: "Novato", origem: "Delivery" },
@@ -117,7 +123,11 @@ const TOTAL_ITEMS = 25;
 
 export function ClientesPage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("Pessoas");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get("aba") === "segmentos" ? "Segmentos" : "Pessoas";
+  const setActiveTab = (tab: string) => {
+    setSearchParams(tab === "Segmentos" ? { aba: "segmentos" } : {}, { replace: true });
+  };
   const [page, setPage] = useState(1);
   const [perfilFilter, setPerfilFilter] = useState<string | null>(null);
   const [origemFilter, setOrigemFilter] = useState<string | null>(null);
@@ -126,7 +136,7 @@ export function ClientesPage() {
   const [sortCol, setSortCol] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const { planoAtivo } = usePlano();
-  const isBase = planoAtivo === "base";
+  const isBase = planoAtivo === "novo";
 
   const toggleSort = (col: string) => {
     if (sortCol === col) { setSortDir(sortDir === "asc" ? "desc" : "asc"); }
@@ -144,18 +154,34 @@ export function ClientesPage() {
   });
 
   return (
-    <div className="flex flex-col gap-6 md:gap-10 p-4 md:p-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-[24px] font-medium text-[#141414] leading-[32px]">Comer Fora</h1>
-        <p className="paragraph-p2-14-regular text-[#666666]">Confira informações do seu perfil, promoções e clientes do seu salão</p>
+    <div className="relative">
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+          <i className="ifdl-icon-filled ifdl-icon-2-people text-white" style={{ fontSize: "16px" }} />
+        </span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>Clientes</h1>
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>Conheça seu público, segmente e ative campanhas personalizadas.</p>
+        </div>
       </div>
-
-
-
-      <div className="flex flex-col gap-6">
-        <div className="flex gap-1 border-b border-[#EBEBEB]">
-          {["Pessoas", "Segmentos"].map((tab) => (
-            <button key={tab} type="button" onClick={() => setActiveTab(tab)} className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${activeTab === tab ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}>
+      <div className="flex flex-col gap-6 p-4 md:p-8">
+        <div className="flex gap-1 border-b border-[#E8E3DC]" role="tablist" aria-label="Visões de clientes">
+          {["Pessoas", "Segmentos"].map((tab, i) => (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              id={`clientes-tab-${tab}`}
+              aria-selected={activeTab === tab}
+              aria-controls={`clientes-panel-${tab}`}
+              tabIndex={activeTab === tab ? 0 : -1}
+              onClick={() => setActiveTab(tab)}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowRight") setActiveTab(i === 0 ? "Segmentos" : "Pessoas");
+                if (e.key === "ArrowLeft") setActiveTab(i === 0 ? "Segmentos" : "Pessoas");
+              }}
+              className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${activeTab === tab ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}
+            >
               {tab}
               {activeTab === tab && <motion.div layoutId="clientes-tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EB0033] rounded-full" transition={{ type: "spring", stiffness: 500, damping: 30 }} />}
             </button>
@@ -164,7 +190,7 @@ export function ClientesPage() {
       </div>
 
       {activeTab === "Pessoas" ? (
-        <div className="flex flex-col gap-10">
+        <div role="tabpanel" id="clientes-panel-Pessoas" aria-labelledby="clientes-tab-Pessoas" tabIndex={0} className="flex flex-col gap-10">
           <div className="bg-[#F5F5F5] flex flex-col gap-1 p-1 rounded-2xl">
             <div className="flex items-start px-3 pt-3 pb-1">
               <div className="flex flex-col gap-1">
@@ -233,11 +259,11 @@ export function ClientesPage() {
                   { key: "Última visita", flex: 1 },
                   { key: "Origem", flex: 0.8 },
                 ].map((h) => (
-                  <span key={h.key} className="min-w-0 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4, flex: h.flex }} onClick={() => toggleSort(h.key)}>
+                  <span key={h.key} role="columnheader" aria-sort={sortCol === h.key ? (sortDir === "asc" ? "ascending" : "descending") : "none"} className="min-w-0 text-[12px] font-bold text-[var(--text-3)] leading-4" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4, flex: h.flex }} onClick={() => toggleSort(h.key)}>
                     {h.key}
                     <span style={{ display: "inline-flex", flexDirection: "column", lineHeight: 0 }}>
-                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "asc" ? "var(--text-primario)" : "var(--text-desabilitado)" }}>&#9650;</span>
-                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "desc" ? "var(--text-primario)" : "var(--text-desabilitado)", marginTop: -2 }}>&#9660;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "asc" ? "var(--text-primario)" : "var(--text-secundario)" }}>&#9650;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "desc" ? "var(--text-primario)" : "var(--text-secundario)", marginTop: -2 }}>&#9660;</span>
                     </span>
                   </span>
                 ))}
@@ -252,17 +278,18 @@ export function ClientesPage() {
                     <span className="paragraph-p2-14-regular text-[#666666]">{c.nome}</span>
                     {profile && (
                       <span className="flex gap-1 flex-wrap">
-                        <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{profile.culinariaFavorita}</span>
-                        {voucherLabel && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: profile.sensibilidadeVoucher === "alta" ? "#1FAD68" : "var(--text-secundario)", backgroundColor: profile.sensibilidadeVoucher === "alta" ? "rgba(31,173,104,0.10)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{voucherLabel}</span>}
-                        {potencialLabel && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", backgroundColor: "rgba(235,0,51,0.08)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{potencialLabel}</span>}
+                        <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{profile.culinariaFavorita}</span>
+                        {voucherLabel && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: profile.sensibilidadeVoucher === "alta" ? "#1FAD68" : "var(--text-secundario)", backgroundColor: profile.sensibilidadeVoucher === "alta" ? "rgba(31,173,104,0.10)" : "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{voucherLabel}</span>}
+                        {potencialLabel && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--marca)", backgroundColor: "rgba(235,0,51,0.08)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>{potencialLabel}</span>}
+                        {profile.canais.length > 1 && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>Cross-channel</span>}
                       </span>
                     )}
                   </span>
                   <span className="min-w-0" style={{ flex: 0.8 }}>
-                    <span className="animate-[pillPop_250ms_ease-out_both]" style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", animationDelay: `${i * 50 + 100}ms`, ...({"VIP":{backgroundColor:"rgba(235,0,51,0.08)",color:"var(--marca)"},"Fiel":{backgroundColor:"rgba(31,173,104,0.10)",color:"#1FAD68"},"Em risco":{backgroundColor:"rgba(255,152,0,0.10)",color:"#F57C00"},"Perdido":{backgroundColor:"#F5F5F5",color:"#A3A3A3"},"Novato":{backgroundColor:"rgba(33,150,243,0.10)",color:"#1E88E5"}}[c.perfil] || {backgroundColor:"#F5F5F5",color:"#666666"}) }}>{c.perfil}</span>
+                    <span className="animate-[pillPop_250ms_ease-out_both]" style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: "var(--font-weight-medium)", borderRadius: "var(--radius-pill)", padding: "2px 10px", animationDelay: `${i * 50 + 100}ms`, ...({"VIP":{backgroundColor:"rgba(235,0,51,0.08)",color:"var(--marca)"},"Fiel":{backgroundColor:"rgba(31,173,104,0.10)",color:"#1FAD68"},"Em risco":{backgroundColor:"rgba(255,152,0,0.10)",color:"#F57C00"},"Perdido":{backgroundColor:"#F5F5F5",color:"#A3A3A3"},"Novato":{backgroundColor:"rgba(33,150,243,0.10)",color:"#1E88E5"}}[c.perfil] || {backgroundColor:"#F5F5F5",color:"#666666"}) }}>{c.perfil}</span>
                   </span>
                   <span className="min-w-0" style={{ flex: 0.9 }}>
-                    {profile && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{profile.jornadaUsuario}</span>}
+                    {profile && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{profile.jornadaUsuario}</span>}
                   </span>
                   <span className="min-w-0 flex items-center gap-1.5" style={{ flex: 1 }}>
                     {profile && (
@@ -270,7 +297,7 @@ export function ClientesPage() {
                         <div style={{ width: 48, height: 6, borderRadius: "var(--radius-pill)", backgroundColor: "var(--bg-terciario)", overflow: "hidden" }}>
                           <div style={{ width: `${profile.afinidadeMerchant}%`, height: "100%", borderRadius: "var(--radius-pill)", backgroundColor: "var(--marca)" }} />
                         </div>
-                        <span style={{ fontFamily: "var(--font-inter)", fontSize: "11px", color: "var(--text-secundario)" }}>{profile.afinidadeMerchant}</span>
+                        <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", color: "var(--text-secundario)" }}>{profile.afinidadeMerchant}</span>
                       </>
                     )}
                   </span>
@@ -298,7 +325,9 @@ export function ClientesPage() {
           </div>
         </div>
       ) : (
-        <SegmentosTab />
+        <div role="tabpanel" id="clientes-panel-Segmentos" aria-labelledby="clientes-tab-Segmentos" tabIndex={0}>
+          <SegmentosTab />
+        </div>
       )}
 
       {selectedClient && (() => {
@@ -330,7 +359,7 @@ export function ClientesPage() {
                   <span className="text-[18px] font-medium text-[#141414] leading-6" style={{ fontFamily: "var(--font-inter)" }}>{selectedClient}</span>
                   <div className="flex flex-wrap gap-1 justify-center">
                     {profile.tags.map((tag) => (
-                      <span key={tag} style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{tag}</span>
+                      <span key={tag} style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -364,7 +393,7 @@ export function ClientesPage() {
                       <span className="paragraph-p2-14-regular text-[#666666]">Itens recorrentes</span>
                       <div className="flex flex-wrap gap-1 justify-end" style={{ maxWidth: "60%" }}>
                         {profile.itensRecorrentes.map((item) => (
-                          <span key={item} style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{item}</span>
+                          <span key={item} style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>{item}</span>
                         ))}
                       </div>
                     </div>
@@ -386,7 +415,7 @@ export function ClientesPage() {
                     ] as { label: string; value: 'baixa' | 'media' | 'alta' }[]).map((item) => (
                       <div key={item.label} className="flex justify-between items-center">
                         <span className="paragraph-p2-14-regular text-[#666666]">{item.label}</span>
-                        <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", ...(item.value === "baixa" ? { backgroundColor: "rgba(31,173,104,0.10)", color: "#1FAD68" } : item.value === "media" ? { backgroundColor: "rgba(255,152,0,0.10)", color: "#F57C00" } : { backgroundColor: "rgba(235,0,51,0.08)", color: "var(--marca)" }) }}>{item.value === "baixa" ? "Baixa" : item.value === "media" ? "Média" : "Alta"}</span>
+                        <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: "var(--font-weight-medium)", borderRadius: "var(--radius-pill)", padding: "2px 10px", ...(item.value === "baixa" ? { backgroundColor: "rgba(31,173,104,0.10)", color: "#1FAD68" } : item.value === "media" ? { backgroundColor: "rgba(255,152,0,0.10)", color: "#F57C00" } : { backgroundColor: "rgba(235,0,51,0.08)", color: "var(--marca)" }) }}>{item.value === "baixa" ? "Baixa" : item.value === "media" ? "Média" : "Alta"}</span>
                       </div>
                     ))}
                   </div>
@@ -398,11 +427,11 @@ export function ClientesPage() {
                   <div className="flex flex-col gap-2 mt-2">
                     <div className="flex justify-between items-center">
                       <span className="paragraph-p2-14-regular text-[#666666]">Potencial de compra</span>
-                      <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", ...(profile.potencialCompra === "standard" ? { backgroundColor: "#F5F5F5", color: "#666666" } : profile.potencialCompra === "premium" ? { backgroundColor: "rgba(33,150,243,0.10)", color: "#1E88E5" } : { backgroundColor: "rgba(235,0,51,0.08)", color: "var(--marca)" }) }}>{profile.potencialCompra === "standard" ? "Standard" : profile.potencialCompra === "premium" ? "Premium" : "Ultra-premium"}</span>
+                      <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: "var(--font-weight-medium)", borderRadius: "var(--radius-pill)", padding: "2px 10px", ...(profile.potencialCompra === "standard" ? { backgroundColor: "#F5F5F5", color: "#666666" } : profile.potencialCompra === "premium" ? { backgroundColor: "rgba(33,150,243,0.10)", color: "#1E88E5" } : { backgroundColor: "rgba(235,0,51,0.08)", color: "var(--marca)" }) }}>{profile.potencialCompra === "standard" ? "Standard" : profile.potencialCompra === "premium" ? "Premium" : "Ultra-premium"}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="paragraph-p2-14-regular text-[#666666]">Jornada</span>
-                      <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: 500, borderRadius: "var(--radius-pill)", padding: "2px 10px", backgroundColor: "var(--bg-terciario)", color: "var(--text-secundario)" }}>{profile.jornadaUsuario}</span>
+                      <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "12px", fontWeight: "var(--font-weight-medium)", borderRadius: "var(--radius-pill)", padding: "2px 10px", backgroundColor: "var(--bg-terciario)", color: "var(--text-secundario)" }}>{profile.jornadaUsuario}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="paragraph-p2-14-regular text-[#666666]">Afinidade</span>

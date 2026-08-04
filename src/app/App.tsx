@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Toaster } from "sonner";
 import { DesignSystemProvider } from "./components/DesignSystemProvider";
 import { AppShell } from "./components/app-shell";
 import { HomePage } from "./components/home/home-page";
 import { PlaceholderPage } from "./components/placeholder-page";
 import { PlanoProvider } from "./state/plano-context";
-import { PlanSwitcher } from "./components/plan-switcher";
+import { NotFoundPage } from "./pages/not-found";
 import { ReservasPage } from "./pages/reservas";
 import { ClientesPage } from "./pages/clientes";
 import { ModulosPage } from "./pages/modulos";
@@ -12,6 +13,11 @@ import { PromocoesPage } from "./pages/promocoes";
 import { ConciliacaoPage } from "./pages/conciliacao";
 import { PdvPage } from "./pages/pdv";
 import { PerfilPage } from "./pages/perfil";
+import AvaliacoesPage from "./pages/avaliacoes";
+import { AgregadorPage } from "./pages/agregador";
+import { ConfiguracoesPage } from "./pages/configuracoes";
+import { FidelidadePage } from "./pages/fidelidade";
+import DesignSystemPage from "./pages/design-system";
 import { Navigate } from "react-router";
 
 export default function App() {
@@ -58,21 +64,11 @@ export default function App() {
               />
               <Route
                 path="avaliacoes"
-                element={
-                  <PlaceholderPage
-                    title="Avaliações"
-                    icon="store"
-                  />
-                }
+                element={<AvaliacoesPage />}
               />
               <Route
                 path="agregador"
-                element={
-                  <PlaceholderPage
-                    title="Agregador de pedidos"
-                    icon="delivery"
-                  />
-                }
+                element={<AgregadorPage />}
               />
               <Route
                 path="crm"
@@ -83,22 +79,26 @@ export default function App() {
                 element={<ClientesPage />}
               />
               <Route
+                path="fidelidade"
+                element={<FidelidadePage />}
+              />
+              <Route
                 path="configuracoes"
-                element={
-                  <PlaceholderPage
-                    title="Configurações"
-                    icon="configuration"
-                  />
-                }
+                element={<ConfiguracoesPage />}
               />
               <Route
                 path="perfil"
                 element={<PerfilPage />}
               />
+              <Route
+                path="design-system"
+                element={<DesignSystemPage />}
+              />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
-        <PlanSwitcher />
+        <Toaster position="top-right" richColors />
       </PlanoProvider>
     </DesignSystemProvider>
   );

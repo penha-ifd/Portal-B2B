@@ -1,10 +1,10 @@
 import { usePlano, PlanoAtivo } from '../state/plano-context';
 
-const OPTIONS: { value: PlanoAtivo | 'novo'; label: string }[] = [
+const OPTIONS: { value: PlanoAtivo; label: string }[] = [
   { value: 'novo', label: 'Novo' },
-  { value: 'base', label: 'Base' },
   { value: 'essencial', label: 'Essencial' },
-  { value: 'avancado', label: 'Avançado' },
+  { value: 'profissional', label: 'Profissional' },
+  { value: 'premium', label: 'Premium' },
 ];
 
 export function PlanSwitcher() {
@@ -12,17 +12,12 @@ export function PlanSwitcher() {
 
   return (
     <div
+      className="hidden md:flex items-center"
       style={{
-        position: 'fixed',
-        bottom: 8,
-        right: 8,
-        zIndex: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
+        gap: 4,
         backgroundColor: 'var(--invertido)',
         borderRadius: 'var(--radius-pill)',
-        padding: '6px 12px',
+        padding: '4px 10px',
       }}
     >
       <span
@@ -32,7 +27,7 @@ export function PlanSwitcher() {
           fontWeight: 'var(--font-weight-regular)',
           letterSpacing: 'var(--letter-spacing)',
           color: 'rgba(255,255,255,0.6)',
-          marginRight: 4,
+          marginRight: 2,
         }}
       >
         Simular plano
@@ -53,7 +48,7 @@ export function PlanSwitcher() {
               color: active ? 'var(--invertido)' : '#ffffff',
               border: 'none',
               borderRadius: 'var(--radius-pill)',
-              padding: '4px 12px',
+              padding: '3px 10px',
               cursor: 'pointer',
             }}
           >

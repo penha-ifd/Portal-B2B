@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useSyncExternalStore } from 'react';
 
-export type PlanoAtivo = 'novo' | 'base' | 'essencial' | 'avancado';
+export type PlanoAtivo = 'novo' | 'essencial' | 'profissional' | 'premium';
 
 // Global state for modoNovo — works around React Router context boundary
 let _modoNovo = false;

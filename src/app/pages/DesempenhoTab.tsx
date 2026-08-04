@@ -3,7 +3,7 @@ export function DesempenhoTab() {
     <div className="flex flex-col gap-6 md:gap-10 pt-4 pb-6 px-3 md:px-6">
       {/* Page Title */}
       <div className="flex flex-col gap-1">
-        <h1 className="text-[24px] font-medium text-[#141414] leading-[32px]">Comer Fora</h1>
+        <h2 className="text-[24px] font-medium text-[#141414] leading-[32px]">Comer Fora</h2>
         <p className="paragraph-p2-14-regular text-[#666666]">Confira informações de perfil, promoções e clientes do seu salão</p>
       </div>
 
@@ -26,7 +26,7 @@ export function DesempenhoTab() {
       {/* ROI Block */}
       <div className="bg-[#F5F5F5] flex flex-col gap-2 p-2 rounded-xl">
         <div className="bg-white border border-[#EBEBEB] flex flex-col gap-6 p-8 rounded-lg">
-          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <div className="flex gap-3 items-center">
@@ -81,7 +81,7 @@ export function DesempenhoTab() {
         <div className="flex flex-col md:flex-row gap-2">
           {/* Identificações e revisitas */}
           <div className="bg-white border border-[#EBEBEB] flex-1 flex flex-col gap-6 p-8 rounded-xl">
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
             <div className="flex gap-2 items-center">
               <div className="size-8 rounded-lg bg-[#F5F5F5] flex items-center justify-center">
                 <svg className="size-5 text-[#141414]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
@@ -98,14 +98,9 @@ export function DesempenhoTab() {
                 <span style={{ fontFamily: "var(--font-inter)" }}><span className="text-[24px] font-medium text-[#141414] leading-8">5%</span><span className="text-[14px] text-[#141414] leading-4"> (180 clientes)</span></span>
               </div>
             </div>
-            <div className="flex gap-1">
+            <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
               {[0, 0, 1].map((filled, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center">
-                  <div className="h-6 w-full rounded-2xl" style={{ backgroundColor: filled ? "#1FAD68" : "var(--bg-terciario)", opacity: 0.9 }} />
-                  <div className="h-12 relative w-full flex justify-center">
-                    {i === 2 && <div className="absolute -top-1 size-12 rounded-full bg-[#1FAD68] flex items-center justify-center"><svg className="size-4 text-white" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg></div>}
-                  </div>
-                </div>
+                <div key={i} style={{ flex: 1, height: 6, borderRadius: 3, backgroundColor: filled ? "#1FAD68" : "var(--bg-terciario)" }} />
               ))}
             </div>
             <div className="bg-[#F2F2F2] h-px w-full" />
@@ -118,7 +113,7 @@ export function DesempenhoTab() {
 
           {/* Investimento */}
           <div className="bg-white border border-[#EBEBEB] flex-1 flex flex-col gap-6 p-8 rounded-xl">
-            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "11px", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", alignSelf: "flex-start" }}>Fixo</span>
             <div className="flex gap-2 items-center">
               <div className="size-8 rounded-lg bg-[#F5F5F5] flex items-center justify-center">
                 <svg className="size-5 text-[#141414]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -131,7 +126,7 @@ export function DesempenhoTab() {
                 <span className="text-[24px] font-medium text-[#141414] leading-8" style={{ fontFamily: "var(--font-inter)" }}>R$ 5.500,00</span>
               </div>
               <div className="flex flex-col gap-2 flex-1">
-                <div className="h-8 rounded-lg overflow-hidden flex"><div className="bg-[#EB0033] flex-1" /><div className="bg-[#FFEBEF] w-[7px]" /><div className="bg-[#CC0000] w-[4px]" /></div>
+                <div style={{ display: "flex", height: 6, borderRadius: 3, overflow: "hidden" }}><div style={{ flex: 95, backgroundColor: "#EB0033" }} /><div style={{ flex: 1, backgroundColor: "#FFEBEF" }} /><div style={{ flex: 4, backgroundColor: "#CC0000" }} /></div>
                 <span className="text-[12px] text-[#666666] leading-4 text-right" style={{ fontFamily: "var(--font-inter)" }}>95%</span>
               </div>
             </div>
@@ -170,17 +165,17 @@ export function DesempenhoTab() {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <div className="flex items-center justify-between border-b border-[#DCDCDC] pb-2 min-w-[700px]">
-            {["Nome", "Objetivo", "Incentivo", "Data início", "Data fim"].map((h) => (
+          <div className="flex items-center justify-between border-b border-[#DCDCDC] pb-2 min-w-[900px]">
+            {["Nome", "Objetivo", "Incentivo", "Data início", "Data fim", "Custo", "Receita", "ROI", "ROAS"].map((h) => (
               <span key={h} className="flex-1 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)" }}>{h}</span>
             ))}
           </div>
           {[
-            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "iFood", inicio: "22/01/2025", fim: "22/01/2025" },
-            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025" },
-            { nome: "Cupom R$ 80", objetivo: "Novos clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025" },
+            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "iFood", inicio: "22/01/2025", fim: "22/01/2025", custo: "R$ 1.200", receita: "R$ 4.800", roi: "300%", roas: "4,0x" },
+            { nome: "5% de Cashback", objetivo: "Fidelizar clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025", custo: "R$ 800", receita: "R$ 2.640", roi: "230%", roas: "3,3x" },
+            { nome: "Cupom R$ 80", objetivo: "Novos clientes", incentivo: "Restaurante", inicio: "22/01/2025", fim: "22/01/2025", custo: "R$ 2.400", receita: "R$ 5.520", roi: "130%", roas: "2,3x" },
           ].map((r, i) => (
-            <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-6">
+            <div key={i} className="flex items-center justify-between border-b border-[#DCDCDC] py-6 min-w-[900px]">
               <div className="flex-1 flex items-center gap-2">
                 <div className="size-6 rounded-lg bg-[#F2F2F2] flex items-center justify-center shrink-0"><svg className="size-4 text-[#717171]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg></div>
                 <span className="text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.nome}</span>
@@ -189,6 +184,10 @@ export function DesempenhoTab() {
               <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.incentivo}</span>
               <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.inicio}</span>
               <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.fim}</span>
+              <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.custo}</span>
+              <span className="flex-1 text-[16px] text-[#717171]" style={{ fontFamily: "var(--font-inter)" }}>{r.receita}</span>
+              <span className="flex-1 text-[16px] font-medium text-[#141414]" style={{ fontFamily: "var(--font-inter)" }}>{r.roi}</span>
+              <span className="flex-1 text-[16px] font-medium text-[#141414]" style={{ fontFamily: "var(--font-inter)" }}>{r.roas}</span>
             </div>
           ))}
         </div>

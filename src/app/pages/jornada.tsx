@@ -16,9 +16,9 @@ const MODULOS = [
 ];
 
 const PLANO_INFO: Record<string, string> = {
-  base: "Plano Base · nenhum módulo ativo",
-  essencial: "Plano Essencial · Cardápio, Reservas, PDV",
-  avancado: "Plano Avançado · todos os módulos",
+  essencial: "Plano Essencial · módulos básicos",
+  profissional: "Plano Profissional · todos os módulos",
+  premium: "Plano Premium · todos os módulos",
 };
 
 export function JornadaContent() {
@@ -77,18 +77,17 @@ export function JornadaContent() {
 export function JornadaPage() {
   const { planoAtivo } = usePlano();
   const navigate = useNavigate();
-  const isBase = planoAtivo === "base";
+  const isBase = planoAtivo === "novo";
 
   return (
     <div className="relative">
-      <div className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200" style={{ backgroundColor: "#ffffff" }}>
-        <span className="flex items-center justify-center size-5 rounded-[6px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
-          <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: "12px" }} />
+      <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+        <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: "var(--ifdl-color-ifood-48, #eb0033)" }}>
+          <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: "16px" }} />
         </span>
-        <span className="paragraph-p2-14-medium ml-1" style={{ color: isBase ? "var(--text-primario)" : "#141414" }}>Sua jornada</span>
-        <div className="flex items-center gap-3 ml-auto">
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: isBase ? "var(--text-primario)" : "var(--text-secundario)" }}>{isBase ? "Ative um módulo para liberar inteligência e CRM" : PLANO_INFO[planoAtivo] ?? ""}</span>
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: isBase ? "var(--text-primario)" : "var(--marca)", cursor: "pointer" }} onClick={() => navigate("/modulos")}>Mudar assinatura</span>
+        <div className="flex flex-col gap-0.5">
+          <h1 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", margin: 0, lineHeight: 1.3 }}>Sua jornada</h1>
+          <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>Acompanhe seu progresso e próximos passos no Comer Fora.</p>
         </div>
       </div>
       <div className="p-4 md:p-6">

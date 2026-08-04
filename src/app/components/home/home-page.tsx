@@ -57,10 +57,10 @@ function buildCard(text: string): GeneratedCard {
 }
 
 const PLANO_INFO: Record<string, { text: string }> = {
-  novo:      { text: 'Novo · nenhum módulo contratado' },
-  base:      { text: 'Plano Base · nenhum módulo ativo' },
-  essencial: { text: 'Plano Essencial · Cardápio, Reservas, PDV' },
-  avancado:  { text: 'Plano Avançado · todos os módulos' },
+  novo:         { text: 'Novo · nenhum módulo contratado' },
+  essencial:    { text: 'Plano Essencial · módulos básicos' },
+  profissional: { text: 'Plano Profissional · todos os módulos' },
+  premium:      { text: 'Plano Premium · todos os módulos' },
 };
 
 export function HomePage() {
@@ -85,39 +85,13 @@ export function HomePage() {
   return (
     <div className="relative">
       {!isBase && (
-        <div
-          className="sticky top-0 z-20 flex items-center gap-1 h-14 px-6 py-3 border-b border-[#ebebeb] transition-colors duration-200"
-          style={{ backgroundColor: '#ffffff' }}
-        >
-          <span
-            className="flex items-center justify-center size-5 rounded-[6px] shrink-0"
-            style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}
-          >
-            <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: '12px' }} />
+        <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+          <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
+            <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: '16px' }} />
           </span>
-          <span className="paragraph-p2-14-medium ml-1" style={{ color: '#141414' }}>Início</span>
-          <div className="flex items-center gap-3 ml-auto">
-            <span style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: 'var(--font-size-12)',
-              fontWeight: 'var(--font-weight-regular)',
-              letterSpacing: 'var(--letter-spacing)',
-              color: 'var(--text-secundario)',
-            }}>
-              {PLANO_INFO[planoAtivo].text}
-            </span>
-            <span style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: 'var(--font-size-12)',
-              fontWeight: 'var(--font-weight-regular)',
-              letterSpacing: 'var(--letter-spacing)',
-              color: 'var(--marca)',
-              cursor: 'pointer',
-            }}
-              onClick={() => navigate('/modulos')}
-            >
-              Mudar assinatura
-            </span>
+          <div className="flex flex-col gap-0.5">
+            <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0, lineHeight: 1.3 }}>Início</h1>
+            <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 0 }}>Visão geral do desempenho e ações recomendadas.</p>
           </div>
         </div>
       )}
