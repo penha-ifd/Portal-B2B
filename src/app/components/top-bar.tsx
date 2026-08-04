@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { IFoodMark } from './ifood-mark';
 import { PlanSwitcher } from './plan-switcher';
+import { Button, Icon, StatusDot } from './ifds';
 
 const LOJAS = [
   { id: 'cantina-pinheiros', nome: 'Cantina Di Napoli - Pinheiros', sigla: 'CN' },
@@ -29,25 +30,25 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
   }, []);
 
   return (
-    <header className="flex items-center justify-between shrink-0 h-14 pl-2 pr-4 bg-[#F7F4F0]">
+    <header className="flex items-center justify-between shrink-0 h-14 pl-2 pr-4 bg-[var(--bg-secundario)]">
       {/* Esquerda */}
       <div className="flex items-center">
-        <button
+        <Button
           type="button"
-          aria-label="Menu"
+          aria-label="Abrir menu"
           onClick={onMobileMenu}
-          className="flex md:hidden items-center justify-center size-12 text-[#141414] hover:opacity-70"
+          className="ifds-button-tertiary !min-h-12 !w-12 !p-0 md:!hidden"
         >
-          <i className="ifdl-icon-line ifdl-icon-menu" style={{ fontSize: '20px' }} />
-        </button>
-        <button
+          <Icon name="menu" size={20} />
+        </Button>
+        <Button
           type="button"
-          aria-label="Menu"
+          aria-label="Recolher menu lateral"
           onClick={onToggleSidebar}
-          className="hidden md:flex items-center justify-center size-12 text-[#141414] hover:opacity-70"
+          className="ifds-button-tertiary !hidden !min-h-12 !w-12 !p-0 md:!inline-flex"
         >
-          <i className="ifdl-icon-line ifdl-icon-menu" style={{ fontSize: '20px' }} />
-        </button>
+          <Icon name="menu" size={20} />
+        </Button>
 
         <div className="flex items-center justify-center size-12">
           <IFoodMark size={20} />
@@ -122,7 +123,7 @@ export function TopBar({ onToggleSidebar, onMobileMenu }: TopBarProps) {
             </span>
             <span className="paragraph-p2-14-medium text-[#141414]">Comer Fora</span>
           </div>
-          <span className="size-2 rounded-full" style={{ backgroundColor: '#1FAD68' }} role="status" aria-label="Ativo" />
+          <StatusDot tone="success" label="Ativo" />
         </div>
         <PlanSwitcher />
       </div>

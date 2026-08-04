@@ -2,6 +2,7 @@ import { DsSection } from "../components/ds/section";
 import { ColorSwatch } from "../components/ds/color-swatch";
 import { TypeSample } from "../components/ds/type-sample";
 import { ComponentCard } from "../components/ds/component-card";
+import { Badge, Button, Card, PageHeader, StatusDot } from "../components/ifds";
 
 const COLORS = [
   { token: "--marca", value: "#EB0033", label: "Marca" },
@@ -60,28 +61,19 @@ const ICONS = [
 export default function DesignSystemPage() {
   return (
     <div className="max-w-[960px] mx-auto py-8 px-6">
-      <header className="mb-12">
-        <h1
-          style={{
-            fontFamily: "var(--font-inter)",
-            fontSize: "var(--font-size-32)",
-            fontWeight: "var(--font-weight-bold)",
-            color: "var(--text-primario)",
-          }}
-        >
-          Design System
-        </h1>
-        <p
-          className="mt-2"
-          style={{
-            fontFamily: "var(--font-inter)",
-            fontSize: "var(--font-size-16)",
-            color: "var(--text-secundario)",
-          }}
-        >
-          Biblioteca visual do Portal Comer Fora B2B — tokens, tipografia, componentes e padrões.
-        </p>
-      </header>
+      <PageHeader
+        icon="configuration"
+        title="Design System"
+        description="Biblioteca visual do Portal Comer Fora B2B — tokens, tipografia, componentes e padrões."
+      />
+      <div className="mb-12 rounded-[var(--radius-12)] border border-[var(--borda)] bg-[var(--bg-secundario)] p-4">
+        <div className="flex items-center gap-3">
+          <StatusDot tone="success" label="Primitivos ativos" />
+          <p className="paragraph-p2-14-regular text-[var(--text-secundario)]">
+            Primitivos IFDS locais ativos: tokens semânticos, iFood RC Textos, Pomodoro icons e estados de foco acessíveis.
+          </p>
+        </div>
+      </div>
 
       {/* Cores */}
       <DsSection title="Cores" description="Tokens de cor definidos em globals.css via CSS custom properties.">
@@ -234,92 +226,20 @@ export default function DesignSystemPage() {
       {/* Componentes */}
       <DsSection title="Componentes" description="Componentes reutilizáveis do projeto com suas variações.">
         {/* Botões */}
-        <ComponentCard name="Botões" file="inline (Tailwind + tokens)">
-          <button
-            className="px-4 py-2.5 rounded-xl text-white transition-all duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              backgroundColor: "var(--marca)",
-              fontFamily: "var(--font-inter)",
-              fontSize: "var(--font-size-14)",
-              fontWeight: "var(--font-weight-medium)",
-            }}
-          >
-            Primary
-          </button>
-          <button
-            className="px-4 py-2.5 rounded-xl border transition-all duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              borderColor: "var(--borda)",
-              backgroundColor: "var(--bg-primario)",
-              fontFamily: "var(--font-inter)",
-              fontSize: "var(--font-size-14)",
-              fontWeight: "var(--font-weight-medium)",
-              color: "var(--text-primario)",
-            }}
-          >
-            Secondary
-          </button>
-          <button
-            className="w-10 h-10 flex items-center justify-center rounded-xl border transition-all duration-150 ease-out hover:scale-[1.04] active:scale-[0.98]"
-            style={{ borderColor: "var(--borda)", backgroundColor: "var(--bg-primario)" }}
-          >
-            <i className="ifdl-icon-line ifdl-icon-add" style={{ fontSize: "20px", color: "var(--text-primario)" }} />
-          </button>
+        <ComponentCard name="Botões" file="components/ifds.tsx">
+          <Button variant="primary">Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="tertiary" leadingIcon="add">Tertiary</Button>
+          <Button variant="destructive" size="small">Destructive</Button>
         </ComponentCard>
 
         {/* Tags / Chips */}
         <div className="mt-4">
-          <ComponentCard name="Tags / Chips" file="inline (status indicators)">
-            <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-              style={{
-                backgroundColor: "#E8F8F0",
-                fontFamily: "var(--font-inter)",
-                fontSize: "var(--font-size-12)",
-                fontWeight: "var(--font-weight-medium)",
-                color: "var(--sucesso)",
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--sucesso)" }} />
-              Sucesso
-            </span>
-            <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-              style={{
-                backgroundColor: "#FFF7E6",
-                fontFamily: "var(--font-inter)",
-                fontSize: "var(--font-size-12)",
-                fontWeight: "var(--font-weight-medium)",
-                color: "#D4940A",
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--atencao)" }} />
-              Atenção
-            </span>
-            <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-              style={{
-                backgroundColor: "var(--bg-secundario)",
-                fontFamily: "var(--font-inter)",
-                fontSize: "var(--font-size-12)",
-                fontWeight: "var(--font-weight-medium)",
-                color: "var(--text-secundario)",
-              }}
-            >
-              Neutro
-            </span>
-            <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-              style={{
-                backgroundColor: "#FFEAEF",
-                fontFamily: "var(--font-inter)",
-                fontSize: "var(--font-size-12)",
-                fontWeight: "var(--font-weight-medium)",
-                color: "var(--marca)",
-              }}
-            >
-              Marca
-            </span>
+          <ComponentCard name="Tags / Chips" file="components/ifds.tsx">
+            <Badge tone="success">Sucesso</Badge>
+            <Badge tone="warning">Atenção</Badge>
+            <Badge tone="neutral">Neutro</Badge>
+            <Badge tone="brand" icon="delivery">Marca</Badge>
           </ComponentCard>
         </div>
 
@@ -358,9 +278,7 @@ export default function DesignSystemPage() {
         {/* Card padrão */}
         <div className="mt-4">
           <ComponentCard name="Card" file="inline (padrão visual recorrente)">
-            <div
-              className="w-full max-w-[280px] p-4 rounded-xl border border-[var(--borda)] bg-white transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
-            >
+            <Card className="w-full max-w-[280px] p-4 transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-[var(--bg-secundario)] flex items-center justify-center">
                   <i className="ifdl-icon-line ifdl-icon-calendar" style={{ fontSize: "20px", color: "var(--marca)" }} />
@@ -385,7 +303,7 @@ export default function DesignSystemPage() {
               <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>
                 Gerencie reservas e lista de espera
               </p>
-            </div>
+            </Card>
           </ComponentCard>
         </div>
 

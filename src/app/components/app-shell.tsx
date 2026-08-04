@@ -43,10 +43,10 @@ export function AppShell() {
   }, [mobileOpen]);
 
   return (
-    <div className="flex flex-col w-full overflow-hidden bg-[#EDE9E3] p-1 md:p-[10px]" style={{ height: '100dvh' }}>
-      <div className="flex flex-col flex-1 overflow-hidden rounded-[16px] md:rounded-[24px] bg-[#F7F4F0]">
+    <div className="ifds-app-shell flex flex-col w-full overflow-hidden bg-[var(--bg-terciario)] p-1 md:p-[10px]" style={{ height: '100dvh' }}>
+      <div className="flex flex-col flex-1 overflow-hidden rounded-[16px] md:rounded-[24px] bg-[var(--bg-secundario)]">
         <TopBar onToggleSidebar={() => setCollapsed((c) => !c)} onMobileMenu={() => setMobileOpen(true)} />
-        <div className="flex flex-1 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
+        <div className="flex flex-1 min-h-0 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
           {/* Desktop sidebar */}
           <div className="hidden md:flex h-full">
             <SidebarNav collapsed={collapsed} />
@@ -62,8 +62,8 @@ export function AppShell() {
             </div>
           )}
 
-          <main className="flex-1 overflow-hidden min-w-0">
-            <div className="h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-white border border-[#E8E3DC] shadow-[0px_1px_3px_rgba(21,21,21,0.08)]" style={{ paddingBottom: "64px" }}>
+          <main className="flex-1 min-h-0 overflow-hidden min-w-0">
+            <div className="h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-[var(--bg-primario)] border border-[var(--borda)] shadow-[var(--shadow-subtle)]" style={{ paddingBottom: "64px" }}>
               <div className="max-w-[1180px] mx-auto">
                 <AnimatePresence mode="popLayout">
                   <motion.div

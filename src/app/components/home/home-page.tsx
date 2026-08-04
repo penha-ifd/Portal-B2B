@@ -5,6 +5,7 @@ import { CriarPromocaoDrawer } from './CriarPromocaoDrawer';
 import { AnalyticsGrid, GeneratedCard } from './analytics-grid';
 import { DashboardDesempenho } from './dashboard-desempenho';
 import { LpComerFora } from '../../pages/lp-comer-fora';
+import { PageHeader } from '../page-header';
 
 let cardCounter = 0;
 
@@ -85,15 +86,11 @@ export function HomePage() {
   return (
     <div className="relative">
       {!isBase && (
-        <div className="flex items-center gap-3 px-6 pt-6 pb-4">
-          <span className="flex items-center justify-center size-8 rounded-[8px] shrink-0" style={{ backgroundColor: 'var(--ifdl-color-ifood-48, #eb0033)' }}>
-            <i className="ifdl-icon-filled ifdl-icon-home text-white" style={{ fontSize: '16px' }} />
-          </span>
-          <div className="flex flex-col gap-0.5">
-            <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-20)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-primario)', margin: 0, lineHeight: 1.3 }}>Início</h1>
-            <p style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-14)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)', color: 'var(--text-secundario)', margin: 0 }}>Visão geral do desempenho e ações recomendadas.</p>
-          </div>
-        </div>
+        <PageHeader
+          icon="home"
+          title="Início"
+          description="Visão geral do desempenho e ações recomendadas."
+        />
       )}
 
       {isBase ? (
