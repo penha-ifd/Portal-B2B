@@ -42,10 +42,14 @@ export function SegmentosTab() {
         ))}
 
         {/* Novo segmento */}
-        <div className="flex flex-col items-center justify-center gap-2" style={{ borderRadius: "var(--radius-12)", border: "1px dashed var(--bg-terciario)", padding: "var(--spacing-16)", minHeight: 120, cursor: "pointer" }}>
-          <i className="ifdl-icon-line ifdl-icon-add" style={{ fontSize: 20, color: "var(--text-desabilitado)" }} />
-          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Novo segmento</span>
-        </div>
+        <button
+          type="button"
+          className="flex flex-col items-center justify-center gap-2"
+          style={{ borderRadius: "var(--radius-12)", border: "1px dashed var(--bg-terciario)", padding: "var(--spacing-16)", minHeight: 120, cursor: "pointer", background: "none", fontFamily: "inherit", width: "100%" }}
+        >
+          <i className="ifdl-icon-line ifdl-icon-add" style={{ fontSize: 20, color: "var(--text-secundario)" }} />
+          <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Novo segmento</span>
+        </button>
       </div>
       <CriarPromocaoDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>

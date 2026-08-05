@@ -606,17 +606,17 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           <div className="grid grid-cols-3" style={{ gap: "var(--spacing-12)" }}>
             <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-4)" }}>Clientes novos</span>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>47</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", fontVariantNumeric: "tabular-nums" }}>47</span>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginLeft: "var(--spacing-8)" }}>+12%</span>
             </div>
             <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-4)" }}>Retornaram após benefício</span>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>64</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", fontVariantNumeric: "tabular-nums" }}>64</span>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginLeft: "var(--spacing-8)" }}>+8%</span>
             </div>
             <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-4)" }}>Novos reviews</span>
-              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>12</span>
+              <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", fontVariantNumeric: "tabular-nums" }}>12</span>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginLeft: "var(--spacing-8)" }}>+3</span>
             </div>
           </div>
@@ -703,7 +703,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               Pediram delivery, nunca vieram
             </span>
           </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
             <span ref={countCross.ref}>{countCross.formatted}</span> clientes
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
@@ -728,7 +728,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </button>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-16)", marginTop: "var(--spacing-4)" }}>
-            <span ref={countRoi.ref} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-32)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1 }}>{countRoi.formatted}x</span>
+            <span ref={countRoi.ref} style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-32)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{countRoi.formatted}x</span>
             <div style={{ width: "1px", height: "32px", backgroundColor: "var(--borda)", flexShrink: 0 }} />
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-4)" }}>
               <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>R$ {d.roi.investido.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} investidos</span>
@@ -808,7 +808,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               )}
             </button>
           </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
             <span ref={countCheckins.ref}>{countCheckins.formatted}</span>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
@@ -837,7 +837,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               )}
             </button>
           </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
             R$ <span ref={countTicket.ref}>{countTicket.formatted}</span>
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--sucesso)", marginTop: "var(--spacing-4)" }}>
@@ -866,7 +866,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               )}
             </button>
           </div>
-          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+          <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
             <span ref={countVoltaram.ref}>{countVoltaram.formatted}</span> clientes
           </div>
           <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
@@ -891,7 +891,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
                 Nota média no salão
               </span>
             </div>
-            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
               4,2
             </div>
             <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
@@ -914,7 +914,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
                 Taxa de no-show
               </span>
             </div>
-            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
               12%
             </div>
             <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
@@ -937,7 +937,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
                 Faturamento real
               </span>
             </div>
-            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
+            <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)", fontVariantNumeric: "tabular-nums" }}>
               R$ 12.318
             </div>
             <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>

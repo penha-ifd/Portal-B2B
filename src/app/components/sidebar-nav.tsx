@@ -13,6 +13,7 @@ interface FooterItem extends NavItem {
 }
 
 const footerItems: FooterItem[] = [
+  { to: '/design-system', label: 'Design System', icon: 'info', chevron: true },
   { to: '/configuracoes', label: 'Configurações', icon: 'configuration', chevron: true },
   { to: '/perfil', label: 'Perfil', icon: 'profile', chevron: true },
 ];
@@ -67,20 +68,20 @@ function LockedItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) 
     >
       <i
         className={`ifdl-icon-line ifdl-icon-${item.icon} shrink-0`}
-        style={{ fontSize: '24px', color: 'var(--text-desabilitado)' }}
+        style={{ fontSize: '24px', color: 'var(--text-secundario)' }}
       />
       <span
         className={`flex-1 min-w-0 overflow-hidden transition-[opacity,max-width] duration-200 ease-in-out ${
           collapsed ? 'opacity-0 max-w-0' : 'opacity-100 max-w-[200px]'
         }`}
-        style={{ color: 'var(--text-desabilitado)', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)' }}
+        style={{ color: 'var(--text-secundario)', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)' }}
       >
         {item.label}
       </span>
       {!collapsed && (
         <i
           className="ifdl-icon-line ifdl-icon-add shrink-0"
-          style={{ fontSize: '20px', color: 'var(--text-desabilitado)' }}
+          style={{ fontSize: '20px', color: 'var(--text-secundario)' }}
         />
       )}
     </div>
@@ -183,7 +184,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
 
   return (
     <nav
-      className={`flex flex-col justify-between shrink-0 bg-[#f5f5f5] pt-2 overflow-y-auto transition-[width] duration-200 ease-in-out h-full ${
+      className={`flex flex-col justify-between shrink-0 bg-[#F7F4F0] pt-2 overflow-y-auto transition-[width] duration-200 ease-in-out h-full ${
         collapsed ? 'w-[72px]' : 'w-[276px]'
       }`}
     >

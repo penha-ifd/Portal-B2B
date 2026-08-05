@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Toaster } from "sonner";
 import { DesignSystemProvider } from "./components/DesignSystemProvider";
 import { AppShell } from "./components/app-shell";
 import { HomePage } from "./components/home/home-page";
 import { PlaceholderPage } from "./components/placeholder-page";
 import { PlanoProvider } from "./state/plano-context";
-import { PlanSwitcher } from "./components/plan-switcher";
+import { NotFoundPage } from "./pages/not-found";
 import { ReservasPage } from "./pages/reservas";
 import { ClientesPage } from "./pages/clientes";
 import { ModulosPage } from "./pages/modulos";
@@ -16,6 +17,7 @@ import AvaliacoesPage from "./pages/avaliacoes";
 import { AgregadorPage } from "./pages/agregador";
 import { ConfiguracoesPage } from "./pages/configuracoes";
 import { FidelidadePage } from "./pages/fidelidade";
+import DesignSystemPage from "./pages/design-system";
 import { Navigate } from "react-router";
 
 export default function App() {
@@ -88,10 +90,15 @@ export default function App() {
                 path="perfil"
                 element={<PerfilPage />}
               />
+              <Route
+                path="design-system"
+                element={<DesignSystemPage />}
+              />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
-        <PlanSwitcher />
+        <Toaster position="top-right" richColors />
       </PlanoProvider>
     </DesignSystemProvider>
   );

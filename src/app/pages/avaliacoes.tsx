@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // ── dados mock ──────────────────────────────────────────────────────────────
 
@@ -302,6 +302,39 @@ export default function AvaliacoesPage() {
 // ── sub-componentes ─────────────────────────────────────────────────────────
 
 function KpiCard({ label, valor, sufixo, delta, alerta }: { label: string; valor: string; sufixo?: string; delta?: string; alerta?: boolean }) {
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const target = parseFloat(valor);
+  const decimals = valor.includes(".") ? valor.split(".")[1].length : 0;
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(target);
+      return;
+    }
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        obs.disconnect();
+        const start = performance.now();
+        const dur = 700;
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / dur, 1);
+          setDisplay(target * (1 - Math.pow(1 - t, 3)));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [target]);
+
+  const formatted = decimals > 0
+    ? display.toFixed(decimals).replace(".", ",")
+    : Math.round(display).toLocaleString("pt-BR");
+
   return (
     <div style={{
       background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)",
@@ -309,8 +342,8 @@ function KpiCard({ label, valor, sufixo, delta, alerta }: { label: string; valor
     }}>
       <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>{label}</span>
       <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", color: alerta ? "var(--marca)" : "var(--text-primario)" }}>
-          {valor}
+        <span ref={ref} style={{ ...fontBase, fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", color: alerta ? "var(--marca)" : "var(--text-primario)", fontVariantNumeric: "tabular-nums" }}>
+          {formatted}
         </span>
         {sufixo && <span style={{ ...fontBase, fontSize: "var(--font-size-14)", color: "var(--text-desabilitado)" }}>{sufixo}</span>}
       </div>
