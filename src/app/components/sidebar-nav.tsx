@@ -1,4 +1,5 @@
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useNavigate, useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
 import { usePlano } from '../state/plano-context';
 
 interface NavItem {
@@ -6,6 +7,7 @@ interface NavItem {
   label: string;
   icon: string;
   end?: boolean;
+  children?: { to: string; label: string }[];
 }
 
 interface FooterItem extends NavItem {
@@ -45,6 +47,78 @@ function ActiveItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) 
   );
 }
 
+function ExpandableItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const isChildActive = pathname.startsWith(item.to);
+  const [open, setOpen] = useState(isChildActive);
+
+  useEffect(() => {
+    if (isChildActive) setOpen(true);
+  }, [isChildActive]);
+
+  if (collapsed) {
+    return (
+      <NavLink
+        to={item.children![0].to}
+        className="block w-full outline-none"
+        title={item.label}
+      >
+        {({ isActive }) => (
+          <div className="relative flex h-14 items-center py-4 w-full gap-2 pl-5 pr-6">
+            {isActive && <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-[#EB0033]" />}
+            <i
+              className={`${isChildActive ? 'ifdl-icon-filled' : 'ifdl-icon-line'} ifdl-icon-${item.icon} shrink-0 text-[#141414]`}
+              style={{ fontSize: '24px' }}
+            />
+          </div>
+        )}
+      </NavLink>
+    );
+  }
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => {
+          if (!isChildActive) navigate(item.children![0].to);
+          else setOpen(o => !o);
+        }}
+        className="flex h-14 items-center py-4 w-full gap-2 pl-5 pr-6 bg-transparent border-none cursor-pointer"
+      >
+        <i
+          className={`${isChildActive ? 'ifdl-icon-filled' : 'ifdl-icon-line'} ifdl-icon-${item.icon} shrink-0 text-[#141414]`}
+          style={{ fontSize: '24px' }}
+        />
+        <span className={`flex-1 min-w-0 text-left whitespace-nowrap ${isChildActive ? 'paragraph-p1-16-bold' : 'paragraph-p1-16-regular'}`}>
+          {item.label}
+        </span>
+        <i
+          className="ifdl-icon-line ifdl-icon-chevron-down shrink-0 text-[#141414] transition-transform duration-200"
+          style={{ fontSize: '20px', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+        />
+      </button>
+      {open && (
+        <div className="flex flex-col">
+          {item.children!.map(child => (
+            <NavLink key={child.to} to={child.to} className="block w-full outline-none">
+              {({ isActive }) => (
+                <div className="relative flex h-10 items-center pl-12 pr-6">
+                  {isActive && <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-[#EB0033]" />}
+                  <span className={isActive ? 'paragraph-p2-14-bold' : 'paragraph-p2-14-regular'}>
+                    {child.label}
+                  </span>
+                </div>
+              )}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function LockedItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
   const navigate = useNavigate();
   return (
@@ -67,20 +141,20 @@ function LockedItem({ item, collapsed }: { item: NavItem; collapsed: boolean }) 
     >
       <i
         className={`ifdl-icon-line ifdl-icon-${item.icon} shrink-0`}
-        style={{ fontSize: '24px', color: 'var(--text-desabilitado)' }}
+        style={{ fontSize: '24px', color: 'var(--text-secundario)' }}
       />
       <span
         className={`flex-1 min-w-0 overflow-hidden transition-[opacity,max-width] duration-200 ease-in-out ${
           collapsed ? 'opacity-0 max-w-0' : 'opacity-100 max-w-[200px]'
         }`}
-        style={{ color: 'var(--text-desabilitado)', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)' }}
+        style={{ color: 'var(--text-secundario)', fontFamily: 'var(--font-inter)', fontSize: 'var(--font-size-12)', fontWeight: 'var(--font-weight-regular)', letterSpacing: 'var(--letter-spacing)' }}
       >
         {item.label}
       </span>
       {!collapsed && (
         <i
           className="ifdl-icon-line ifdl-icon-add shrink-0"
-          style={{ fontSize: '20px', color: 'var(--text-desabilitado)' }}
+          style={{ fontSize: '20px', color: 'var(--text-secundario)' }}
         />
       )}
     </div>
@@ -148,9 +222,10 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   const isEssencial = planoAtivo === 'essencial';
   const isProfissionalOrPremium = planoAtivo === 'profissional' || planoAtivo === 'premium';
   const isPremium = planoAtivo === 'premium';
+  const isAnyPaid = isEssencial || isProfissionalOrPremium;
 
   const alwaysActive: NavItem[] = [
-    { to: '/', label: 'Início', icon: 'home', end: true },
+    { to: '/', label: isAnyPaid ? 'Dashboard' : 'Início', icon: isAnyPaid ? 'chart' : 'home', end: true },
   ];
 
   const clientes: NavItem[] = [
@@ -158,18 +233,19 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   ];
 
   const essencialModulos: NavItem[] = [
-    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
-    { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
+    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
+    { to: '/avaliacoes', label: 'Avaliações', icon: 'store', children: [
+      { to: '/avaliacoes/visao-geral', label: 'Visão Geral' },
+      { to: '/avaliacoes/avaliacoes', label: 'Avaliações' },
+    ]},
   ];
 
   const profissionalModulos: NavItem[] = [
+    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
+    { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
-    { to: '/avaliacoes', label: 'Avaliações', icon: 'store' },
-    { to: '/cardapio', label: 'Cardápio', icon: 'store' },
     { to: '/pagamento-mesa', label: 'Pagamento na mesa', icon: 'credit-card' },
   ];
-
-  const isAnyPaid = isEssencial || isProfissionalOrPremium;
 
   const activeItems: NavItem[] = [
     ...(isAnyPaid ? essencialModulos : []),
@@ -178,12 +254,12 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
 
   const lockedItems: NavItem[] = [
     ...(!isAnyPaid ? essencialModulos : []),
-    ...(!isProfissionalOrPremium ? profissionalModulos : []),
+    ...(!isAnyPaid ? profissionalModulos : []),
   ];
 
   return (
     <nav
-      className={`flex flex-col justify-between shrink-0 bg-[#f5f5f5] pt-2 overflow-y-auto transition-[width] duration-200 ease-in-out h-full ${
+      className={`flex flex-col justify-between shrink-0 bg-[#F7F4F0] pt-2 overflow-y-auto transition-[width] duration-200 ease-in-out h-full ${
         collapsed ? 'w-[72px]' : 'w-[276px]'
       }`}
     >
@@ -207,9 +283,13 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
         {activeItems.length > 0 && (
           <>
             <GroupLabel label="Seu salão" collapsed={collapsed} />
-            {activeItems.map((item) => (
-              <ActiveItem key={item.to} item={item} collapsed={collapsed} />
-            ))}
+            {activeItems.map((item) =>
+              item.children ? (
+                <ExpandableItem key={item.to} item={item} collapsed={collapsed} />
+              ) : (
+                <ActiveItem key={item.to} item={item} collapsed={collapsed} />
+              )
+            )}
           </>
         )}
 

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { toast } from "sonner";
 
 const DAYS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 const PERIODS = ["Diurno (00:01 até 17:00)", "Noturno (17:01 até 00:00)"];
@@ -54,6 +55,8 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
   const [selectedSegments, setSelectedSegments] = useState<string[]>([]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
 
+  const panelRef = useRef<HTMLDivElement>(null);
+
   // Lock body scroll when open
   useEffect(() => {
     if (open) {
@@ -63,6 +66,47 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
     }
     return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  // Dialog semantics: keep focus inside, close on Escape, restore focus on close
+  useEffect(() => {
+    if (!open) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    panelRef.current?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !panelRef.current) return;
+
+      // Focus trap: loop Tab within the panel
+      const focusables = panelRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      const list = Array.from(focusables);
+      if (list.length === 0) return;
+
+      const first = list[0];
+      const last = list[list.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && (active === first || active === panelRef.current)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus?.();
+    };
+  }, [open, onClose]);
 
   function toggleDay(day: string) {
     setSelectedDays((prev) =>
@@ -111,6 +155,20 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
     setSelectedChannels(["push", "whatsapp"]);
   }
 
+  function handleCriarCampanha() {
+    const faltando: string[] = [];
+    if (!cupomType) faltando.push("tipo de cupom");
+    if (selectedChannels.length === 0) faltando.push("pelo menos 1 canal de entrega");
+
+    if (faltando.length > 0) {
+      toast.error(`Selecione ${faltando.join(" e ")} para criar a campanha.`);
+      return;
+    }
+
+    toast.success("Campanha criada com sucesso!");
+    onClose();
+  }
+
   return (
     <AnimatePresence>
       {open && (
@@ -127,16 +185,21 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
 
           {/* Drawer panel */}
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="criar-promocao-title"
+            tabIndex={-1}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative bg-white flex flex-col w-[768px] max-w-full h-full rounded-l-3xl shadow-[0px_6px_12px_0px_rgba(21,21,21,0.16)]"
+            className="relative bg-white flex flex-col w-[768px] max-w-full h-full rounded-l-3xl shadow-[0px_6px_12px_0px_rgba(21,21,21,0.16)] outline-none"
           >
             {/* Top Bar */}
             <div className="bg-white border-b border-[#EBEBEB] flex gap-4 items-center justify-center px-4 py-3 shrink-0">
               <div className="flex flex-1 items-center gap-2 min-w-0">
-                <span className="text-[16px] font-medium text-[#141414] leading-6 truncate">
+                <span id="criar-promocao-title" className="text-[16px] font-medium text-[#141414] leading-6 truncate">
                   Criar promoção
                 </span>
               </div>
@@ -576,7 +639,7 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
                             Atenção: com mais restrições de uso, o alcance da sua promoção será menor.
                           </p>
                           <p className="paragraph-p2-14-regular text-[#666666] mt-1">
-                            Com mais restrições de uso, o alcance da sua promoção será menor.
+                            Cada regra extra reduz o número de clientes que conseguem usar o cupom.
                           </p>
                         </div>
                       </div>
@@ -646,6 +709,7 @@ export function CriarPromocaoDrawer({ open, onClose }: Props) {
               </button>
               <button
                 type="button"
+                onClick={handleCriarCampanha}
                 className="bg-[#EB0033] text-white paragraph-p2-14-medium px-6 py-2.5 rounded-xl hover:bg-[#C5002A] transition-colors"
               >
                 Criar campanha

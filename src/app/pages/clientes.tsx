@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { motion } from "motion/react";
 import { usePlano } from "../state/plano-context";
 import { SegmentosTab } from "./SegmentosTab";
@@ -123,7 +123,11 @@ const TOTAL_ITEMS = 25;
 
 export function ClientesPage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("Pessoas");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get("aba") === "segmentos" ? "Segmentos" : "Pessoas";
+  const setActiveTab = (tab: string) => {
+    setSearchParams(tab === "Segmentos" ? { aba: "segmentos" } : {}, { replace: true });
+  };
   const [page, setPage] = useState(1);
   const [perfilFilter, setPerfilFilter] = useState<string | null>(null);
   const [origemFilter, setOrigemFilter] = useState<string | null>(null);
@@ -161,9 +165,23 @@ export function ClientesPage() {
         </div>
       </div>
       <div className="flex flex-col gap-6 p-4 md:p-8">
-        <div className="flex gap-1 border-b border-[#EBEBEB]">
-          {["Pessoas", "Segmentos"].map((tab) => (
-            <button key={tab} type="button" onClick={() => setActiveTab(tab)} className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${activeTab === tab ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}>
+        <div className="flex gap-1 border-b border-[#E8E3DC]" role="tablist" aria-label="Visões de clientes">
+          {["Pessoas", "Segmentos"].map((tab, i) => (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              id={`clientes-tab-${tab}`}
+              aria-selected={activeTab === tab}
+              aria-controls={`clientes-panel-${tab}`}
+              tabIndex={activeTab === tab ? 0 : -1}
+              onClick={() => setActiveTab(tab)}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowRight") setActiveTab(i === 0 ? "Segmentos" : "Pessoas");
+                if (e.key === "ArrowLeft") setActiveTab(i === 0 ? "Segmentos" : "Pessoas");
+              }}
+              className={`paragraph-p2-14-medium px-4 py-2.5 transition-colors relative ${activeTab === tab ? "text-[#EB0033]" : "text-[#666666] hover:text-[#141414]"}`}
+            >
               {tab}
               {activeTab === tab && <motion.div layoutId="clientes-tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EB0033] rounded-full" transition={{ type: "spring", stiffness: 500, damping: 30 }} />}
             </button>
@@ -172,7 +190,7 @@ export function ClientesPage() {
       </div>
 
       {activeTab === "Pessoas" ? (
-        <div className="flex flex-col gap-10">
+        <div role="tabpanel" id="clientes-panel-Pessoas" aria-labelledby="clientes-tab-Pessoas" tabIndex={0} className="flex flex-col gap-10 px-4 md:px-6">
           <div className="bg-[#F5F5F5] flex flex-col gap-1 p-1 rounded-2xl">
             <div className="flex items-start px-3 pt-3 pb-1">
               <div className="flex flex-col gap-1">
@@ -241,11 +259,11 @@ export function ClientesPage() {
                   { key: "Última visita", flex: 1 },
                   { key: "Origem", flex: 0.8 },
                 ].map((h) => (
-                  <span key={h.key} className="min-w-0 text-[12px] font-bold text-[#3E3E3E] leading-4" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4, flex: h.flex }} onClick={() => toggleSort(h.key)}>
+                  <span key={h.key} role="columnheader" aria-sort={sortCol === h.key ? (sortDir === "asc" ? "ascending" : "descending") : "none"} className="min-w-0 text-[12px] font-bold text-[var(--text-3)] leading-4" style={{ fontFamily: "var(--font-inter)", cursor: "pointer", userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4, flex: h.flex }} onClick={() => toggleSort(h.key)}>
                     {h.key}
                     <span style={{ display: "inline-flex", flexDirection: "column", lineHeight: 0 }}>
-                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "asc" ? "var(--text-primario)" : "var(--text-desabilitado)" }}>&#9650;</span>
-                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "desc" ? "var(--text-primario)" : "var(--text-desabilitado)", marginTop: -2 }}>&#9660;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "asc" ? "var(--text-primario)" : "var(--text-secundario)" }}>&#9650;</span>
+                      <span style={{ fontSize: 10, color: sortCol === h.key && sortDir === "desc" ? "var(--text-primario)" : "var(--text-secundario)", marginTop: -2 }}>&#9660;</span>
                     </span>
                   </span>
                 ))}
@@ -307,7 +325,9 @@ export function ClientesPage() {
           </div>
         </div>
       ) : (
-        <SegmentosTab />
+        <div role="tabpanel" id="clientes-panel-Segmentos" aria-labelledby="clientes-tab-Segmentos" tabIndex={0} className="px-4 md:px-6">
+          <SegmentosTab />
+        </div>
       )}
 
       {selectedClient && (() => {

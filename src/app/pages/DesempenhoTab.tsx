@@ -3,7 +3,7 @@ export function DesempenhoTab() {
     <div className="flex flex-col gap-6 md:gap-10 pt-4 pb-6 px-3 md:px-6">
       {/* Page Title */}
       <div className="flex flex-col gap-1">
-        <h1 className="text-[24px] font-medium text-[#141414] leading-[32px]">Comer Fora</h1>
+        <h2 className="text-[24px] font-medium text-[#141414] leading-[32px]">Comer Fora</h2>
         <p className="paragraph-p2-14-regular text-[#666666]">Confira informações de perfil, promoções e clientes do seu salão</p>
       </div>
 

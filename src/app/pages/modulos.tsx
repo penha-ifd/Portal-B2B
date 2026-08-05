@@ -159,7 +159,7 @@ export function ModulosPage() {
       <div className="p-6 flex flex-col" style={{ gap: 'var(--spacing-40)' }}>
 
         {/* Cards de plano */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--spacing-16)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-16)' }}>
           {PLANOS.map((plano) => {
             const isCurrent = planoAtivo === plano.key;
             return (
@@ -234,10 +234,10 @@ export function ModulosPage() {
 
         {/* Seção Módulos */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-          <h1 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
+          <h2 style={{ ...fontBase, fontSize: 'var(--font-size-18)', fontWeight: 'var(--font-weight-medium)' as React.CSSProperties['fontWeight'], color: 'var(--text-primario)', margin: 0 }}>
             Módulos
-          </h1>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-16)' }}>
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--spacing-16)' }}>
             {MODULOS.map((mod) => {
               const on = mod.incluso(planoAtivo);
               return (

@@ -1,0 +1,266 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - banner [ref=e5]:
+        - generic [ref=e6]:
+          - text: 
+          - button "Recolher menu lateral" [ref=e7] [cursor=pointer]:
+            - generic [ref=e8]: 
+          - img "iFood" [ref=e12]
+          - button "CN Cantina Di Napoli - Pinheiros " [ref=e18] [cursor=pointer]:
+            - generic [ref=e19]: CN
+            - generic [ref=e20]: Cantina Di Napoli - Pinheiros
+            - generic [ref=e21]: 
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - img "iFood" [ref=e27]
+              - generic [ref=e32]: Comer Fora
+            - status "Ativo" [ref=e33]
+          - generic [ref=e34]:
+            - generic [ref=e35]: Simular plano
+            - button "Novo" [ref=e36] [cursor=pointer]
+            - button "Essencial" [active] [ref=e37] [cursor=pointer]
+            - button "Profissional" [ref=e38] [cursor=pointer]
+            - button "Premium" [ref=e39] [cursor=pointer]
+      - generic [ref=e40]:
+        - navigation [ref=e259]:
+          - generic [ref=e260]:
+            - link " Dashboard" [ref=e261] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e262]:
+                - generic [ref=e264]: 
+                - generic [ref=e265]: Dashboard
+            - generic [ref=e266]: Seus clientes
+            - link " Clientes" [ref=e267] [cursor=pointer]:
+              - /url: /clientes
+              - generic [ref=e268]:
+                - generic [ref=e269]: 
+                - generic [ref=e270]: Clientes
+            - generic [ref=e271]: Seu salão
+            - link " Cardápio" [ref=e272] [cursor=pointer]:
+              - /url: /cardapio
+              - generic [ref=e273]:
+                - generic [ref=e274]: 
+                - generic [ref=e275]: Cardápio
+            - button " Avaliações " [ref=e277] [cursor=pointer]:
+              - generic [ref=e278]: 
+              - generic [ref=e279]: Avaliações
+              - generic [ref=e280]: 
+            - generic [ref=e281]: Disponíveis
+            - link " Ver todos os módulos" [ref=e282] [cursor=pointer]:
+              - /url: /modulos
+              - generic [ref=e283]:
+                - generic [ref=e284]: 
+                - generic [ref=e285]: Ver todos os módulos
+          - generic [ref=e286]:
+            - link " Configurações " [ref=e287] [cursor=pointer]:
+              - /url: /configuracoes
+              - generic [ref=e288]:
+                - generic [ref=e289]: 
+                - generic [ref=e290]: Configurações
+                - generic [ref=e291]: 
+            - link " Perfil " [ref=e292] [cursor=pointer]:
+              - /url: /perfil
+              - generic [ref=e293]:
+                - generic [ref=e294]: 
+                - generic [ref=e295]: Perfil
+                - generic [ref=e296]: 
+        - main [ref=e41]:
+          - generic [ref=e45]:
+            - generic [ref=e298]:
+              - generic [ref=e299]: 
+              - generic [ref=e301]:
+                - heading "Início" [level=1] [ref=e302]
+                - paragraph [ref=e303]: Visão geral do desempenho e ações recomendadas.
+            - generic [ref=e305]:
+              - generic [ref=e306]:
+                - generic [ref=e307]:
+                  - button "Como foi meu fim de semana" [ref=e308] [cursor=pointer]
+                  - button "Por que a sexta caiu" [ref=e309] [cursor=pointer]
+                  - button "Abrir mais mesas sexta às 20h" [ref=e310] [cursor=pointer]
+                  - button "Quem são meus clientes recorrentes" [ref=e311] [cursor=pointer]
+                - generic [ref=e312]:
+                  - textbox "Pergunte à IA sobre seus dados ou peça uma ação" [ref=e314]:
+                    - /placeholder: O que você quer saber ou fazer hoje?
+                  - button "Gravar áudio" [ref=e315] [cursor=pointer]:
+                    - generic [ref=e316]: 
+                    - generic [ref=e317]: 
+                - text: IA do Comer Fora — analisa seus dados, sugere ações e executa campanhas
+              - generic [ref=e318]:
+                - generic [ref=e319]:
+                  - generic [ref=e320]:
+                    - generic [ref=e321]: Hoje
+                    - generic [ref=e323]: Jantar · terça-feira, 3 de ago
+                  - button "Ver reservas" [ref=e324] [cursor=pointer]
+                - generic [ref=e325]:
+                  - generic [ref=e326]:
+                    - generic [ref=e327]: Mesas reservadas pro jantar
+                    - generic [ref=e328]:
+                      - generic [ref=e329]: "18"
+                      - generic [ref=e330]: de 30
+                  - generic [ref=e362]:
+                    - generic [ref=e363]: Próximo turno · almoço amanhã
+                    - generic [ref=e364]:
+                      - generic [ref=e365]: 62%
+                      - generic [ref=e366]: de ocupação estimada
+                  - generic [ref=e369]: Quarta almoço com baixa ocupação — bom momento para uma campanha.
+              - generic [ref=e371]:
+                - generic [ref=e372]:
+                  - generic [ref=e373]: Check-ins confirmados — últimas 8 semanas
+                  - generic [ref=e374]:
+                    - button "8 sem" [ref=e375] [cursor=pointer]
+                    - button "Sex–Dom" [ref=e376] [cursor=pointer]
+                    - button "Comparar períodos" [ref=e377] [cursor=pointer]
+                - img [ref=e380]:
+                  - generic [ref=e382]:
+                    - generic [ref=e383]: Sem 1
+                    - generic [ref=e385]: Sem 2
+                    - generic [ref=e387]: Sem 3
+                    - generic [ref=e389]: Sem 4
+                    - generic [ref=e391]: Sem 5
+                    - generic [ref=e393]: Sem 6
+                    - generic [ref=e395]: Sem 7
+                    - generic [ref=e397]: Sem 8
+                  - generic [ref=e400]:
+                    - generic [ref=e401]: "0"
+                    - generic [ref=e403]: "75"
+                    - generic [ref=e405]: "150"
+                    - generic [ref=e407]: "225"
+                    - generic [ref=e409]: "300"
+                - generic [ref=e415]:
+                  - generic [ref=e416]: Atual
+                  - generic [ref=e419]: Período anterior
+              - generic [ref=e422]:
+                - generic [ref=e423]:
+                  - generic [ref=e424]: Impacto do Comer Fora
+                  - generic [ref=e425]:
+                    - button "7d" [ref=e426] [cursor=pointer]
+                    - button "30d" [ref=e427] [cursor=pointer]
+                    - button "vs semana anterior" [ref=e428] [cursor=pointer]
+                - generic [ref=e429]:
+                  - generic [ref=e430]:
+                    - generic [ref=e431]: Clientes novos
+                    - text: 47+12%
+                  - generic [ref=e432]:
+                    - generic [ref=e433]: Retornaram após benefício
+                    - text: 64+8%
+                  - generic [ref=e434]:
+                    - generic [ref=e435]: Novos reviews
+                    - text: 12+3
+              - generic [ref=e436]:
+                - generic [ref=e437]:
+                  - generic [ref=e438]: ✦
+                  - generic [ref=e439]: Gerado
+                - generic [ref=e440]: Esta semana seus cupons trouxeram 285 clientes confirmados — 91 deles nunca tinham vindo pelo iFood. O ticket médio subiu 12% vs. a média da região. Sua melhor terça desde dezembro.
+                - button "Perguntar mais" [ref=e441] [cursor=pointer]
+              - generic [ref=e442]:
+                - generic [ref=e443]: Ações recomendadas
+                - generic [ref=e444]:
+                  - generic [ref=e445]: Sugestão da IA
+                  - generic [ref=e446]: Campanha de terça sem conversões
+                  - generic [ref=e448]: 4 dias
+                  - generic [ref=e449]: "Recomendamos pausar a campanha de terça: nenhuma conversão nos últimos 4 dias."
+                  - button "Pausar campanha" [ref=e450] [cursor=pointer]
+                - generic [ref=e451] [cursor=pointer]:
+                  - generic [ref=e452]: Cross-channel
+                  - generic [ref=e453]: Pratos do delivery que faltam no salão
+                  - generic [ref=e455]: 7 pratos
+                  - generic [ref=e456]: seus clientes de delivery pedem, seu cardápio do salão não tem
+                  - button "Ver quais" [ref=e457]
+                - generic [ref=e458] [cursor=pointer]:
+                  - generic [ref=e459]: Cross-channel
+                  - generic [ref=e460]: Pediram delivery, nunca vieram
+                  - generic [ref=e462]: 0 clientes
+                  - generic [ref=e463]: no raio de 3 km, últimos 90 dias
+                  - button "Criar campanha de primeira visita" [ref=e464]
+                - generic [ref=e465]: Retorno financeiro
+                - generic [ref=e466] [cursor=pointer]:
+                  - generic [ref=e467]:
+                    - generic [ref=e468]: Retorno do investimento
+                    - button "Mais informações" [ref=e469]
+                  - generic [ref=e472]:
+                    - generic [ref=e473]: 0,0x
+                    - generic [ref=e475]:
+                      - generic [ref=e476]: R$ 1.090,24 investidos
+                      - generic [ref=e477]: R$ 8.976,24 em vendas
+                  - generic [ref=e478]: R$ 1.090,24 em cashback trouxeram R$ 8.976,24 em vendas
+                  - button "Ver por promoção" [ref=e479]
+                - generic [ref=e480]:
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: Funil financeiro
+                    - generic [ref=e483]: Gerado
+                  - generic [ref=e484]:
+                    - generic [ref=e486]:
+                      - generic [ref=e487]: Cupons emitidos
+                      - generic [ref=e488]: R$ 1.090,24
+                    - generic [ref=e492]:
+                      - generic [ref=e493]: Cupons resgatados
+                      - generic [ref=e494]: R$ 876,19
+                    - generic [ref=e498]:
+                      - generic [ref=e499]: Vendas geradas
+                      - generic [ref=e500]: R$ 8.976,24
+                    - generic [ref=e504]:
+                      - generic [ref=e505]: Lucro líquido
+                      - generic [ref=e506]: R$ 7.886,00
+                - generic [ref=e509]: Seu público
+                - generic [ref=e510]:
+                  - generic [ref=e511]:
+                    - generic [ref=e512]: Perfil dos seus clientes
+                    - generic [ref=e513]: RFV
+                  - generic [ref=e520]:
+                    - generic [ref=e521]:
+                      - generic [ref=e523]: Campeão
+                      - generic [ref=e524]: "38"
+                    - generic [ref=e525]:
+                      - generic [ref=e527]: Fiel
+                      - generic [ref=e528]: "64"
+                    - generic [ref=e529]:
+                      - generic [ref=e531]: Recente
+                      - generic [ref=e532]: "91"
+                    - generic [ref=e533]:
+                      - generic [ref=e535]: Em risco
+                      - generic [ref=e536]: "52"
+                    - generic [ref=e537]:
+                      - generic [ref=e539]: Perdido
+                      - generic [ref=e540]: "40"
+                - generic [ref=e541] [cursor=pointer]:
+                  - generic [ref=e542]:
+                    - generic [ref=e543]: Check-ins confirmados
+                    - button "Mais informações" [ref=e544]
+                  - generic [ref=e547]: "0"
+                  - generic [ref=e548]: 27 registros ainda sem conferência
+                  - button "Conferir os 27 pendentes" [ref=e549]
+                - generic [ref=e550] [cursor=pointer]:
+                  - generic [ref=e551]:
+                    - generic [ref=e552]: Ticket médio
+                    - button "Mais informações" [ref=e553]
+                  - generic [ref=e556]: R$ 0,00
+                  - generic [ref=e557]: 12% acima do público geral do salão
+                  - button "Comparar com o mês passado" [ref=e558]
+                - generic [ref=e559] [cursor=pointer]:
+                  - generic [ref=e560]:
+                    - generic [ref=e561]: Voltaram sem cupom
+                    - button "Mais informações" [ref=e562]
+                  - generic [ref=e565]: 0 clientes
+                  - generic [ref=e566]: de 194 que vieram pela primeira vez
+                  - button "Criar campanha de retorno" [ref=e567]
+                - generic [ref=e568]: Módulos ativos
+                - generic [ref=e569] [cursor=pointer]:
+                  - generic [ref=e570]: Taxa de no-show
+                  - generic [ref=e572]: 12%
+                  - generic [ref=e573]: concentrada na sexta à noite
+                  - button "Ajustar política" [ref=e574]
+              - generic [ref=e575]:
+                - heading "Desbloqueie mais" [level=2] [ref=e576]
+                - generic [ref=e577]:
+                  - generic [ref=e578]:
+                    - generic [ref=e579]: Nota média no salão
+                    - generic [ref=e582]: Restaurantes com nota visível recebem 34% mais reservas
+                    - button "Ativar Avaliações" [ref=e583] [cursor=pointer]
+                  - generic [ref=e584]:
+                    - generic [ref=e585]: Faturamento real
+                    - generic [ref=e588]: Check-in automático sem depender do garçom
+                    - button "Ativar Pagamento" [ref=e589] [cursor=pointer]
+    - region "Notifications alt+T"
+  - generic [ref=e590]: "225"
