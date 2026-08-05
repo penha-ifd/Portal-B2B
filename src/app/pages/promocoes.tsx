@@ -144,6 +144,34 @@ export function PromocoesPage() {
             </div>
           </div>
 
+          {/* Recomendações IA */}
+          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--spacing-12)" }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "16px 18px", borderTop: "1px solid var(--borda)", borderRight: "1px solid var(--borda)", borderBottom: "1px solid var(--borda)", borderLeft: "3px solid #EA1D2C", borderRadius: 12, background: "#FDFBF9" }}>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ marginTop: 2, flexShrink: 0 }}><path d="M8 1.5l1.5 4.2 4.2 1.5-4.2 1.5L8 13l-1.5-4.3L2.3 7.2l4.2-1.5L8 1.5z" fill="#EA1D2C" /></svg>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 14, fontWeight: 600 }}>Reativar 23 clientes inativos</span>
+                  <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--texto-secundario)", background: "var(--bg-secundario)", borderRadius: 5, padding: "2px 7px" }}>Assistente de AI</span>
+                </div>
+                <div style={{ fontSize: 13.5, color: "#4A453F", lineHeight: 1.5, marginTop: 5 }}>Esses clientes não visitam há mais de 30 dias. Um cupom de 15% pode trazê-los de volta.</div>
+                <div style={{ fontSize: 11, color: "var(--text-desabilitado)", marginTop: 8 }}>Potencial: +R$ 2.300 em receita</div>
+              </div>
+              <button type="button" style={{ display: "flex", alignItems: "center", alignSelf: "center", height: 32, padding: "0 14px", borderTop: "1px solid var(--borda)", borderRight: "1px solid var(--borda)", borderBottom: "1px solid var(--borda)", borderLeft: "1px solid var(--borda)", borderRadius: 9, fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "transparent", whiteSpace: "nowrap", fontFamily: "var(--font-inter)" }}>Criar campanha</button>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "16px 18px", borderTop: "1px solid var(--borda)", borderRight: "1px solid var(--borda)", borderBottom: "1px solid var(--borda)", borderLeft: "3px solid #EA1D2C", borderRadius: 12, background: "#FDFBF9" }}>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ marginTop: 2, flexShrink: 0 }}><path d="M8 1.5l1.5 4.2 4.2 1.5-4.2 1.5L8 13l-1.5-4.3L2.3 7.2l4.2-1.5L8 1.5z" fill="#EA1D2C" /></svg>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 14, fontWeight: 600 }}>5 aniversariantes esta semana</span>
+                  <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--texto-secundario)", background: "var(--bg-secundario)", borderRadius: 5, padding: "2px 7px" }}>Assistente de AI</span>
+                </div>
+                <div style={{ fontSize: 13.5, color: "#4A453F", lineHeight: 1.5, marginTop: 5 }}>Surpreenda clientes que fazem aniversário nos próximos 7 dias com uma sobremesa cortesia.</div>
+                <div style={{ fontSize: 11, color: "var(--text-desabilitado)", marginTop: 8 }}>Potencial: +5 visitas esta semana</div>
+              </div>
+              <button type="button" style={{ display: "flex", alignItems: "center", alignSelf: "center", height: 32, padding: "0 14px", borderTop: "1px solid var(--borda)", borderRight: "1px solid var(--borda)", borderBottom: "1px solid var(--borda)", borderLeft: "1px solid var(--borda)", borderRadius: 9, fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "transparent", whiteSpace: "nowrap", fontFamily: "var(--font-inter)" }}>Criar campanha</button>
+            </div>
+          </div>
+
           {/* Templates prontos */}
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
             <div>
@@ -164,36 +192,6 @@ export function PromocoesPage() {
                   <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-desabilitado)" }}>Público: {t.publicoAlvo}</span>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Controle de frequência (anti-spam) */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-            <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Controle de frequência</span>
-            <div style={{ backgroundColor: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", overflow: "hidden" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)", borderBottom: "1px solid var(--borda)" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Máximo de mensagens por cliente/semana</span>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Evita fadiga e opt-out</span>
-                </div>
-                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-8)", padding: "4px 12px" }}>2x</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)", borderBottom: "1px solid var(--borda)" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Intervalo mínimo entre campanhas</span>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Respiro entre comunicações</span>
-                </div>
-                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-8)", padding: "4px 12px" }}>48h</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--spacing-16)" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)" }}>Pausar envio se cliente reclamou</span>
-                  <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Respeita clientes insatisfeitos</span>
-                </div>
-                <div style={{ width: 36, height: 20, borderRadius: "var(--radius-pill)", backgroundColor: "var(--sucesso)", position: "relative", cursor: "pointer" }}>
-                  <div style={{ width: 16, height: 16, borderRadius: "50%", backgroundColor: "#ffffff", position: "absolute", top: 2, right: 2 }} />
-                </div>
-              </div>
             </div>
           </div>
 

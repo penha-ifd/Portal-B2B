@@ -19,6 +19,7 @@ import AvaliacoesFeedPage from "./pages/avaliacoes/avaliacoes-feed";
 import { AgregadorPage } from "./pages/agregador";
 import { ConfiguracoesPage } from "./pages/configuracoes";
 import { FidelidadePage } from "./pages/fidelidade";
+import { CardapioPage } from "./pages/cardapio";
 import DesignSystemPage from "./pages/design-system";
 import { Navigate } from "react-router";
 
@@ -44,7 +45,7 @@ export default function App() {
               />
               <Route
                 path="cardapio"
-                element={<PlaceholderPage title="Cardápio" icon="store" />}
+                element={<CardapioPage />}
               />
               <Route path="modulos" element={<ModulosPage />} />
               <Route

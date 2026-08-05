@@ -151,14 +151,16 @@ export function PlaceholderPage({ title, icon }: Props) {
           </div>
 
           {/* Card AI — Insight do cardápio */}
-          <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--borda)", borderLeft: "3px solid var(--marca)", padding: "var(--spacing-16)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: "var(--spacing-8)" }}>
-              <span style={{ fontSize: "16px" }}>✦</span>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px" }}>Gerado</span>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "16px 18px", borderTop: "1px solid var(--borda)", borderRight: "1px solid var(--borda)", borderBottom: "1px solid var(--borda)", borderLeft: "3px solid #EA1D2C", borderRadius: 12, background: "#FDFBF9" }}>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ marginTop: 2, flexShrink: 0 }}><path d="M8 1.5l1.5 4.2 4.2 1.5-4.2 1.5L8 13l-1.5-4.3L2.3 7.2l4.2-1.5L8 1.5z" fill="#EA1D2C" /></svg>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 14, fontWeight: 600 }}>Insight do cardápio</span>
+                <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--texto-secundario)", background: "var(--bg-secundario)", borderRadius: 5, padding: "2px 7px" }}>Assistente de AI</span>
+              </div>
+              <div style={{ fontSize: 13.5, color: "#4A453F", lineHeight: 1.5, marginTop: 5 }}>Seus 3 pratos mais pedidos no delivery (Risoto de camarão, Salmão grelhado, Bruschetta) vendem bem online. Considere criar versões para o salão com preço ajustado — seu cardápio do salão é independente.</div>
             </div>
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginBottom: "var(--spacing-8)" }}>Insight do cardápio</span>
-            <span style={{ display: "block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", lineHeight: 1.6 }}>Seus 3 pratos mais pedidos no delivery (Risoto de camarão, Salmão grelhado, Bruschetta) vendem bem online. Considere criar versões para o salão com preço ajustado — seu cardápio do salão é independente.</span>
-            <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>Ver sugestões para o salão</button>
+            <button type="button" style={{ display: "flex", alignItems: "center", alignSelf: "center", height: 32, padding: "0 14px", border: "1px solid var(--borda)", borderRadius: 9, fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "transparent", whiteSpace: "nowrap", fontFamily: "var(--font-inter)" }}>Ver sugestões</button>
           </div>
 
           {/* Card 2 — Pratos que faltam */}
