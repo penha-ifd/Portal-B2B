@@ -149,7 +149,14 @@
   .ifds-button:active:not(:disabled) { transform: none; }
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 body {
+  min-width: 320px;
   font-family: var(--font-inter);
 }
 

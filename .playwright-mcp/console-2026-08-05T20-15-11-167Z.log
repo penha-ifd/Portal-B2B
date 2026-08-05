@@ -1,0 +1,8 @@
+[      99ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5174/node_modules/.vite/deps/chunk-TPJYOTJD.js?v=5906c512:21608
+[     170ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5174/favicon.ico:0
+[  838779ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:5174/src/app/components/home/dashboard-desempenho.tsx?t=1785961749913:0
+[  838779ms] [ERROR] [vite] Failed to reload /src/app/components/home/dashboard-desempenho.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5174/@vite/client:881
+[  970925ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:5174/src/app/components/home/dashboard-desempenho.tsx?t=1785961882074:0
+[  970925ms] [ERROR] [vite] Failed to reload /src/app/components/home/dashboard-desempenho.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5174/@vite/client:881
+[ 1035889ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:5174/src/app/components/home/dashboard-desempenho.tsx?t=1785961947027:0
+[ 1035889ms] [ERROR] [vite] Failed to reload /src/app/components/home/dashboard-desempenho.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5174/@vite/client:881

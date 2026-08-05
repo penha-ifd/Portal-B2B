@@ -161,7 +161,7 @@ interface Props {
 const PLANO_MODULOS: Record<string, string[]> = {
   novo: [],
   base: ["delivery", "cupons"],
-  essencial: ["delivery", "cupons", "reservas"],
+  essencial: ["delivery", "cupons", "reservas", "avaliacoes", "pagamento"],
   avancado: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
   profissional: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
   premium: ["delivery", "cupons", "reservas", "pagamento", "avaliacoes"],
@@ -653,7 +653,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       )}
 
 
-      {temDados && <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--spacing-16)" }}>
+      {temDados && <div className="grid grid-cols-2 md:grid-cols-4 w-full" style={{ gap: "var(--spacing-16)" }}>
         {/* Ações recomendadas */}
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ações recomendadas</span>
 
@@ -790,6 +790,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </div>
         </div>
 
+        <div className="col-span-full grid grid-cols-2 md:grid-cols-3" style={{ gap: "var(--spacing-16)" }}>
         {/* Card 2 — Check-ins confirmados */}
         <div onClick={() => handleCardClick("checkins")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "checkins" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           {d.origem.checkins && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
@@ -877,9 +878,6 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </button>
         </div>
 
-        {/* Módulos ativos */}
-        <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Módulos ativos</span>
-
         {/* Card — Avaliações (só se desbloqueado) */}
         {!isCardLocked("avaliacoes") && (
           <div onClick={() => handleCardClick("avaliacoes")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "avaliacoes" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
@@ -948,6 +946,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             </button>
           </div>
         )}
+        </div>
       </div>}
 
       {/* Seção separada — módulos bloqueados */}

@@ -50,10 +50,10 @@ export function AppShell() {
   }, [mobileOpen]);
 
   return (
-    <div className={cn('ifds-app-shell flex flex-col w-full overflow-hidden bg-[var(--bg-terciario)] p-1 md:p-[10px]', !showNavigation && 'ifds-app-shell-landing')} style={{ height: '100dvh' }}>
-      <div className="flex flex-col flex-1 overflow-hidden rounded-[16px] md:rounded-[24px] bg-[var(--bg-secundario)]">
+    <div className={cn('ifds-app-shell flex min-h-0 flex-col w-full overflow-hidden bg-[var(--bg-terciario)] p-1 md:p-[10px]', !showNavigation && 'ifds-app-shell-landing')} style={{ height: '100dvh' }}>
+      <div className="flex min-h-0 flex-col flex-1 overflow-hidden rounded-[16px] md:rounded-[24px] bg-[var(--bg-secundario)]">
         <TopBar onToggleSidebar={() => setCollapsed((c) => !c)} onMobileMenu={() => setMobileOpen(true)} />
-        <div className="flex flex-1 min-h-0 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
+        <div className="flex min-h-0 flex-1 items-stretch overflow-hidden gap-1 md:gap-2 pr-1 md:pr-2 pb-1 md:pb-2">
           {/* Desktop sidebar */}
           {showNavigation && (
             <div className="hidden md:flex h-full">
