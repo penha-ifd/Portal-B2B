@@ -190,7 +190,7 @@ export function ClientesPage() {
       </div>
 
       {activeTab === "Pessoas" ? (
-        <div role="tabpanel" id="clientes-panel-Pessoas" aria-labelledby="clientes-tab-Pessoas" tabIndex={0} className="flex flex-col gap-10">
+        <div role="tabpanel" id="clientes-panel-Pessoas" aria-labelledby="clientes-tab-Pessoas" tabIndex={0} className="flex flex-col gap-10 px-4 md:px-6">
           <div className="bg-[#F5F5F5] flex flex-col gap-1 p-1 rounded-2xl">
             <div className="flex items-start px-3 pt-3 pb-1">
               <div className="flex flex-col gap-1">
@@ -325,7 +325,7 @@ export function ClientesPage() {
           </div>
         </div>
       ) : (
-        <div role="tabpanel" id="clientes-panel-Segmentos" aria-labelledby="clientes-tab-Segmentos" tabIndex={0}>
+        <div role="tabpanel" id="clientes-panel-Segmentos" aria-labelledby="clientes-tab-Segmentos" tabIndex={0} className="px-4 md:px-6">
           <SegmentosTab />
         </div>
       )}

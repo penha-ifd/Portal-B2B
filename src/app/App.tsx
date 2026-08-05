@@ -13,7 +13,9 @@ import { PromocoesPage } from "./pages/promocoes";
 import { ConciliacaoPage } from "./pages/conciliacao";
 import { PdvPage } from "./pages/pdv";
 import { PerfilPage } from "./pages/perfil";
-import AvaliacoesPage from "./pages/avaliacoes";
+import AvaliacoesLayout from "./pages/avaliacoes";
+import VisaoGeralPage from "./pages/avaliacoes/visao-geral";
+import AvaliacoesFeedPage from "./pages/avaliacoes/avaliacoes-feed";
 import { AgregadorPage } from "./pages/agregador";
 import { ConfiguracoesPage } from "./pages/configuracoes";
 import { FidelidadePage } from "./pages/fidelidade";
@@ -62,10 +64,11 @@ export default function App() {
                   />
                 }
               />
-              <Route
-                path="avaliacoes"
-                element={<AvaliacoesPage />}
-              />
+              <Route path="avaliacoes" element={<AvaliacoesLayout />}>
+                <Route index element={<Navigate to="visao-geral" replace />} />
+                <Route path="visao-geral" element={<VisaoGeralPage />} />
+                <Route path="avaliacoes" element={<AvaliacoesFeedPage />} />
+              </Route>
               <Route
                 path="agregador"
                 element={<AgregadorPage />}
