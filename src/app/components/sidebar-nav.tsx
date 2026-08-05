@@ -233,6 +233,7 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   ];
 
   const essencialModulos: NavItem[] = [
+    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
     { to: '/cardapio', label: 'Cardápio', icon: 'store' },
     { to: '/avaliacoes', label: 'Avaliações', icon: 'store', children: [
       { to: '/avaliacoes/visao-geral', label: 'Visão Geral' },
@@ -241,7 +242,6 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
   ];
 
   const profissionalModulos: NavItem[] = [
-    { to: '/promocoes', label: 'Promoções', icon: 'promotion' },
     { to: '/conciliacao', label: 'Confirmar presenças', icon: 'sync' },
     { to: '/reservas', label: 'Reservas', icon: 'calendar' },
     { to: '/pagamento-mesa', label: 'Pagamento na mesa', icon: 'credit-card' },

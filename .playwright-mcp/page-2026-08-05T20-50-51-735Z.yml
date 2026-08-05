@@ -1,0 +1,234 @@
+- generic [ref=f4e2]:
+  - generic [ref=f4e4]:
+    - banner [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - text: 
+        - button "Recolher menu lateral" [ref=f4e7] [cursor=pointer]:
+          - generic [ref=f4e8]: 
+        - img "iFood" [ref=f4e12]
+        - button "CN Cantina Di Napoli - Pinheiros " [ref=f4e18] [cursor=pointer]:
+          - generic [ref=f4e19]: CN
+          - generic [ref=f4e20]: Cantina Di Napoli - Pinheiros
+          - generic [ref=f4e21]: 
+      - generic [ref=f4e22]:
+        - generic [ref=f4e23]:
+          - generic [ref=f4e24]:
+            - img "iFood" [ref=f4e27]
+            - generic [ref=f4e32]: Comer Fora
+          - status "Ativo" [ref=f4e33]
+        - generic [ref=f4e34]:
+          - generic [ref=f4e35]: Simular plano
+          - button "Novo" [ref=f4e36] [cursor=pointer]
+          - button "Essencial" [ref=f4e37] [cursor=pointer]
+          - button "Profissional" [ref=f4e38] [cursor=pointer]
+          - button "Premium" [ref=f4e39] [cursor=pointer]
+    - main [ref=f4e41]:
+      - generic [ref=f4e46]:
+        - generic [ref=f4e48]:
+          - img "Comer Fora" [ref=f4e49]
+          - generic [ref=f4e50]:
+            - heading "Transforme horários vazios no salão em mais mesas ocupadas" [level=1] [ref=f4e51]
+            - paragraph [ref=f4e52]: Crie promoções pra atrair clientes sem perder o controle da operação com o Comer Fora
+          - generic [ref=f4e53]:
+            - button "Ativar Comer Fora " [ref=f4e54] [cursor=pointer]:
+              - text: Ativar Comer Fora
+              - generic [ref=f4e55]: 
+            - generic [ref=f4e57]:
+              - strong [ref=f4e58]: +59 restaurantes
+              - text: da sua região ativaram
+        - generic [ref=f4e59]:
+          - generic [ref=f4e60]:
+            - heading "Como funciona" [level=2] [ref=f4e61]
+            - generic [ref=f4e62]:
+              - generic [ref=f4e63]: Para você
+              - generic [ref=f4e64]: Para seu cliente
+          - generic [ref=f4e65]:
+            - generic [ref=f4e66]:
+              - generic [ref=f4e67]: 
+              - generic [ref=f4e68]:
+                - generic [ref=f4e69]: Crie uma promoção pro salão
+                - generic [ref=f4e70]: Monte ofertas pra atrair clientes nos períodos de menor movimento
+            - generic [ref=f4e71]:
+              - generic [ref=f4e72]: 
+              - generic [ref=f4e73]:
+                - generic [ref=f4e74]: Seu salão aparece no app
+                - generic [ref=f4e75]: O iFood divulga sua oferta pra clientes próximos na sua região
+            - generic [ref=f4e76]:
+              - generic [ref=f4e77]: 
+              - generic [ref=f4e78]:
+                - generic [ref=f4e79]: Receba clientes no salão
+                - generic [ref=f4e80]: O cliente vai ao salão e faz o check-in no app para liberar a oferta
+            - generic [ref=f4e81]:
+              - generic [ref=f4e82]: 
+              - generic [ref=f4e83]:
+                - generic [ref=f4e84]: Controle suas promoções
+                - generic [ref=f4e85]: Defina horários, público e limites sem afetar sua operação
+        - generic [ref=f4e86]:
+          - generic [ref=f4e87]:
+            - generic [ref=f4e88]: Vantagens
+            - heading "Atraia clientes com estratégia e conheça quem entra no salão" [level=2] [ref=f4e89]
+            - generic [ref=f4e90]:
+              - generic [ref=f4e91]:
+                - generic [ref=f4e92]: 
+                - generic [ref=f4e93]:
+                  - generic [ref=f4e94]: Aumentar movimento com estratégia
+                  - text: Preencha horários ociosos e promova itens estratégicos
+              - generic [ref=f4e95]:
+                - generic [ref=f4e96]: 
+                - generic [ref=f4e97]:
+                  - generic [ref=f4e98]: Conhecer os hábitos de consumo dos seus clientes
+                  - text: Tenha acesso a nome, ticket médio, frequência, etc
+            - button "Começar agora" [ref=f4e99] [cursor=pointer]
+          - generic [ref=f4e100]: Device mockup
+        - generic [ref=f4e102]:
+          - generic [ref=f4e103]: Seus clientes
+          - heading "Saiba quem entra no seu salão, não só quantos" [level=2] [ref=f4e104]
+          - generic [ref=f4e105]: Dados de demonstração
+          - generic [ref=f4e107]:
+            - generic [ref=f4e108]:
+              - generic [ref=f4e109]: Novato
+              - generic [ref=f4e110]: "194"
+              - generic [ref=f4e111]: Primeira visita nos últimos 90 dias
+            - generic [ref=f4e112]:
+              - generic [ref=f4e113]: Fiel
+              - generic [ref=f4e114]: "412"
+              - generic [ref=f4e115]: 4 ou mais visitas, ativo no último mês
+            - generic [ref=f4e116]:
+              - generic [ref=f4e117]: VIP
+              - generic [ref=f4e118]: "88"
+              - generic [ref=f4e119]: Ticket médio acima de R$ 150
+            - generic [ref=f4e120]:
+              - generic [ref=f4e121]: Em risco
+              - generic [ref=f4e122]: "604"
+              - generic [ref=f4e123]: Frequência caindo há 3 meses
+            - generic [ref=f4e124]:
+              - generic [ref=f4e125]: Perdido
+              - generic [ref=f4e126]: "331"
+              - generic [ref=f4e127]: Sem visita há mais de 90 dias
+          - paragraph [ref=f4e128]: Ative qualquer módulo e o CRM liga junto.
+          - generic [ref=f4e129]:
+            - generic [ref=f4e130]:
+              - generic [ref=f4e131]: 
+              - generic [ref=f4e132]: Cardápio
+              - generic [ref=f4e133]: Cruzamento delivery × salão
+              - button "Ativar" [ref=f4e134] [cursor=pointer]
+            - generic [ref=f4e135]:
+              - generic [ref=f4e136]: 
+              - generic [ref=f4e137]: Avaliações
+              - generic [ref=f4e138]: Nota do salão no painel
+              - button "Ativar" [ref=f4e139] [cursor=pointer]
+            - generic [ref=f4e140]:
+              - generic [ref=f4e141]: 
+              - generic [ref=f4e142]: Reservas
+              - generic [ref=f4e143]: Identificação por reserva
+              - button "Ativar" [ref=f4e144] [cursor=pointer]
+            - generic [ref=f4e145]:
+              - generic [ref=f4e146]: 
+              - generic [ref=f4e147]: PDV
+              - generic [ref=f4e148]: Ticket médio e faturamento
+              - button "Ativar" [ref=f4e149] [cursor=pointer]
+            - generic [ref=f4e150]:
+              - generic [ref=f4e151]: 
+              - generic [ref=f4e152]: Pagamento na mesa
+              - generic [ref=f4e153]: Identificação sem check-in
+              - button "Ativar" [ref=f4e154] [cursor=pointer]
+            - generic [ref=f4e155]:
+              - generic [ref=f4e156]: 
+              - generic [ref=f4e157]: Agregador
+              - generic [ref=f4e158]: Pedidos de todos os canais
+              - button "Ativar" [ref=f4e159] [cursor=pointer]
+            - generic [ref=f4e160]:
+              - generic [ref=f4e161]: 
+              - generic [ref=f4e162]: Fidelidade
+              - generic [ref=f4e163]: Taxa de retorno por cliente
+              - button "Ativar" [ref=f4e164] [cursor=pointer]
+        - generic [ref=f4e165]:
+          - heading "Mais estratégia pro seu negócio" [level=2] [ref=f4e166]
+          - generic [ref=f4e167]:
+            - generic [ref=f4e168]:
+              - generic [ref=f4e170]: Compre e ganhe
+              - generic [ref=f4e171]: Ofertas com cortesia e peça 2, pague 1
+            - generic [ref=f4e172]:
+              - generic [ref=f4e174]: Desconto no item
+              - generic [ref=f4e175]: Promove e destaca pratos específicos
+            - generic [ref=f4e176]:
+              - generic [ref=f4e178]: Desconto em valor
+              - generic [ref=f4e179]: R$ off aplicado no total do pedido
+            - generic [ref=f4e180]:
+              - generic [ref=f4e182]: Cashback
+              - generic [ref=f4e183]: Acumula saldo pra usar na próxima visita
+          - generic [ref=f4e184]:
+            - generic [ref=f4e185]:
+              - generic [ref=f4e186]: "Use promoções de forma estratégica para:"
+              - list [ref=f4e187]:
+                - listitem [ref=f4e188]:
+                  - generic [ref=f4e189]: 
+                  - generic [ref=f4e190]: Movimentar horários de menor fluxo
+                - listitem [ref=f4e191]:
+                  - generic [ref=f4e192]: 
+                  - generic [ref=f4e193]: Divulgar pratos estratégicos
+                - listitem [ref=f4e194]:
+                  - generic [ref=f4e195]: 
+                  - generic [ref=f4e196]: Aumentar o ticket médio
+                - listitem [ref=f4e197]:
+                  - generic [ref=f4e198]: 
+                  - generic [ref=f4e199]: Incentivar novas visitas
+            - generic [ref=f4e200]:
+              - generic [ref=f4e201]: "Você decide:"
+              - list [ref=f4e202]:
+                - listitem [ref=f4e203]:
+                  - generic [ref=f4e204]: 
+                  - generic [ref=f4e205]: Quando suas promoções aparecem
+                - listitem [ref=f4e206]:
+                  - generic [ref=f4e207]: 
+                  - generic [ref=f4e208]: Quais clientes podem usar
+                - listitem [ref=f4e209]:
+                  - generic [ref=f4e210]: 
+                  - generic [ref=f4e211]: Quanto liberar em descontos e benefícios
+                - listitem [ref=f4e212]:
+                  - generic [ref=f4e213]: 
+                  - generic [ref=f4e214]: Ative, pause ou ajuste quando quiser
+        - generic [ref=f4e215]:
+          - generic [ref=f4e216]:
+            - generic [ref=f4e217]: Oferta por tempo limitado
+            - heading "Alcance mais de 226 mil clientes que usam o iFood na sua região" [level=3] [ref=f4e218]
+            - generic [ref=f4e219]:
+              - generic [ref=f4e220]:
+                - generic [ref=f4e221]: 
+                - generic [ref=f4e222]: Ative em poucos minutos sem custos
+              - generic [ref=f4e223]:
+                - generic [ref=f4e224]: 
+                - generic [ref=f4e225]: Pause ou ajuste quando quiser
+          - button "Ativar Comer Fora" [ref=f4e226] [cursor=pointer]
+        - generic [ref=f4e227]:
+          - generic [ref=f4e228]:
+            - generic [ref=f4e229]: FAQ
+            - heading "Perguntas frequentes" [level=2] [ref=f4e230]
+            - paragraph [ref=f4e231]: Tudo o que você precisa saber para começar a usar o Comer Fora no seu restaurante.
+            - paragraph [ref=f4e232]: Verifique os termos e condições do Comer Fora
+          - generic [ref=f4e233]:
+            - generic [ref=f4e234]:
+              - generic [ref=f4e235]: Como o iFood traz clientes pro meu salão?
+              - generic [ref=f4e236]: 
+            - generic [ref=f4e237]:
+              - generic [ref=f4e238]: Preciso investir em promoções para aparecer na vitrine?
+              - generic [ref=f4e239]: 
+            - generic [ref=f4e240]:
+              - generic [ref=f4e241]: Como funciona o Comer Fora na prática?
+              - generic [ref=f4e242]: 
+            - generic [ref=f4e243]:
+              - generic [ref=f4e244]: Preciso pagar para ter acesso aos dados dos clientes?
+              - generic [ref=f4e245]: 
+            - generic [ref=f4e246]:
+              - generic [ref=f4e247]: Preciso ter alguma integração de pagamento específica?
+              - generic [ref=f4e248]: 
+            - generic [ref=f4e249]:
+              - generic [ref=f4e250]: Quais tipos de promoções posso oferecer aos clientes?
+              - generic [ref=f4e251]: 
+            - generic [ref=f4e252]:
+              - generic [ref=f4e253]: Posso pausar ou desativar o Comer Fora quando quiser?
+              - generic [ref=f4e254]: 
+        - generic [ref=f4e255]:
+          - generic [ref=f4e256]: © 2026 iFood. Todos os direitos reservados.
+          - generic [ref=f4e257]: iFood
+  - region "Notifications alt+T"

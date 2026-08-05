@@ -1,0 +1,251 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e4]:
+    - banner [ref=f1e5]:
+      - generic [ref=f1e6]:
+        - text: 
+        - button "Recolher menu lateral" [ref=f1e7] [cursor=pointer]:
+          - generic [ref=f1e8]: 
+        - img "iFood" [ref=f1e12]
+        - button "CN Cantina Di Napoli - Pinheiros " [ref=f1e18] [cursor=pointer]:
+          - generic [ref=f1e19]: CN
+          - generic [ref=f1e20]: Cantina Di Napoli - Pinheiros
+          - generic [ref=f1e21]: 
+      - generic [ref=f1e22]:
+        - generic [ref=f1e23]:
+          - generic [ref=f1e24]:
+            - img "iFood" [ref=f1e27]
+            - generic [ref=f1e32]: Comer Fora
+          - status "Ativo" [ref=f1e33]
+        - generic [ref=f1e34]:
+          - generic [ref=f1e35]: Simular plano
+          - button "Novo" [ref=f1e36] [cursor=pointer]
+          - button "Essencial" [ref=f1e37] [cursor=pointer]
+          - button "Profissional" [ref=f1e38] [cursor=pointer]
+          - button "Premium" [ref=f1e39] [cursor=pointer]
+    - main [ref=f1e41]:
+      - generic [ref=f1e45]:
+        - generic [ref=f1e46]:
+          - generic [ref=f1e47]: 
+          - generic [ref=f1e49]:
+            - heading "Clientes" [level=1] [ref=f1e50]
+            - paragraph [ref=f1e51]: Conheça seu público, segmente e ative campanhas personalizadas.
+        - tablist "Visões de clientes" [ref=f1e53]:
+          - tab "Pessoas" [selected] [ref=f1e54]
+          - tab "Segmentos" [ref=f1e56]
+        - tabpanel "Pessoas" [ref=f1e57]:
+          - generic [ref=f1e58]:
+            - generic [ref=f1e60]:
+              - heading "Informações gerais" [level=2] [ref=f1e61]
+              - paragraph [ref=f1e62]: Conheça quem visita seu salão e como esses clientes se comportam
+            - generic [ref=f1e63]:
+              - generic [ref=f1e64]:
+                - generic [ref=f1e65]: Total de clientes
+                - generic [ref=f1e67]: "0"
+              - generic [ref=f1e68]:
+                - generic [ref=f1e69]:
+                  - generic [ref=f1e70]: Clientes ativos
+                  - generic [ref=f1e71]: 
+                - generic [ref=f1e72]: "0"
+              - generic [ref=f1e73]:
+                - generic [ref=f1e74]:
+                  - generic [ref=f1e75]: Clientes novos
+                  - generic [ref=f1e76]: 
+                - generic [ref=f1e77]: "0"
+              - generic [ref=f1e78]:
+                - generic [ref=f1e79]:
+                  - generic [ref=f1e80]: Clientes perdidos
+                  - generic [ref=f1e81]: 
+                - generic [ref=f1e82]: "0"
+          - generic [ref=f1e83]:
+            - generic [ref=f1e84]: 
+            - generic [ref=f1e86]:
+              - heading "Conecte-se com seus clientes" [level=3] [ref=f1e87]
+              - paragraph [ref=f1e88]: Envie mensagens pelo WhatsApp para divulgar promoções e eventos do seu salão.
+            - button "Agendar disparo" [ref=f1e89] [cursor=pointer]
+          - generic [ref=f1e90]:
+            - generic [ref=f1e91]:
+              - heading "Seus clientes" [level=2] [ref=f1e92]
+              - paragraph [ref=f1e93]: Baseado nos seus dados, aqui estão algumas sugestões de campanha
+            - generic [ref=f1e94]:
+              - button "Novato 194" [ref=f1e95] [cursor=pointer]
+              - button "Fiel 412" [ref=f1e96] [cursor=pointer]
+              - button "VIP 88" [ref=f1e97] [cursor=pointer]
+              - button "Em risco 604" [ref=f1e98] [cursor=pointer]
+              - button "Perdido 331" [ref=f1e99] [cursor=pointer]
+            - generic [ref=f1e100]:
+              - generic [ref=f1e101]: "Origem:"
+              - button "Delivery" [ref=f1e102] [cursor=pointer]
+              - button "Salão" [ref=f1e103] [cursor=pointer]
+              - button "Ambos" [ref=f1e104] [cursor=pointer]
+            - generic [ref=f1e105]:
+              - generic [ref=f1e106]: "Voucher:"
+              - button "Baixa" [ref=f1e107] [cursor=pointer]
+              - button "Média" [ref=f1e108] [cursor=pointer]
+              - button "Alta" [ref=f1e109] [cursor=pointer]
+            - generic [ref=f1e110]:
+              - generic [ref=f1e111]:
+                - columnheader "Nome ▲ ▼" [ref=f1e112] [cursor=pointer]:
+                  - text: Nome
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+                - columnheader "Perfil ▲ ▼" [ref=f1e113] [cursor=pointer]:
+                  - text: Perfil
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+                - columnheader "Jornada ▲ ▼" [ref=f1e114] [cursor=pointer]:
+                  - text: Jornada
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+                - columnheader "Afinidade ▲ ▼" [ref=f1e115] [cursor=pointer]:
+                  - text: Afinidade
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+                - columnheader "Visitas ▲ ▼" [ref=f1e116] [cursor=pointer]:
+                  - text: Visitas
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+                - columnheader "Última visita ▲ ▼" [ref=f1e117] [cursor=pointer]:
+                  - text: Última visita
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+                - columnheader "Origem ▲ ▼" [ref=f1e118] [cursor=pointer]:
+                  - text: Origem
+                  - generic:
+                    - generic: ▲
+                    - generic: ▼
+              - generic [ref=f1e119] [cursor=pointer]:
+                - generic [ref=f1e120]:
+                  - generic [ref=f1e121]: Clara L.
+                  - generic [ref=f1e122]:
+                    - generic [ref=f1e123]: Italiana
+                    - generic [ref=f1e124]: Ignora cupom
+                    - generic [ref=f1e125]: Alto ticket
+                    - generic [ref=f1e126]: Cross-channel
+                - generic [ref=f1e127]: Fiel
+                - generic [ref=f1e129]: Leal
+                - generic [ref=f1e131]: "92"
+                - generic [ref=f1e135]: "10"
+                - generic [ref=f1e136]: 18/02/2026
+                - generic [ref=f1e137]: Ambos
+              - generic [ref=f1e138] [cursor=pointer]:
+                - generic [ref=f1e139]:
+                  - generic [ref=f1e140]: Luiza V.
+                  - generic [ref=f1e141]:
+                    - generic [ref=f1e142]: Brasileira
+                    - generic [ref=f1e143]: Adora cupom
+                - generic [ref=f1e144]: Novato
+                - generic [ref=f1e146]: Explorador
+                - generic [ref=f1e148]: "28"
+                - generic [ref=f1e152]: "2"
+                - generic [ref=f1e153]: 13/10/2025
+                - generic [ref=f1e154]: Delivery
+              - generic [ref=f1e155] [cursor=pointer]:
+                - generic [ref=f1e156]:
+                  - generic [ref=f1e157]: Julia A.
+                  - generic [ref=f1e158]:
+                    - generic [ref=f1e159]: Japonesa
+                    - generic [ref=f1e160]: Alto ticket
+                - generic [ref=f1e161]: Fiel
+                - generic [ref=f1e163]: Habitual
+                - generic [ref=f1e165]: "74"
+                - generic [ref=f1e169]: "5"
+                - generic [ref=f1e170]: 04/01/2025
+                - generic [ref=f1e171]: Salão
+              - generic [ref=f1e172] [cursor=pointer]:
+                - generic [ref=f1e173]:
+                  - generic [ref=f1e174]: Duilio B.
+                  - generic [ref=f1e175]:
+                    - generic [ref=f1e176]: Italiana
+                    - generic [ref=f1e177]: Adora cupom
+                - generic [ref=f1e178]: Em risco
+                - generic [ref=f1e180]: Habitual
+                - generic [ref=f1e182]: "55"
+                - generic [ref=f1e186]: "3"
+                - generic [ref=f1e187]: 31/10/2025
+                - generic [ref=f1e188]: Delivery
+              - generic [ref=f1e189] [cursor=pointer]:
+                - generic [ref=f1e190]:
+                  - generic [ref=f1e191]: Ivia M.
+                  - generic [ref=f1e192]:
+                    - generic [ref=f1e193]: Francesa
+                    - generic [ref=f1e194]: Ignora cupom
+                    - generic [ref=f1e195]: Alto ticket
+                    - generic [ref=f1e196]: Cross-channel
+                - generic [ref=f1e197]: VIP
+                - generic [ref=f1e199]: Leal
+                - generic [ref=f1e201]: "97"
+                - generic [ref=f1e205]: "11"
+                - generic [ref=f1e206]: 16/02/2026
+                - generic [ref=f1e207]: Ambos
+              - generic [ref=f1e208] [cursor=pointer]:
+                - generic [ref=f1e209]:
+                  - generic [ref=f1e210]: Leonardo K.
+                  - generic [ref=f1e211]:
+                    - generic [ref=f1e212]: Japonesa
+                    - generic [ref=f1e213]: Ignora cupom
+                    - generic [ref=f1e214]: Alto ticket
+                - generic [ref=f1e215]: Fiel
+                - generic [ref=f1e217]: Leal
+                - generic [ref=f1e219]: "85"
+                - generic [ref=f1e223]: "9"
+                - generic [ref=f1e224]: 11/02/2026
+                - generic [ref=f1e225]: Salão
+              - generic [ref=f1e226] [cursor=pointer]:
+                - generic [ref=f1e227]:
+                  - generic [ref=f1e228]: Stefany R.
+                  - generic [ref=f1e229]:
+                    - generic [ref=f1e230]: Mexicana
+                    - generic [ref=f1e231]: Adora cupom
+                - generic [ref=f1e232]: Em risco
+                - generic [ref=f1e234]: Explorador
+                - generic [ref=f1e236]: "42"
+                - generic [ref=f1e240]: "4"
+                - generic [ref=f1e241]: 28/01/2026
+                - generic [ref=f1e242]: Delivery
+              - generic [ref=f1e243] [cursor=pointer]:
+                - generic [ref=f1e244]:
+                  - generic [ref=f1e245]: Paulo M.
+                  - generic [ref=f1e246]: Brasileira
+                - generic [ref=f1e248]: Novato
+                - generic [ref=f1e250]: Dormindo
+                - generic [ref=f1e252]: "15"
+                - generic [ref=f1e256]: "1"
+                - generic [ref=f1e257]: 22/12/2025
+                - generic [ref=f1e258]: Salão
+              - generic [ref=f1e259] [cursor=pointer]:
+                - generic [ref=f1e260]:
+                  - generic [ref=f1e261]: Leonardo S.
+                  - generic [ref=f1e262]:
+                    - generic [ref=f1e263]: Italiana
+                    - generic [ref=f1e264]: Adora cupom
+                - generic [ref=f1e265]: Perdido
+                - generic [ref=f1e267]: Dormindo
+                - generic [ref=f1e269]: "20"
+                - generic [ref=f1e273]: "1"
+                - generic [ref=f1e274]: 03/05/2025
+                - generic [ref=f1e275]: Delivery
+              - generic [ref=f1e276] [cursor=pointer]:
+                - generic [ref=f1e277]:
+                  - generic [ref=f1e278]: Felipe P.
+                  - generic [ref=f1e279]: Árabe
+                - generic [ref=f1e281]: Novato
+                - generic [ref=f1e283]: Explorador
+                - generic [ref=f1e285]: "30"
+                - generic [ref=f1e289]: "1"
+                - generic [ref=f1e290]: 18/02/2025
+                - generic [ref=f1e291]: Salão
+              - generic [ref=f1e292]:
+                - generic [ref=f1e293]: Mostrando 10 de 25 clientes
+                - generic [ref=f1e294]:
+                  - button [disabled] [ref=f1e295]
+                  - button "1" [ref=f1e298]
+                  - button "2" [ref=f1e299]
+                  - button "3" [ref=f1e300]
+                  - button [ref=f1e301]
+  - region "Notifications alt+T"

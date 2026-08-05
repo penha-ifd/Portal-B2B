@@ -73,7 +73,7 @@ export function AppShell() {
 
           <main className="flex-1 min-h-0 overflow-hidden min-w-0">
             <div className={cn(
-              'h-full overflow-y-auto rounded-[12px] md:rounded-[20px] bg-[var(--bg-primario)] border border-[var(--borda)] shadow-[var(--shadow-subtle)]',
+              'h-full overflow-y-auto overscroll-contain rounded-[12px] md:rounded-[20px] bg-[var(--bg-primario)] border border-[var(--borda)] shadow-[var(--shadow-subtle)]',
               !showNavigation && 'ifds-landing-content',
             )} style={{ paddingBottom: "64px" }}>
               <div className="max-w-[1180px] mx-auto">
