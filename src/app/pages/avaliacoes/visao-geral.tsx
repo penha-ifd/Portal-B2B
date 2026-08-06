@@ -3,12 +3,29 @@ import { fontBase, DISTRIBUICAO, DISTRIBUICAO_TEMPORAL, SENTIMENTO, UNIDADES } f
 
 export default function VisaoGeralPage() {
   return (
-    <>
-      {/* Date Range Picker */}
-      <DateRangePicker />
+    <div style={{ maxWidth: 1240, margin: '0 auto', padding: '28px 32px 64px' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 22 }}>
+        <div style={{ width: 34, height: 34, borderRadius: 9, background: '#EA1D2C', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <svg width="17" height="17" viewBox="0 0 16 16" fill="none"><path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6L8 1.8z" stroke="#fff" strokeWidth="1.4" strokeLinejoin="round"/></svg>
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.01em' }}>Visão Geral</div>
+          <div style={{ fontSize: 13.5, color: '#6B6560', marginTop: 3 }}>Acompanhe a percepção dos clientes em todos os canais.</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, height: 36, padding: '0 14px', border: '1px solid #E0DAD2', borderRadius: 10, fontSize: 13, cursor: 'pointer' }}>
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1.8" y="2.8" width="10.4" height="9.4" rx="2" stroke="#3A3632" strokeWidth="1.3"/><path d="M1.8 5.6h10.4M4.6 1.8v2M9.4 1.8v2" stroke="#3A3632" strokeWidth="1.3" strokeLinecap="round"/></svg>
+          <span style={{ fontWeight: 500 }}>01/07/2026 — 05/08/2026</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, height: 36, padding: '0 16px', background: '#151515', color: '#fff', borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1.8v7.4M4 6.4L7 9.4l3-3M2 11.6h10" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          Exportar
+        </div>
+      </div>
 
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* KPIs */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "var(--spacing-12)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
         <KpiCard label="Total de avaliações" valor="347" delta="+23" />
         <KpiCard label="Respondidas" valor="298" delta="+18" />
         <KpiCard label="Taxa de resposta" valor="87" sufixo="%" delta="+5%" />
@@ -20,7 +37,7 @@ export default function VisaoGeralPage() {
       <SentimentGauge />
 
       {/* Nota por fonte + Distribuição */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--spacing-16)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
         {/* Nota por fonte */}
         <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-20)" }}>
           <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", marginBottom: "var(--spacing-16)", display: "block" }}>Nota por fonte</span>
@@ -58,31 +75,11 @@ export default function VisaoGeralPage() {
 
       {/* Ranking comparativo por unidade */}
       <UnitComparison />
-    </>
-  );
-}
-
-function DateRangePicker() {
-  return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>Período selecionado</span>
-      <div style={{
-        display: "flex", alignItems: "center", gap: "var(--spacing-8)",
-        border: "1px solid var(--borda)", borderRadius: "var(--radius-8)",
-        padding: "8px 12px", background: "var(--bg-primario)", cursor: "pointer",
-      }}>
-        <span style={{ fontSize: "14px" }}>📅</span>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-13)", color: "var(--text-primario)", fontWeight: "var(--font-weight-medium)" }}>
-          01/07/2026
-        </span>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-desabilitado)" }}>—</span>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-13)", color: "var(--text-primario)", fontWeight: "var(--font-weight-medium)" }}>
-          05/08/2026
-        </span>
       </div>
     </div>
   );
 }
+
 
 function SentimentGauge() {
   const { nss, variacao, positivos, negativos, neutros } = SENTIMENTO;

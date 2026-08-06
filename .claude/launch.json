@@ -4,8 +4,15 @@
     {
       "name": "dev",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "--port", "5173"],
-      "port": 5173
+      "runtimeArgs": ["vite"],
+      "port": 5173,
+      "autoPort": true
+    },
+    {
+      "name": "reference",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "preview", "--port", "8899", "--outDir", "/Users/tiago.penha/Downloads"],
+      "port": 8899
     }
   ]
 }
