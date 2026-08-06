@@ -656,33 +656,8 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       {temDados && <div className="content-stack w-full">
         {/* Ações recomendadas */}
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ações recomendadas</span>
-
-        {(() => {
-          const destaque = d.destaqueDoDia;
-          return (
-            <div style={{ backgroundColor: "var(--bg-primario)", borderRadius: "var(--radius-12)", border: "1px solid var(--marca)", padding: "var(--spacing-16)", cursor: "default" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
-                {destaque.origem}
-              </span>
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
-                <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>
-                  {destaque.titulo}
-                </span>
-              </div>
-              <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-4)" }}>
-                {destaque.valor}
-              </div>
-              <div style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-4)" }}>
-                {destaque.causa}
-              </div>
-              <button type="button" style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-pill)", padding: "4px 10px", background: "none", cursor: "pointer", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-primario)", marginTop: "var(--spacing-12)" }}>
-                {destaque.acao}
-              </button>
-            </div>
-          );
-        })()}
-
-        {/* Cardápio — cross-channel */}
+        <div className="recommended-actions-grid">
+          {/* Cardápio — cross-channel */}
         <div onClick={() => handleCardClick("cardapio")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "cardapio" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.cardapio}</span>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)", position: "relative" }}>
@@ -694,7 +669,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         </div>
 
         {/* Cross-channel */}
-        <div onClick={() => handleCardClick("crossChannel")} className="col-span-2 md:col-span-2" style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "crossChannel" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
+        <div onClick={() => handleCardClick("crossChannel")} className="" style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "crossChannel" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "#ffffff", backgroundColor: "var(--marca)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
             {d.origem.crossChannel}
           </span>
@@ -713,12 +688,14 @@ export function DashboardDesempenho({ onSubmit }: Props) {
             {d.acao.crossChannel}
           </button>
         </div>
+        </div>
 
         {/* Retorno financeiro */}
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Retorno financeiro</span>
 
+        <div className="recommended-actions-grid">
         {/* Card — Retorno do investimento */}
-        <div className="col-span-2 md:col-span-2" onClick={() => handleCardClick("faturamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "faturamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
+        <div onClick={() => handleCardClick("faturamento")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "faturamento" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           {d.origem.faturamento && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.faturamento}</span>}
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-4)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Retorno do investimento</span>
@@ -740,7 +717,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
         </div>
 
         {/* Funil financeiro */}
-        <div className="col-span-2 md:col-span-2" style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
+        <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: "var(--spacing-12)" }}>
             <span style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)" }}>Funil financeiro</span>
             <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "1px 6px" }}>Gerado</span>
@@ -763,6 +740,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
               </div>
             ))}
           </div>
+        </div>
         </div>
 
         {/* Seu público */}
