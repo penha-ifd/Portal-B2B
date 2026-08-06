@@ -96,7 +96,7 @@ export function HomePage() {
       {isBase ? (
         <LpComerFora />
       ) : (
-        <div className="flex flex-col gap-10 p-6">
+        <div className="content-stack p-6">
           <DashboardDesempenho onSubmit={handleSubmit} onCriarPromocao={() => setDrawerOpen(true)} />
           <AnalyticsGrid generatedCards={generatedCards} onConfirm={handleConfirm} onRemove={handleRemove} />
           <CriarPromocaoDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />

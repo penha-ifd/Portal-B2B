@@ -80,7 +80,7 @@ export function ReservasPage() {
       </div>
 
       {/* Conteúdo */}
-      <div className="flex flex-col p-6" style={{ gap: 'var(--spacing-24)' }}>
+      <div className="content-stack p-6">
 
         {/* Calendário de ocupação semanal */}
         <div style={{ backgroundColor: 'var(--bg-secundario)', borderRadius: 'var(--radius-12)', padding: 'var(--spacing-16)' }}>

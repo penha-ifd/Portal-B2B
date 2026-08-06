@@ -653,7 +653,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       )}
 
 
-      {temDados && <div className="grid grid-cols-2 md:grid-cols-4 w-full" style={{ gap: "var(--spacing-16)" }}>
+      {temDados && <div className="content-stack w-full">
         {/* Ações recomendadas */}
         <span className="col-span-full" style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", marginTop: "var(--spacing-8)" }}>Ações recomendadas</span>
 
@@ -790,7 +790,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
           </div>
         </div>
 
-        <div className="col-span-full grid grid-cols-2 md:grid-cols-3" style={{ gap: "var(--spacing-16)" }}>
+        <div className="card-grid-comfortable">
         {/* Card 2 — Check-ins confirmados */}
         <div onClick={() => handleCardClick("checkins")} style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)", border: selectedCard === "checkins" ? "1.5px solid var(--marca)" : "none", cursor: "pointer" }}>
           {d.origem.checkins && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>
@@ -953,7 +953,7 @@ export function DashboardDesempenho({ onSubmit }: Props) {
       {(isCardLocked("avaliacoes") || isCardLocked("reservas") || isCardLocked("pagamento")) && (
         <div style={{ marginTop: "var(--spacing-16)" }}>
           <h2 style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: "0 0 var(--spacing-12) 0" }}>Desbloqueie mais</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: "var(--spacing-16)" }}>
+          <div className="card-grid-comfortable">
             {isCardLocked("avaliacoes") && (
               <div style={{ backgroundColor: "var(--bg-secundario)", borderRadius: "var(--radius-12)", padding: "var(--spacing-16)" }}>
                 {d.origem.avaliacoes && <span style={{ display: "inline-block", fontFamily: "var(--font-inter)", fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", backgroundColor: "var(--bg-terciario)", borderRadius: "var(--radius-pill)", padding: "2px 8px", marginBottom: "var(--spacing-8)" }}>{d.origem.avaliacoes}</span>}

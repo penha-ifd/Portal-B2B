@@ -30,7 +30,36 @@ export function ConfiguracoesPage() {
       </div>
 
       {/* Conteúdo */}
-      <div className="flex flex-col p-6" style={{ gap: 'var(--spacing-24)' }}>
+      <div className="content-stack p-6">
+        {/* Descoberta de módulos */}
+        <div
+          role="link"
+          tabIndex={0}
+          onClick={() => navigate('/modulos')}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              navigate('/modulos');
+            }
+          }}
+          className="config-modules-banner"
+        >
+          <div className="config-modules-banner-icon" aria-hidden="true">
+            <i className="ifdl-icon-filled ifdl-icon-store" style={{ fontSize: '20px' }} />
+          </div>
+          <div className="config-modules-banner-copy">
+            <span className="config-modules-banner-eyebrow">Comer Fora</span>
+            <strong>Veja todos os módulos e planos</strong>
+            <span>Encontre novas formas de atrair clientes, organizar seu salão e transformar dados em ações.</span>
+          </div>
+          <div className="config-modules-banner-action">
+            <span>{PLANO_INFO[planoAtivo]}</span>
+            <button type="button" onClick={(event) => { event.stopPropagation(); navigate('/modulos'); }}>
+              Ver módulos e planos
+              <i className="ifdl-icon-line ifdl-icon-chevron-right" style={{ fontSize: '16px' }} />
+            </button>
+          </div>
+        </div>
 
         {/* Integrações */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-12)' }}>

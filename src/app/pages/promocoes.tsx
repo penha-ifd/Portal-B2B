@@ -97,7 +97,7 @@ export function PromocoesPage() {
       </div>
 
       {tab === "ativas" ? (
-        <div className="flex flex-col gap-6 md:gap-10 pt-4 pb-6 px-3 md:px-6">
+        <div className="content-stack pt-6 pb-8 px-4 md:px-6">
           <section className="relative overflow-hidden rounded-[16px] bg-[#f5f5f5] p-2">
             <div className="pointer-events-none absolute -top-16 right-24 size-[360px] rounded-full hidden md:block" style={{ background: "radial-gradient(circle at 50% 50%, rgba(247,247,247,0.9), rgba(234,234,234,0.1))", border: "1px solid rgba(239,239,239,0.6)" }} />
             <div className="pointer-events-none absolute top-10 right-[-80px] size-[320px] rounded-full hidden md:block" style={{ background: "radial-gradient(circle at 50% 50%, rgba(247,247,247,0.9), rgba(234,234,234,0.1))", border: "1px solid rgba(239,239,239,0.6)" }} />

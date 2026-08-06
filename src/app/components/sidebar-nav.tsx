@@ -293,15 +293,13 @@ export function SidebarNav({ collapsed = false }: { collapsed?: boolean }) {
           </>
         )}
 
-        {/* Grupo 4 — Disponíveis */}
-        <GroupLabel label="Disponíveis" collapsed={collapsed} />
+        {/* Módulos bloqueados */}
         {!isAnyPaid && clientes.map((item) => (
           <LockedItem key={item.to} item={item} collapsed={collapsed} />
         ))}
         {lockedItems.map((item) => (
           <LockedItem key={item.to} item={item} collapsed={collapsed} />
         ))}
-        <ActiveItem key="modulos" item={{ to: '/modulos', label: 'Ver todos os módulos', icon: 'store' }} collapsed={collapsed} />
       </div>
       <div className="flex flex-col w-full">
         {footerItems.map((item) => (

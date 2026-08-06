@@ -164,7 +164,7 @@ export function ClientesPage() {
           <p style={{ fontFamily: "var(--font-inter)", fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-regular)", letterSpacing: "var(--letter-spacing)", color: "var(--text-secundario)", margin: 0 }}>Conheça seu público, segmente e ative campanhas personalizadas.</p>
         </div>
       </div>
-      <div className="flex flex-col gap-6 p-4 md:p-8">
+      <div className="content-stack p-4 md:p-8">
         <div className="flex gap-1 border-b border-[#E8E3DC]" role="tablist" aria-label="Visões de clientes">
           {["Pessoas", "Segmentos"].map((tab, i) => (
             <button
@@ -190,7 +190,7 @@ export function ClientesPage() {
       </div>
 
       {activeTab === "Pessoas" ? (
-        <div role="tabpanel" id="clientes-panel-Pessoas" aria-labelledby="clientes-tab-Pessoas" tabIndex={0} className="flex flex-col gap-10 px-4 md:px-6">
+        <div role="tabpanel" id="clientes-panel-Pessoas" aria-labelledby="clientes-tab-Pessoas" tabIndex={0} className="content-stack px-4 md:px-6">
           <div className="bg-[#F5F5F5] flex flex-col gap-1 p-1 rounded-2xl">
             <div className="flex items-start px-3 pt-3 pb-1">
               <div className="flex flex-col gap-1">
