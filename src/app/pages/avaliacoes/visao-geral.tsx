@@ -1,292 +1,148 @@
-import { useState, useEffect, useRef } from 'react';
-import { fontBase, DISTRIBUICAO, DISTRIBUICAO_TEMPORAL, SENTIMENTO, UNIDADES } from './shared';
+import { useEffect, useRef, useState } from 'react';
+import { DISTRIBUICAO, DISTRIBUICAO_TEMPORAL, SENTIMENTO, UNIDADES, fontBase } from './shared';
+
+const GOOGLE_PERFORMANCE = [
+  ['Visualizações do perfil', '56.227', '↑ 2.096'],
+  ['Cliques no site', '398', '↓ 13'],
+  ['Cliques para ligação', '747', '↓ 237'],
+  ['Solicitações de rota', '781', '↓ 262'],
+  ['Taxa de interação', '3,43%', '↓ 1,08'],
+] as const;
 
 export default function VisaoGeralPage() {
   return (
-    <div style={{ maxWidth: 1240, margin: '0 auto', padding: '28px 32px 64px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 22 }}>
-        <div style={{ width: 34, height: 34, borderRadius: 9, background: '#EA1D2C', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <svg width="17" height="17" viewBox="0 0 16 16" fill="none"><path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6L8 1.8z" stroke="#fff" strokeWidth="1.4" strokeLinejoin="round"/></svg>
-        </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.01em' }}>Visão Geral</div>
-          <div style={{ fontSize: 13.5, color: '#6B6560', marginTop: 3 }}>Acompanhe a percepção dos clientes em todos os canais.</div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, height: 36, padding: '0 14px', border: '1px solid #E0DAD2', borderRadius: 10, fontSize: 13, cursor: 'pointer' }}>
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1.8" y="2.8" width="10.4" height="9.4" rx="2" stroke="#3A3632" strokeWidth="1.3"/><path d="M1.8 5.6h10.4M4.6 1.8v2M9.4 1.8v2" stroke="#3A3632" strokeWidth="1.3" strokeLinecap="round"/></svg>
-          <span style={{ fontWeight: 500 }}>01/07/2026 — 05/08/2026</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 7, height: 36, padding: '0 16px', background: '#151515', color: '#fff', borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1.8v7.4M4 6.4L7 9.4l3-3M2 11.6h10" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          Exportar
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {/* KPIs */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
-        <KpiCard label="Total de avaliações" valor="347" delta="+23" />
-        <KpiCard label="Respondidas" valor="298" delta="+18" />
-        <KpiCard label="Taxa de resposta" valor="87" sufixo="%" delta="+5%" />
-        <KpiCard label="Reclamações" valor="6" sufixo="%" alerta />
-        <KpiCard label="Nota média" valor="4.6" sufixo="★" delta="+0.2" />
-      </div>
-
-      {/* Indicador de Sentimento NSS */}
-      <SentimentGauge />
-
-      {/* Nota por fonte + Distribuição */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-        {/* Nota por fonte */}
-        <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-20)" }}>
-          <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", marginBottom: "var(--spacing-16)", display: "block" }}>Nota por fonte</span>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-            <FonteRow fonte="iFood" nota={4.7} total={198} cor="var(--marca)" />
-            <FonteRow fonte="Google" nota={4.4} total={149} cor="var(--atencao)" />
+    <div className="avaliacoes-reference-page">
+      <div className="avaliacoes-section-stack">
+        <section className="avaliacoes-reference-summary">
+          <div>
+            <span className="avaliacoes-eyebrow">REPUTAÇÃO CONSOLIDADA</span>
+            <strong>4,6 <span aria-hidden="true">★</span></strong>
+            <span>347 avaliações no período</span>
           </div>
-          <div style={{ marginTop: "var(--spacing-16)", height: 60, display: "flex", alignItems: "flex-end", gap: 2 }}>
-            {[4.3, 4.4, 4.5, 4.4, 4.6, 4.5, 4.6, 4.7, 4.6, 4.5, 4.6, 4.7].map((v, i) => (
-              <div key={i} style={{ flex: 1, background: "var(--marca)", borderRadius: 2, height: `${((v - 4.0) / 1.0) * 100}%`, opacity: 0.3 + (i / 12) * 0.7 }} />
-            ))}
-          </div>
-          <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--text-desabilitado)", marginTop: "var(--spacing-4)", display: "block" }}>Tendência últimos 30 dias</span>
+          <span className="avaliacoes-positive">↑ +0,2 vs. período anterior</span>
+        </section>
+
+        <div className="avaliacoes-reference-grid">
+          <SourceRating />
+          <StarDistribution />
         </div>
 
-        {/* Distribuição por estrela */}
-        <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-20)" }}>
-          <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", marginBottom: "var(--spacing-16)", display: "block" }}>Distribuição por estrela</span>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
-            {DISTRIBUICAO.map(d => (
-              <div key={d.estrelas} style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
-                <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)", width: 24, textAlign: "right" }}>{d.estrelas}★</span>
-                <div style={{ flex: 1, height: 8, background: "var(--bg-secundario)", borderRadius: 4, overflow: "hidden" }}>
-                  <div style={{ width: `${d.pct}%`, height: "100%", background: d.estrelas >= 4 ? "var(--sucesso)" : d.estrelas === 3 ? "var(--atencao)" : "var(--marca)", borderRadius: 4, transition: "width 600ms ease-out" }} />
-                </div>
-                <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--text-desabilitado)", width: 32 }}>{d.pct}%</span>
-              </div>
-            ))}
+        <SentimentGauge />
+
+        <section className="avaliacoes-reference-card">
+          <h2>Resumo do período</h2>
+          <div className="avaliacoes-reference-grid avaliacoes-reference-grid-kpis">
+            <KpiCard label="Total de avaliações" valor="347" delta="+23 vs. anterior" />
+            <KpiCard label="Respondidas" valor="298" delta="+18 vs. anterior" />
+            <KpiCard label="Taxa de resposta" valor="87%" />
+            <KpiCard label="Tempo médio de resposta" valor="6h 40m" delta="−2h vs. anterior" />
+            <KpiCard label="Reclamações abertas" valor="6%" alerta />
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Distribuição temporal */}
-      <TemporalCharts />
-
-      {/* Ranking comparativo por unidade */}
-      <UnitComparison />
+        <GooglePerformance />
+        <TemporalCharts />
+        <UnitComparison />
       </div>
     </div>
   );
 }
 
+function SourceRating() {
+  return (
+    <section className="avaliacoes-reference-card">
+      <h2>NOTA POR CANAL</h2>
+      <FonteRow fonte="iFood" nota={4.7} total={198} cor="var(--marca)" />
+      <FonteRow fonte="Google" nota={4.4} total={149} cor="var(--atencao)" />
+      <div className="avaliacoes-mini-trend" aria-label="Tendência dos últimos 30 dias">
+        {[4.3, 4.4, 4.5, 4.4, 4.6, 4.5, 4.6, 4.7, 4.6, 4.5, 4.6, 4.7].map((value, index) => (
+          <i key={index} style={{ height: `${((value - 4) / 1) * 100}%`, opacity: 0.35 + index / 16 }} />
+        ))}
+      </div>
+      <small>Tendência dos últimos 30 dias</small>
+    </section>
+  );
+}
+
+function StarDistribution() {
+  return (
+    <section className="avaliacoes-reference-card">
+      <h2>DISTRIBUIÇÃO POR ESTRELA</h2>
+      {DISTRIBUICAO.map((item) => (
+        <div className="avaliacoes-distribution-row" key={item.estrelas}>
+          <span>{item.estrelas}★</span>
+          <div><i style={{ width: `${item.pct}%` }} /></div>
+          <span>{item.pct}%</span>
+        </div>
+      ))}
+    </section>
+  );
+}
 
 function SentimentGauge() {
-  const { nss, variacao, positivos, negativos, neutros } = SENTIMENTO;
+  const { nss, variacao, positivos, negativos, neutros, total } = SENTIMENTO;
   const angle = (nss / 100) * 270;
 
   return (
-    <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-20)" }}>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", display: "block", marginBottom: "var(--spacing-4)" }}>Indicador de sentimento</span>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-16)" }}>Como seus clientes estão se sentindo com o serviço</span>
-
-      <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "var(--spacing-24)", alignItems: "center" }}>
-        {/* Gauge donut */}
-        <div style={{ position: "relative", width: 160, height: 160, margin: "0 auto" }}>
-          <svg viewBox="0 0 160 160" style={{ transform: "rotate(-135deg)" }}>
+    <section className="avaliacoes-reference-card">
+      <h2>INDICADOR DE SENTIMENTO NSS</h2>
+      <p className="avaliacoes-card-description">Como seus clientes estão se sentindo com o serviço.</p>
+      <div className="avaliacoes-sentiment-layout">
+        <div className="avaliacoes-gauge">
+          <svg viewBox="0 0 160 160" role="img" aria-label={`NSS ${nss} de 100`}>
             <circle cx="80" cy="80" r="65" fill="none" stroke="var(--bg-secundario)" strokeWidth="14" strokeDasharray={`${270 * (Math.PI * 130 / 360)} ${Math.PI * 130}`} strokeLinecap="round" />
-            <circle cx="80" cy="80" r="65" fill="none" stroke="var(--sucesso)" strokeWidth="14" strokeDasharray={`${angle * (Math.PI * 130 / 360)} ${Math.PI * 130}`} strokeLinecap="round" style={{ transition: "stroke-dasharray 1s ease-out" }} />
+            <circle cx="80" cy="80" r="65" fill="none" stroke="var(--sucesso)" strokeWidth="14" strokeDasharray={`${angle * (Math.PI * 130 / 360)} ${Math.PI * 130}`} strokeLinecap="round" />
           </svg>
-          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--text-secundario)" }}>NSS</span>
-            <span style={{ ...fontBase, fontSize: "28px", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)" }}>{nss}</span>
-          </div>
+          <strong>{nss}</strong>
+          <span>de 100</span>
         </div>
-
-        {/* Cards sentimento */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "var(--spacing-12)" }}>
-          <SentimentCard label="Satisfeitos" valor={positivos} icon="👍" color="var(--sucesso)" desc="respostas positivas" />
-          <SentimentCard label="Insatisfeitos" valor={negativos} icon="⚠" color="var(--marca)" desc="respostas negativas" />
-          <SentimentCard label="Neutros" valor={neutros} icon="—" color="var(--text-desabilitado)" desc="respostas neutras" />
+        <div className="avaliacoes-sentiment-cards">
+          <SentimentCard label="Satisfeitos" value={positivos} color="var(--sucesso)" />
+          <SentimentCard label="Neutros" value={neutros} color="var(--text-desabilitado)" />
+          <SentimentCard label="Insatisfeitos" value={negativos} color="var(--marca)" />
         </div>
       </div>
-
-      <div style={{ marginTop: "var(--spacing-16)", display: "flex", alignItems: "center", gap: "var(--spacing-8)", padding: "8px 12px", background: "var(--bg-secundario)", borderRadius: "var(--radius-8)" }}>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>Base analisada: <strong>{SENTIMENTO.total}</strong> respostas</span>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--sucesso)", marginLeft: "auto", fontWeight: "var(--font-weight-medium)" }}>+{variacao} pts vs. mês anterior</span>
-      </div>
-    </div>
+      <div className="avaliacoes-sentiment-footer">Base: <strong>{total} respostas</strong><span>↑ +{variacao} pts no mês</span></div>
+    </section>
   );
 }
 
-function SentimentCard({ label, valor, icon, color, desc }: { label: string; valor: number; icon: string; color: string; desc: string }) {
+function SentimentCard({ label, value, color }: { label: string; value: number; color: string }) {
+  return <div className="avaliacoes-sentiment-card"><span>{label}</span><strong style={{ color }}>{value}</strong><small>respostas</small></div>;
+}
+
+function GooglePerformance() {
   return (
-    <div style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-8)", padding: "var(--spacing-12)", display: "flex", flexDirection: "column", gap: 4 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
-        <span style={{ fontSize: "14px" }}>{icon}</span>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>{label}</span>
+    <section className="avaliacoes-reference-card">
+      <div className="avaliacoes-card-heading"><div><h2>DESEMPENHO DO PERFIL NO GOOGLE</h2><p className="avaliacoes-card-description">Quanto a reputação vira visita: alcance, contato e rota até o salão.</p></div><button type="button" className="avaliacoes-inline-button">Ver detalhes</button></div>
+      <div className="avaliacoes-reference-grid avaliacoes-google-grid">
+        {GOOGLE_PERFORMANCE.map(([label, value, delta]) => <div key={label}><span>{label}</span><strong>{value}</strong><em>{delta}</em></div>)}
       </div>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-20)", fontWeight: "var(--font-weight-medium)", color }}>{valor}</span>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--text-desabilitado)" }}>{desc}</span>
-    </div>
+    </section>
   );
 }
 
 function TemporalCharts() {
-  return (
-    <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-20)" }}>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", display: "block", marginBottom: "var(--spacing-4)" }}>Quando chegam suas avaliações</span>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)", display: "block", marginBottom: "var(--spacing-16)" }}>Distribuição temporal para identificar sazonalidade e horários de pico</span>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "var(--spacing-16)" }}>
-        <MiniBarChart title="Dia do mês" data={DISTRIBUICAO_TEMPORAL.diaMes} />
-        <MiniBarChart title="Dia da semana" data={DISTRIBUICAO_TEMPORAL.diaSemana} />
-        <MiniBarChart title="Horário" data={DISTRIBUICAO_TEMPORAL.horario} />
-      </div>
-    </div>
-  );
+  const charts = [['Dia do mês', DISTRIBUICAO_TEMPORAL.diaMes], ['Dia da semana', DISTRIBUICAO_TEMPORAL.diaSemana], ['Horário', DISTRIBUICAO_TEMPORAL.horario]] as const;
+  return <section className="avaliacoes-reference-card"><h2>QUANDO CHEGAM SUAS AVALIAÇÕES</h2><p className="avaliacoes-card-description">Use os picos para escalar equipe e antecipar reclamações de espera.</p><div className="avaliacoes-reference-grid avaliacoes-chart-grid">{charts.map(([title, data]) => <MiniBarChart key={title} title={title} data={data} />)}</div></section>;
 }
 
-function MiniBarChart({ title, data }: { title: string; data: { label: string; valor: number }[] }) {
-  const max = Math.max(...data.map(d => d.valor));
-
-  return (
-    <div style={{ border: "1px solid var(--borda)", borderRadius: "var(--radius-8)", padding: "var(--spacing-12)" }}>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-12)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", display: "block", marginBottom: "var(--spacing-12)" }}>{title}</span>
-      <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 80 }}>
-        {data.map((d, i) => (
-          <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-            <div style={{
-              width: "100%", borderRadius: 3,
-              height: `${(d.valor / max) * 100}%`,
-              background: "rgba(59,130,246,0.6)",
-              transition: "height 500ms ease-out",
-              minHeight: 4,
-            }} />
-          </div>
-        ))}
-      </div>
-      <div style={{ display: "flex", gap: 3, marginTop: 6 }}>
-        {data.map((d, i) => (
-          <span key={i} style={{ ...fontBase, flex: 1, textAlign: "center", fontSize: "9px", color: "var(--text-desabilitado)" }}>{d.label}</span>
-        ))}
-      </div>
-    </div>
-  );
+function MiniBarChart({ title, data }: { title: string; data: readonly { label: string; valor: number }[] }) {
+  const max = Math.max(...data.map((item) => item.valor));
+  return <div className="avaliacoes-mini-chart"><h3>{title}</h3><div>{data.map((item) => <span key={item.label} style={{ height: `${(item.valor / max) * 100}%` }} />)}</div><small>{data.map((item) => item.label).join('  ')}</small></div>;
 }
 
 function UnitComparison() {
-  return (
-    <div style={{ background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)", padding: "var(--spacing-20)" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-16)" }}>
-        <div>
-          <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", display: "block" }}>Ranking comparativo por unidade</span>
-          <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>Comparativo de notas públicas, notas do período e volume por unidade</span>
-        </div>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--text-desabilitado)", padding: "4px 8px", background: "var(--bg-secundario)", borderRadius: "var(--radius-pill)" }}>{UNIDADES.length} unidades</span>
-      </div>
-
-      <div style={{ overflow: "hidden", borderRadius: "var(--radius-8)", border: "1px solid var(--borda)" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ background: "var(--bg-secundario)" }}>
-              <th style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "var(--text-secundario)", padding: "10px 12px", textAlign: "left" }}>#</th>
-              <th style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "var(--text-secundario)", padding: "10px 12px", textAlign: "left" }}>UNIDADE</th>
-              <th style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "var(--text-secundario)", padding: "10px 12px", textAlign: "center" }}>PÚBLICA</th>
-              <th style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "var(--text-secundario)", padding: "10px 12px", textAlign: "center" }}>PERÍODO</th>
-              <th style={{ ...fontBase, fontSize: "var(--font-size-11)", fontWeight: "var(--font-weight-medium)", color: "var(--text-secundario)", padding: "10px 12px", textAlign: "center" }}>VOLUME</th>
-            </tr>
-          </thead>
-          <tbody>
-            {UNIDADES.map((u, i) => (
-              <tr key={u.nome} style={{ borderTop: "1px solid var(--borda)" }}>
-                <td style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-desabilitado)", padding: "12px", width: 32 }}>{String(i + 1).padStart(2, '0')}</td>
-                <td style={{ padding: "12px" }}>
-                  <span style={{ ...fontBase, fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)" }}>{u.nome}</span>
-                </td>
-                <td style={{ ...fontBase, fontSize: "var(--font-size-13)", color: "var(--text-primario)", padding: "12px", textAlign: "center" }}>{u.notaPublica}</td>
-                <td style={{ padding: "12px", textAlign: "center" }}>
-                  <span style={{ ...fontBase, fontSize: "var(--font-size-13)", color: "var(--text-primario)" }}>{u.notaPeriodo}</span>
-                  <span style={{ ...fontBase, fontSize: "var(--font-size-11)", marginLeft: 6, color: u.delta >= 0 ? "var(--sucesso)" : "var(--marca)", fontWeight: "var(--font-weight-medium)" }}>
-                    {u.delta >= 0 ? "+" : ""}{u.delta}
-                  </span>
-                </td>
-                <td style={{ ...fontBase, fontSize: "var(--font-size-13)", color: "var(--text-primario)", padding: "12px", textAlign: "center" }}>{u.volume}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+  return <section className="avaliacoes-reference-card"><div className="avaliacoes-card-heading"><div><h2>RANKING COMPARATIVO POR UNIDADE</h2><p className="avaliacoes-card-description">Nota pública, nota do período e volume por canal.</p></div><span className="avaliacoes-unit-count">{UNIDADES.length} unidades</span></div><div className="avaliacoes-table-wrap"><table><thead><tr><th>#</th><th>UNIDADE</th><th>GOOGLE</th><th>IFOOD</th><th>PERÍODO</th><th>VOLUME</th></tr></thead><tbody>{UNIDADES.map((unit, index) => <tr key={unit.nome}><td>{String(index + 1).padStart(2, '0')}</td><td>{unit.nome}</td><td>{unit.notaGoogle}</td><td>{unit.notaIfood}</td><td>{unit.notaPeriodo} <em>{unit.delta >= 0 ? '+' : ''}{unit.delta}</em></td><td>{unit.volume}</td></tr>)}</tbody></table></div></section>;
 }
 
-function KpiCard({ label, valor, sufixo, delta, alerta }: {
-  label: string; valor: string; sufixo?: string; delta?: string; alerta?: boolean;
-}) {
-  const [display, setDisplay] = useState(0);
+function KpiCard({ label, valor, delta, alerta }: { label: string; valor: string; delta?: string; alerta?: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const target = parseFloat(valor);
-  const decimals = valor.includes(".") ? valor.split(".")[1].length : 0;
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDisplay(target);
-      return;
-    }
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        obs.disconnect();
-        const start = performance.now();
-        const dur = 700;
-        const tick = (now: number) => {
-          const t = Math.min((now - start) / dur, 1);
-          setDisplay(target * (1 - Math.pow(1 - t, 3)));
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
-    }, { threshold: 0.4 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [target]);
-
-  const formatted = decimals > 0
-    ? display.toFixed(decimals).replace(".", ",")
-    : Math.round(display).toLocaleString("pt-BR");
-
-  return (
-    <div style={{
-      background: "var(--bg-primario)", border: "1px solid var(--borda)", borderRadius: "var(--radius-12)",
-      padding: "var(--spacing-16)", display: "flex", flexDirection: "column", gap: 6,
-    }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ ...fontBase, fontSize: "var(--font-size-12)", color: "var(--text-secundario)" }}>{label}</span>
-      </div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-        <span ref={ref} style={{ ...fontBase, fontSize: "var(--font-size-24)", fontWeight: "var(--font-weight-medium)", color: alerta ? "var(--marca)" : "var(--text-primario)", fontVariantNumeric: "tabular-nums" }}>
-          {formatted}
-        </span>
-        {sufixo && <span style={{ ...fontBase, fontSize: "var(--font-size-14)", color: "var(--text-desabilitado)" }}>{sufixo}</span>}
-      </div>
-      {delta && (
-        <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--sucesso)" }}>
-          {delta} vs. período anterior
-        </span>
-      )}
-    </div>
-  );
+  const [display, setDisplay] = useState(valor);
+  useEffect(() => { if (ref.current) setDisplay(valor); }, [valor]);
+  return <div className="avaliacoes-kpi"><span>{label}</span><strong ref={ref} style={{ color: alerta ? 'var(--marca)' : undefined }}>{display}</strong>{delta && <small>{delta}</small>}</div>;
 }
 
 function FonteRow({ fonte, nota, total, cor }: { fonte: string; nota: number; total: number; cor: string }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-12)" }}>
-      <div style={{ width: 8, height: 8, borderRadius: "50%", background: cor }} />
-      <span style={{ ...fontBase, fontSize: "var(--font-size-14)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)", flex: 1 }}>{fonte}</span>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-18)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primario)" }}>{nota}</span>
-      <span style={{ ...fontBase, fontSize: "var(--font-size-11)", color: "var(--text-desabilitado)" }}>{total} reviews</span>
-    </div>
-  );
+  return <div className="avaliacoes-source-row"><i style={{ background: cor }} /><span>{fonte}</span><strong>{nota}</strong><small>{total} reviews</small></div>;
 }
